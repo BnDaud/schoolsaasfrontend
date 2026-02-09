@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-green: #2eb89c;
+  --color-amber_deep: #6b3b17;
+  --color-amber_light: #bf7614;
+  --color-black_bg: #101318;
+  --color-white_bg: #fbfaf9;
+  --color-black_card: #191d24;
+  --color-deep_green: #111a1e;
+  --color-deep_orange: #1a1918;
+}
