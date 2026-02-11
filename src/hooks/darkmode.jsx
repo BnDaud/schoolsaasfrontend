@@ -1,6 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { globalContext } from "../context/globalcontext";
 
 export default function useDarkMode() {
+  const { setDarkmodeGlobally } = useContext(globalContext);
+
   // check localStorage for user preference
   const [darkMode, setDarkMode] = useState(() => {
     if (typeof window !== "undefined") {
@@ -23,7 +26,10 @@ export default function useDarkMode() {
   }, [darkMode]);
 
   // toggle function
-  const toggleDarkMode = () => setDarkMode((prev) => !prev);
+  const toggleDarkMode = () => {
+    setDarkMode((prev) => !prev);
+    setDarkmodeGlobally(darkMode);
+  };
 
-  return [darkMode, toggleDarkMode];
+  return [toggleDarkMode];
 }

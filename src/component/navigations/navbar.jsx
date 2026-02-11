@@ -10,16 +10,16 @@ import { AppName } from "../../utils/constant";
 import Button from "../ui/button";
 function NavbarHomePage() {
   const [dropdown, setDropDown] = useState(false);
-  const [darkmode, toggleDarkMode] = useDarkMode();
-
+  const [toggleDarkMode] = useDarkMode();
+  const { darkmode } = useContext(globalContext);
   return (
     <div
-      className={` fixed top-0 left-0 z-50 w-full inset-0  h-15 dark:bg-black_bg/40 backdrop-blur-md  border-gray-300 border-b bg-white_bg/70 transition duration-1000`}
+      className={` fixed top-0 left-0 z-50 w-full inset-0  h-15 dark:bg-black_bg/40 backdrop-blur-md  dark:border-gray-800 border-gray-200 border-b bg-white_bg/70 transition duration-1000`}
     >
       <div className="">
         {" "}
         <div className="flex lg:px-[10%] px-[5%] h-15 items-center justify-between">
-          <div className=" bg-green p-2 rounded-lg cursor-pointer ">
+          <div className=" bg-green p-2 rounded-xl cursor-pointer ">
             {" "}
             <Link to={"/"}>
               {" "}

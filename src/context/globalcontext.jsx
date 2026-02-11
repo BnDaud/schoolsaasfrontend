@@ -3,9 +3,9 @@ import { createContext, useState } from "react";
 export const globalContext = createContext();
 
 export default function GlobalContextFunction({ children }) {
-  const [darkmode, setDarkmode] = useState("dark");
+  const [darkmode, setDarkmodeGlobally] = useState("dark");
   return (
-    <globalContext.Provider value={{ darkmode, setDarkmode }}>
+    <globalContext.Provider value={{ darkmode, setDarkmodeGlobally }}>
       {children}
     </globalContext.Provider>
   );
