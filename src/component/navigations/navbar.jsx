@@ -3,7 +3,7 @@ import { globalContext } from "../../context/globalcontext";
 import { RiGraduationCapLine } from "react-icons/ri";
 import { MdOutlineWbSunny } from "react-icons/md";
 import { BsMoon } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { RxDropdownMenu } from "react-icons/rx";
 import useDarkMode from "../../hooks/darkmode";
 import { AppName } from "../../utils/constant";
@@ -12,6 +12,15 @@ function NavbarHomePage() {
   const [dropdown, setDropDown] = useState(false);
   const [toggleDarkMode] = useDarkMode();
   const { darkmode } = useContext(globalContext);
+
+  const links = [
+    { name: "Features", to: "/features" },
+    { name: "Self Study", to: "/self-study" },
+    { name: "Pricing", to: "/pricing" },
+    { name: "About", to: "/about" },
+    { name: "Contact", to: "/contact" },
+  ];
+
   return (
     <div
       className={` fixed top-0 left-0 z-50 w-full inset-0  h-15 dark:bg-black_bg/40 backdrop-blur-md  dark:border-gray-800 border-gray-200 border-b bg-white_bg/70 transition duration-1000`}
@@ -34,24 +43,21 @@ function NavbarHomePage() {
           </div>{" "}
           <div className="lg:block hidden">
             {" "}
-            <ul className=" flex gap-4 capitalize  dark:text-white/40 text-black/40 ">
-              {" "}
-              <li className="hover:text-black dark:hover:text-white">
-                <Link to="/features"> Features</Link>{" "}
-              </li>
-              <li className="hover:text-black dark:hover:text-white">
-                {" "}
-                <Link to={"/self-study"}>Self Study</Link>{" "}
-              </li>
-              <li className="hover:text-black dark:hover:text-white">
-                <Link to={"/pricing"}> Pricing </Link>{" "}
-              </li>
-              <li className="hover:text-black dark:hover:text-white">
-                <Link to={"/about"}> About</Link>
-              </li>
-              <li className="hover:text-black dark:hover:text-white">
-                <Link to={"/contact"}>Contact</Link>
-              </li>
+            <ul className="flex gap-4 capitalize dark:text-white/40 text-black/40">
+              {links.map((link) => (
+                <li key={link.to}>
+                  <NavLink
+                    to={link.to}
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-black dark:text-white font-bold"
+                        : "hover:text-black dark:hover:text-white"
+                    }
+                  >
+                    {link.name}
+                  </NavLink>
+                </li>
+              ))}
             </ul>
           </div>{" "}
           <div className="lg:block hidden">
@@ -111,22 +117,20 @@ function NavbarHomePage() {
         >
           <ul className="mt-5  space-y-8 capitalize  dark:text-white/40 text-black/40 ">
             {" "}
-            <li className="hover:text-black dark:hover:text-white">
-              <Link to="/features"> Features</Link>{" "}
-            </li>
-            <li className="hover:text-black dark:hover:text-white">
-              {" "}
-              <Link to={"/self-study"}>Self Study</Link>{" "}
-            </li>
-            <li className="hover:text-black dark:hover:text-white">
-              <Link to={"/pricing"}> Pricing </Link>{" "}
-            </li>
-            <li className="hover:text-black dark:hover:text-white">
-              <Link to={"/about"}> About</Link>
-            </li>
-            <li className="hover:text-black dark:hover:text-white">
-              <Link to={"/contact"}>Contact</Link>
-            </li>
+            {links.map((link) => (
+              <li key={link.to}>
+                <NavLink
+                  to={link.to}
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-black dark:text-white font-bold"
+                      : "hover:text-black dark:hover:text-white"
+                  }
+                >
+                  {link.name}
+                </NavLink>
+              </li>
+            ))}
             <hr className="mb-5 bg-gray-950" />
           </ul>
 

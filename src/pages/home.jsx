@@ -6,60 +6,9 @@ import { MdOutlineShield } from "react-icons/md";
 import { AppName } from "../utils/constant";
 import Banner from "../component/ui/banner";
 import Button from "../component/ui/button";
-import Footer from "../component/common/footer";
+import { features } from "../utils/constant";
 
 export default function Home() {
-  const features = [
-    {
-      icon: (
-        <FaRegCheckCircle className="text-xl text-white dark:text-black font-bold" />
-      ),
-      title: "Easy Exam Creation",
-      description:
-        "Create exams in minutes with our intuitive question builder and import tools.",
-    },
-    {
-      icon: (
-        <CiClock2 className="text-xl text-white dark:text-black font-bold" />
-      ),
-      title: " Automated Grading",
-      description:
-        "manual results with detailed analytics. Save hours of manual marking.",
-    },
-    {
-      icon: (
-        <GiHistogram className="text-xl text-white dark:text-black font-bold" />
-      ),
-      title: "Performance Analytics",
-      description:
-        "Track student progress with comprehensive reports and insights.",
-    },
-    {
-      icon: (
-        <MdOutlineShield className="text-xl text-white dark:text-black font-bold" />
-      ),
-      title: "Secure Testing",
-      description:
-        "Anti-cheating measures with browser lockdown and question randomization.",
-    },
-    {
-      icon: (
-        <CiMobile1 className="text-xl text-white dark:text-black font-bold" />
-      ),
-      title: "Mobile Ready",
-      description:
-        "Works on any device. Students can take exams on phones, tablets, or computers.",
-    },
-    {
-      icon: (
-        <TbWorld className="text-xl text-white dark:text-black font-bold" />
-      ),
-      title: "Low Bandwidth",
-      description:
-        "Optimized for African internet conditions. Works even with slow connections.",
-    },
-  ];
-
   const achivement = [
     {
       score: "500 +",
@@ -171,14 +120,14 @@ export default function Home() {
         </p>
         <div className="flex flex-wrap gap-4  justify-center">
           {" "}
-          {features.map((feature) => (
+          {features.slice(1, 7).map((feature) => (
             <div className=" dark:bg-black_card bg-white outline-1 dark:outline-gray-800 outline-white lg:w-100 md:w-2/5 w-full min-h-20  rounded-2xl p-4 space-y-2 shadow-md hover:-translate-y-1 hover:shadow-xl transition-all duration-500 ease-in-out cursor-pointer">
               {" "}
               <p className="flex size-10 justify-center items-center bg-green rounded-lg">
                 {" "}
                 {feature.icon}
               </p>
-              <p className="font-semibold dark:text-white">{feature.title}</p>
+              <p className="font-semibold dark:text-white">{feature.name}</p>
               <p className="text-sm text-black/80 dark:text-gray-200">
                 {feature.description}
               </p>

@@ -1,6 +1,6 @@
 import { FaAngleRight, FaRegCheckCircle } from "react-icons/fa";
 import Banner from "../component/ui/banner";
-
+import { features } from "../utils/constant";
 export default function Features() {
   return (
     <div>
@@ -19,7 +19,32 @@ export default function Features() {
         </p>
       </div>
       {/* Section 2 */}
-      <div className="px-[5%] lg:px-[10%] flex flex-wrap gap-[15%] justify-center items-center h-50 py-6 dark:bg-black bg-white   "></div>
+      <div className="px-[5%] lg:px-[10%] flex flex-wrap gap-[15%] justify-center items-center min-h-50 py-6 dark:bg-black bg-white   ">
+        <div className="flex flex-wrap gap-4  justify-center">
+          {" "}
+          {features.map((feature) => (
+            <div className=" dark:bg-black_card bg-white outline-1 dark:outline-gray-800 outline-white lg:w-100 md:w-2/5 w-full min-h-20  rounded-2xl p-4 space-y-2 shadow-md hover:-translate-y-1 hover:shadow-xl transition-all duration-500 ease-in-out ">
+              {" "}
+              <p className="flex size-10 justify-center items-center bg-green rounded-lg">
+                {" "}
+                {feature.icon}
+              </p>
+              <p className="font-semibold dark:text-white">{feature.name}</p>
+              <p className="text-sm text-black/80 dark:text-gray-200">
+                {feature.description}
+              </p>
+              {feature.checkpoint.map((point, idx) => (
+                <div key={idx} className="flex  h-6 items-center gap-2">
+                  <FaRegCheckCircle className="text-green" />
+                  <p className="text-sm text-black/80 dark:text-gray-200">
+                    {point}
+                  </p>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
       {/* section 3*/}
       <div className="px-[5%] lg:px-[10%] py-20 dark:bg-black_bg bg-white_bg w-full">
         <Banner
