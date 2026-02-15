@@ -1,12 +1,11 @@
-import { TbWorld } from "react-icons/tb";
-import { CiClock2, CiMobile1 } from "react-icons/ci";
-import { FaRegCheckCircle } from "react-icons/fa";
+import { TbWorld, TbTargetArrow } from "react-icons/tb";
+import { CiMobile1 } from "react-icons/ci";
+import { FaRegCheckCircle, FaRegClock } from "react-icons/fa";
 import { GiHistogram } from "react-icons/gi";
 import { MdOutlineShield, MdOutlineSettings } from "react-icons/md";
-import { RiFlashlightLine, RiGroupLine } from "react-icons/ri";
+import { RiFlashlightLine, RiGroupLine, RiGeminiLine } from "react-icons/ri";
 import { IoDocumentTextOutline } from "react-icons/io5";
-import { GoLock, GoBook } from "react-icons/go";
-import { RiGeminiLine } from "react-icons/ri";
+import { GoLock, GoBook, GoTrophy } from "react-icons/go";
 
 export const AppName = "Mat Learn";
 
@@ -44,7 +43,9 @@ export const features = [
   {
     id: 3,
     name: "Automated Grading",
-    icon: <CiClock2 className="text-xl text-white dark:text-black font-bold" />,
+    icon: (
+      <FaRegClock className="text-xl text-white dark:text-black font-bold" />
+    ),
     description:
       "Instant results with detailed analytics. Save hours of manual marking with automatic scoring for objective questions.",
     checkpoint: [
@@ -196,6 +197,153 @@ export const features = [
       "Attempt restrictions",
       "Pass marks",
       "Negative marking",
+    ],
+  },
+];
+
+export const HowItWorks = [
+  {
+    id: 1,
+    title: "create Free Account",
+    exempt:
+      "Sign up in seconds with just your email. No payment required to start.",
+  },
+  {
+    id: 2,
+    title: "Choose your exam",
+    exempt: "Select from JAMB, WAEC, NECO, GCE, BECE, or Common Entrance.",
+  },
+  {
+    id: 3,
+    title: "Start Practicing",
+    exempt:
+      "Access thousands of questions, track your progress, and improve your scores.",
+  },
+];
+
+export const achivement = [
+  {
+    score: "200K +",
+    title: "Practice Questions",
+  },
+  {
+    score: "500K +",
+    title: "Students Helped",
+  },
+  {
+    score: "85%",
+    title: "Pass Rate Improvement",
+  },
+  {
+    score: "6",
+    title: "Major Exams Covered",
+  },
+];
+
+export const whyPracticeWithUs = [
+  {
+    icon: <GoBook className="text-green text-2xl" />,
+    title: "Extensive Question Bank",
+    description:
+      "Access thousands of past questions from previous years with detailed solutions.",
+  },
+  {
+    icon: <TbTargetArrow className="text-green text-2xl" />,
+    title: "Exam-Focused Practice",
+    description:
+      "Questions organized by subject, topic, and year for targeted preparation.",
+  },
+  {
+    icon: <FaRegClock className="text-green text-2xl" />,
+    title: "Time Mock Tests",
+    description: "Simulate real exam conditions with timed practice sessions.",
+  },
+  {
+    icon: <GoTrophy className="text-green text-2xl" />,
+    title: "Performance Tracking",
+    description:
+      "Monitor your progress and identify areas needing improvement.",
+  },
+];
+
+export const Exams = [
+  {
+    name: "JAMB UTME",
+    fullname: "Joint Admissions and Matriculation Board",
+    about:
+      "Prepare for university admission with comprehensive UTME practice tests",
+    totalAvailbleQuestions: "50,000",
+    ListOfSubjects: [
+      "English",
+      "Mathematics",
+      "Physics",
+      "Chemistry",
+      "+4 more",
+    ],
+  },
+  {
+    name: "WAEC SSCE",
+    fullname: "West African Examinations Council",
+    about: "Master your WASSCE with past questions and detailed explanations.",
+    totalAvailbleQuestions: "40,000",
+    ListOfSubjects: [
+      "English",
+      "Mathematics",
+      "Physics",
+      "Chemistry",
+      "+4 more",
+    ],
+  },
+  {
+    name: "NECO SSCE",
+    fullname: "National Examinations Council",
+    about: "Excel in your NECO exams with targeted practice sessions.",
+    totalAvailbleQuestions: "35,000",
+    ListOfSubjects: [
+      "English",
+      "Mathematics",
+      "Physics",
+      "Chemistry",
+      "+4 more",
+    ],
+  },
+  {
+    name: "GCE",
+    fullname: "General Certificate Examination",
+    about: "Boost your grades with focused GCE preparation materials.",
+    totalAvailbleQuestions: "30,000",
+    ListOfSubjects: [
+      "English",
+      "Mathematics",
+      "Physics",
+      "Chemistry",
+      "+4 more",
+    ],
+  },
+  {
+    name: "BECE",
+    fullname: "Basic Education Certificate Examination",
+    about: "Junior secondary students can practice for their BECE success.",
+    totalAvailbleQuestions: "20,000",
+    ListOfSubjects: [
+      "English",
+      "Mathematics",
+      "Basic Science",
+      "Social Studies",
+      "+1 more",
+    ],
+  },
+  {
+    name: "Common Entrance",
+    fullname: "National Common Entrance Examination",
+    about:
+      "Prepare for secondary school admission with age-appropriate practice.",
+    totalAvailbleQuestions: "15,000",
+    ListOfSubjects: [
+      "English",
+      "Mathematics",
+      "Quantitative Reasoning",
+      "Verbal Reasoning",
     ],
   },
 ];

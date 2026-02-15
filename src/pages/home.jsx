@@ -58,7 +58,7 @@ export default function Home() {
 
   return (
     <div>
-      <div className="pt-16 px-[5%] lg:px-[10%] flex flex-col justify-center items-center space-y-5 min-h-150  bg-linear-to-b from-green/30 to-green-10 dark:bg-linear-to-br dark:from-deep_green dark:to-deep_orange ">
+      <div className="pt-16 pb-8 px-[5%] lg:px-[10%] flex flex-col justify-center items-center space-y-5 min-h-150  bg-linear-to-b from-green/30 to-green-10 dark:bg-linear-to-br dark:from-deep_green dark:to-deep_orange ">
         <div className="flex gap-2 justify-center items-center h-10  px-4 rounded-full text-green bg-green/10">
           {" "}
           <TbPointFilled className="text-xl font-bold" />{" "}
@@ -85,9 +85,10 @@ export default function Home() {
             {" "}
             <Button
               style={
-                "flex items-center justify-center text-white dark:text-black h-15 px-6 text-center bg-green rounded-xl scale-x-120 font-bold hover:scale-x-122 transition-all  hover:shadow-2xl shadow:xl  shadow-green cursor-pointer "
+                "flex items-center justify-center gap-2 text-white font-bold dark:text-black h-12 px-4 text-center bg-green rounded-xl  transition-all  hover:scale-x-104 hover:shadow-2xl shadow:xl  shadow-green cursor-pointer "
               }
               name={"Start Free Trials"}
+              icon={<FaAngleRight className="text-sm" />}
               href={"/login"}
             />
           </div>
@@ -95,7 +96,7 @@ export default function Home() {
             {" "}
             <Button
               style={
-                "flex items-center justify-center h-13 w-40 hover:bg-green hover:text-black text-green outline-3 outline-green rounded-xl  font-bold cursor-pointer  "
+                "flex items-center justify-center h-12 w-40 hover:bg-green hover:text-black text-green outline-2 outline-green rounded-xl  font-bold cursor-pointer  "
               }
               name={"Watch Demo"}
               href={"/signup"}

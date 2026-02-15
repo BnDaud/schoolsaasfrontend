@@ -12,7 +12,7 @@ export default function Banner({
 }) {
   return (
     <div className={boxStyle}>
-      <div className="px-6  space-y-10 py-10 max-w-2/3 h-full">
+      <div className="px-6  space-y-10 py-10 max-w-full lg:max-w-3/5  h-full">
         {" "}
         <p className={text1Style}>{text1}</p>
         <p className={text2Style}>{text2}</p>
