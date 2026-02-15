@@ -1,7 +1,22 @@
 import { FaAngleRight, FaRegCheckCircle } from "react-icons/fa";
 import Banner from "../component/ui/banner";
 import { features } from "../utils/constant";
+import { useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
 export default function Features() {
+  const location = useLocation();
+
+  const { featureId } = location.state || {};
+  const featuresRef = useRef({});
+
+  useEffect(() => {
+    if (featureId) {
+      featuresRef.current[featureId]?.scrollIntoView({
+        behaviour: "smooth",
+        block: "center",
+      });
+    }
+  }, [featureId]);
   return (
     <div>
       {" "}
@@ -23,7 +38,10 @@ export default function Features() {
         <div className="flex flex-wrap gap-4  justify-center">
           {" "}
           {features.map((feature) => (
-            <div className=" dark:bg-black_card bg-white outline-1 dark:outline-gray-800 outline-white lg:w-100 md:w-2/5 w-full min-h-20  rounded-2xl p-4 space-y-2 shadow-md hover:-translate-y-1 hover:shadow-xl transition-all duration-500 ease-in-out ">
+            <div
+              className=" dark:bg-black_card bg-white outline-1 dark:outline-gray-800 outline-white lg:w-100 md:w-2/5 w-full min-h-20  rounded-2xl p-4 space-y-2 shadow-md hover:-translate-y-1 hover:shadow-xl transition-all duration-500 ease-in-out "
+              ref={(el) => (featuresRef.current[feature.id] = el)}
+            >
               {" "}
               <p className="flex size-10 justify-center items-center bg-green rounded-lg">
                 {" "}

@@ -252,7 +252,7 @@ export default function SelfStudy() {
         </div>
       </div>
       {/*Section 6 */}
-      <div className="px-[5%] lg:px-[10%] py-10 flex flex-col gap-4 min-h-50 items-center justify-center bg-white dark:bg-black space-y-3">
+      <div className="px-[5%] lg:px-[10%] py-10 flex flex-col gap-4 min-h-50 items-center justify-center bg-white_bg dark:bg-black_bg space-y-3">
         <div className=" w-full lg:w-[90%] space-y-3" ref={browseExam}>
           <p className="text-center text-3xl font-bold dark:text-white text-black  ">
             Choose Your Exam{" "}

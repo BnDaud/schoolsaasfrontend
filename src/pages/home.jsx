@@ -7,8 +7,10 @@ import { AppName } from "../utils/constant";
 import Banner from "../component/ui/banner";
 import Button from "../component/ui/button";
 import { features } from "../utils/constant";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
+  const navigate = useNavigate();
   const achivement = [
     {
       score: "500 +",
@@ -122,7 +124,12 @@ export default function Home() {
         <div className="flex flex-wrap gap-4  justify-center">
           {" "}
           {features.slice(1, 7).map((feature) => (
-            <div className=" dark:bg-black_card bg-white outline-1 dark:outline-gray-800 outline-white lg:w-100 md:w-2/5 w-full min-h-20  rounded-2xl p-4 space-y-2 shadow-md hover:-translate-y-1 hover:shadow-xl transition-all duration-500 ease-in-out cursor-pointer">
+            <div
+              className=" dark:bg-black_card bg-white outline-1 dark:outline-gray-800 outline-white lg:w-100 md:w-2/5 w-full min-h-20  rounded-2xl p-4 space-y-2 shadow-md hover:-translate-y-1 hover:shadow-xl transition-all duration-500 ease-in-out cursor-pointer"
+              onClick={() =>
+                navigate("/features", { state: { featureId: feature.id } })
+              }
+            >
               {" "}
               <p className="flex size-10 justify-center items-center bg-green rounded-lg">
                 {" "}
