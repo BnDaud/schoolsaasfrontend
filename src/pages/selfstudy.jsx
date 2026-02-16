@@ -124,7 +124,7 @@ export default function SelfStudy() {
             </div>
 
             <Button
-              name={"Start Free Trial"}
+              name={"Try AI Assitant Free"}
               icon={<FaAngleRight className="text-sm" />}
               style={
                 "flex gap-4 h-max lg:w-max w-full mt-6 justify-center items-center  text-lg font-bold dark:text-black text-white  px-6 py-3 rounded-2xl cursor-pointer bg-green "

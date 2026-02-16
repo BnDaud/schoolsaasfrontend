@@ -1,8 +1,7 @@
-import { TbPointFilled, TbWorld } from "react-icons/tb";
-import { CiClock2, CiMobile1 } from "react-icons/ci";
-import { FaAngleRight, FaRegCheckCircle } from "react-icons/fa";
-import { GiHistogram } from "react-icons/gi";
-import { MdOutlineShield } from "react-icons/md";
+import { TbPointFilled } from "react-icons/tb";
+
+import { FaAngleRight } from "react-icons/fa";
+
 import { AppName } from "../utils/constant";
 import Banner from "../component/ui/banner";
 import Button from "../component/ui/button";

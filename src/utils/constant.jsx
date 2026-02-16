@@ -347,3 +347,87 @@ export const Exams = [
     ],
   },
 ];
+
+export const schoolPriceTag = [
+  {
+    package: "Starter",
+    for: "Perfect for small schools getting started",
+    price: "₦9,000",
+
+    benefits: [
+      "10 to 100 students",
+      "5 teacher accounts",
+      "Unlimited exams",
+      "Basic analytics",
+      "Email support",
+      "Question bank (500 questions)",
+    ],
+  },
+  {
+    package: "Professional",
+    for: "Ideal for growing schools",
+    price: "₦7,500",
+
+    benefits: [
+      "101 to 500 students",
+      "20 teacher accounts",
+      "Unlimited exams",
+      "Advanced analytics",
+      "Priority support",
+      "Question bank (2,000 questions)",
+      "Proctoring features",
+      "Custom branding",
+    ],
+  },
+  {
+    package: "Enterprise",
+    for: "For large schools and networks",
+    price: "₦5,000",
+
+    benefits: [
+      "Unlimited students",
+      "Unlimited teacher accounts",
+      "Unlimited exams",
+      "Full analytics suite",
+      "24/7 dedicated support",
+      "Unlimited question bank",
+      "Advanced proctoring",
+      "Multi-branch management",
+
+      "Custom integrations",
+    ],
+  },
+];
+
+export const RFQ = [
+  {
+    question: "Is there a free trial?",
+    answer:
+      "Yes! All plans come with a 14-day free trial. No credit card required to start.",
+  },
+  {
+    question: "Can I change plans later?",
+    answer:
+      "Absolutely. You can upgrade or downgrade your plan at any time. Changes take effect on your next billing cycle.",
+  },
+  {
+    question: "What payment methods do you accept?",
+    answer:
+      "We accept bank transfers, card payments (via Paystack), and mobile money. Annual plans get a 20% discount.",
+  },
+  {
+    question: "What happens if I exceed my student limit?",
+    answer:
+      "We'll notify you when you're approaching your limit. You can easily upgrade to accommodate more students.",
+  },
+  {
+    question: "Do you offer discounts for schools?",
+    answer:
+      "Yes! We offer special pricing for government schools and non-profits. Contact us for details.",
+  },
+  {
+    question: "Is my data secure?",
+    answer:
+      "Absolutely. We use industry-standard encryption and your data is stored securely in Nigerian data centers.",
+  },
+];

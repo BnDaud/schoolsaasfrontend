@@ -118,7 +118,7 @@ function NavbarHomePage() {
           <ul className="mt-5  space-y-8 capitalize  dark:text-white/40 text-black/40 ">
             {" "}
             {links.map((link) => (
-              <li key={link.to}>
+              <li key={link.to} onClick={() => setDropDown(false)}>
                 <NavLink
                   to={link.to}
                   className={({ isActive }) =>
@@ -163,6 +163,7 @@ function NavbarHomePage() {
                   }
                   name={"Login"}
                   href={"/login"}
+                  action={() => setDropDown(false)}
                 />
               </div>
               <div className="w-5/12">
@@ -172,6 +173,7 @@ function NavbarHomePage() {
                   }
                   name={"Get Started"}
                   href={"/login"}
+                  action={() => setDropDown(false)}
                 />
               </div>
             </div>
