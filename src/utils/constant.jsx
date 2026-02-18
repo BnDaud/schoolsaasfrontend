@@ -20,6 +20,7 @@ import { GoLock, GoBook, GoTrophy } from "react-icons/go";
 import cto from "../assets/images/cto.png";
 import ceo from "../assets/images/ceo.png";
 import hcs from "../assets/images/hcs.png";
+import PM from "../assets/images/PM.png";
 
 export const AppName = "Mat Learn";
 
@@ -482,7 +483,7 @@ export const team = [
   },
   {
     name: "Lawal Hassan",
-    img: "",
+    img: PM,
     position: "Head Of Product",
     linkedin: "https://www.linkedin.com/in/lawalhassan/",
   },
