@@ -1,11 +1,18 @@
 import { TbWorld, TbTargetArrow } from "react-icons/tb";
 import { CiMobile1 } from "react-icons/ci";
-import { FaRegCheckCircle, FaRegClock } from "react-icons/fa";
+import { FaRegCheckCircle, FaRegClock, FaRegHeart } from "react-icons/fa";
 import { GiHistogram } from "react-icons/gi";
-import { MdOutlineShield, MdOutlineSettings } from "react-icons/md";
+import {
+  MdOutlineShield,
+  MdOutlineSettings,
+  MdLightbulbOutline,
+} from "react-icons/md";
 import { RiFlashlightLine, RiGroupLine, RiGeminiLine } from "react-icons/ri";
-import { IoDocumentTextOutline } from "react-icons/io5";
+import { IoDocumentTextOutline, IoShieldOutline } from "react-icons/io5";
 import { GoLock, GoBook, GoTrophy } from "react-icons/go";
+import cto from "../assets/images/cto.png";
+import ceo from "../assets/images/ceo.png";
+import hcs from "../assets/images/hcs.png";
 
 export const AppName = "Mat Learn";
 
@@ -429,5 +436,59 @@ export const RFQ = [
     question: "Is my data secure?",
     answer:
       "Absolutely. We use industry-standard encryption and your data is stored securely in Nigerian data centers.",
+  },
+];
+
+export const ourValues = [
+  {
+    icon: <TbTargetArrow className="text-green text-2xl" />,
+    title: "Mission-Driven",
+    description:
+      "We believe every student deserves access to modern assessment tools, regardless of location or resources.",
+  },
+  {
+    icon: <FaRegHeart className="text-green text-2xl" />,
+    title: "Education First",
+    description:
+      "Our decisions are guided by what's best for educators and students, not just business metrics.",
+  },
+  {
+    icon: <MdLightbulbOutline className="text-green text-2xl" />,
+    title: "Innovation",
+    description:
+      "We continuously improve our platform based on feedback from the schools we serve.",
+  },
+  {
+    icon: <IoShieldOutline className="text-green text-2xl" />,
+    title: "Reliability",
+    description:
+      "Schools depend on us for critical exams. We take that responsibility seriously with 99.9% uptime.",
+  },
+];
+
+export const team = [
+  {
+    name: "Ahmad Dada",
+    img: ceo,
+    position: "Founder & CEO",
+    linkedin: "https://www.linkedin.com/in/ahmad-dada-b9b7551b1/",
+  },
+  {
+    name: "Lawal Hassan",
+    img: "",
+    position: "Head Of Product",
+    linkedin: "https://www.linkedin.com/in/lawalhassan/",
+  },
+  {
+    name: "Lawal Sulaimon",
+    img: cto,
+    position: "CTO",
+    linkedin: "https://www.linkedin.com/in/vectoredmatrix/",
+  },
+  {
+    name: "Muhammad Ali",
+    img: hcs,
+    position: "Head Of Customer Success",
+    linkedin: "https://www.linkedin.com/in/muhammad-ali-a71394171/",
   },
 ];

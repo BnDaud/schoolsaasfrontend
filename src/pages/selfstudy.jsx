@@ -242,7 +242,7 @@ export default function SelfStudy() {
                 <p className="font-bold text-xl dark:text-white text-black">
                   {item.title}
                 </p>
-                <p className="dark:text-gray-300 text-sm text-gray-700 text-center">
+                <p className="dark:text-gray-300  text-gray-700 text-center">
                   {" "}
                   {item.description}
                 </p>
