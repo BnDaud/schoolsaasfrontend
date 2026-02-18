@@ -24,7 +24,7 @@ export default function About() {
         `
       </div>
       {/* Section 2  */}
-      <div className="p-16 px-[5%] lg:px-[10%] xl:flex gap-5 items-center justify-center min-h-100 bg-white dark:bg-black_bg space-y-10">
+      <div className="p-16 px-[5%] lg:px-[10%] xl:flex gap-5 items-center justify-center min-h-100 bg-white_bg dark:bg-black_bg space-y-10">
         {" "}
         <div className="space-y-5 dark:text-gray-300 text-gray-700 w-full xl:w-1/3">
           <p className="text-3xl font-bold dark:text-white text-black">

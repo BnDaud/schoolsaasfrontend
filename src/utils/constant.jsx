@@ -6,8 +6,15 @@ import {
   MdOutlineShield,
   MdOutlineSettings,
   MdLightbulbOutline,
+  MdOutlineMarkEmailUnread,
+  MdChatBubbleOutline,
+  MdOutlineHeadsetMic,
 } from "react-icons/md";
+import { HiOutlineOfficeBuilding } from "react-icons/hi";
+
+import { FiPhoneCall } from "react-icons/fi";
 import { RiFlashlightLine, RiGroupLine, RiGeminiLine } from "react-icons/ri";
+import { TfiLocationPin } from "react-icons/tfi";
 import { IoDocumentTextOutline, IoShieldOutline } from "react-icons/io5";
 import { GoLock, GoBook, GoTrophy } from "react-icons/go";
 import cto from "../assets/images/cto.png";
@@ -490,5 +497,53 @@ export const team = [
     img: hcs,
     position: "Head Of Customer Success",
     linkedin: "https://www.linkedin.com/in/muhammad-ali-a71394171/",
+  },
+];
+
+export const contactDetails = [
+  {
+    icon: <MdOutlineMarkEmailUnread className="text-green text-2xl" />,
+    title: "Email Us",
+    description: "Get a response within 24 hours",
+    contact: "Vectoredmatrix@gmail.com",
+  },
+  {
+    icon: <FiPhoneCall className="text-green text-2xl" />,
+    title: "Call Us",
+    description: "Mon - Fri from 8am to 6pm WAT",
+    contact: "+234 808 795 8090 ",
+  },
+  {
+    icon: <TfiLocationPin className="text-green text-2xl" />,
+    title: "Visit Us ",
+    description: "Come say hello at our office",
+    contact: "25 Okota Road Lagos, Nigeria",
+  },
+  {
+    icon: <MdChatBubbleOutline className="text-green text-2xl" />,
+    title: "Live Chat",
+    description: "Available during business hours",
+    contact: "Start a Conversation",
+  },
+];
+
+export const whyContactUs = [
+  {
+    name: "Dedicated Support",
+    icon: <MdOutlineHeadsetMic className="text-green text-2xl" />,
+    comment:
+      "Our support team is here to help you get the most out of EduTest. We respond to all inquiries within 24 hours.",
+  },
+  {
+    name: "Enterprise Solutions",
+    icon: <HiOutlineOfficeBuilding className="text-2xl text-green" />,
+    comment:
+      "Running a network of schools? We offer custom solutions with dedicated account management.",
+  },
+  {
+    name: "Quick Onboarding",
+    icon: <FaRegClock className="text-green text-2xl" />,
+    comment:
+      "We offer free training and setup assistance to get your school up and running quickly.",
   },
 ];
