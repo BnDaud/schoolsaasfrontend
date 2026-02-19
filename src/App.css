@@ -12,3 +12,9 @@
   --color-deep_green: #132324;
   --color-deep_orange: #251f17;
 }
+
+@layer base {
+  html {
+    font-size: 80%;
+  }
+}
