@@ -13,6 +13,12 @@
   --color-deep_orange: #251f17;
 }
 
+/* 
+  The web app was originally designed at 80% browser zoom.
+  To avoid redesigning all pages from scratch, we set the 
+  base font-size to 80%. This ensures the design intended 
+  for 80% zoom will appear correct at normal 100% zoom.
+*/
 @layer base {
   html {
     font-size: 80%;
