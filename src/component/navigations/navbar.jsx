@@ -1,12 +1,12 @@
 import React, { useContext, useState } from "react";
 import { globalContext } from "../../context/globalcontext";
-import { RiGraduationCapLine } from "react-icons/ri";
+
 import { MdOutlineWbSunny } from "react-icons/md";
 import { BsMoon } from "react-icons/bs";
 import { NavLink, Link } from "react-router-dom";
 import { RxDropdownMenu } from "react-icons/rx";
 import useDarkMode from "../../hooks/darkmode";
-import { AppName } from "../../utils/constant";
+import { AppName, Logo } from "../../utils/constant";
 import Button from "../ui/button";
 function NavbarHomePage() {
   const [dropdown, setDropDown] = useState(false);
@@ -28,19 +28,7 @@ function NavbarHomePage() {
       <div className="">
         {" "}
         <div className="flex lg:px-[10%] px-[5%] h-15 items-center justify-between">
-          <div className=" bg-green p-2 rounded-xl cursor-pointer ">
-            {" "}
-            <Link to={"/"}>
-              {" "}
-              <div className="flex gap-2">
-                {" "}
-                <RiGraduationCapLine className="text-2xl  dark:text-black text-white" />{" "}
-                <p className="md:block hidden font-bold dark:text-black text-white ">
-                  {AppName}
-                </p>
-              </div>
-            </Link>
-          </div>{" "}
+          {Logo}
           <div className="lg:block hidden">
             {" "}
             <ul className="flex gap-4 capitalize dark:text-white/40 text-black/40">

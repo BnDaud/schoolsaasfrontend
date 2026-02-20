@@ -1,14 +1,17 @@
 import React from "react";
 import { Outlet, Route } from "react-router-dom";
 
-import NotFound from "../pages/nofFound";
-import Home from "../pages/home";
-import Features from "../pages/features";
-import Contact from "../pages/contact";
-import About from "../pages/about";
-import Pricing from "../pages/pricing";
-import SelfStudy from "../pages/selfstudy";
+import NotFound from "../pages/landingpages/nofFound";
+import Home from "../pages/landingpages/home";
+import Features from "../pages/landingpages/features";
+import Contact from "../pages/landingpages/contact";
+import About from "../pages/landingpages/about";
+import Pricing from "../pages/landingpages/pricing";
+import SelfStudy from "../pages/landingpages/selfstudy";
 import LandingPagenav from "../layouts/publiclayout/landingpagenav";
+import Sidenav from "../component/navigations/sidenav";
+import SchoolDashboard from "../layouts/dashboardlayout/Schooldashboard";
+import Dashboard from "../pages/schoolpages/studentpages/dashboard";
 
 export const CustomRoutes = (
   <>
@@ -23,5 +26,9 @@ export const CustomRoutes = (
     </Route>
     {/* Not Found*/}
     <Route path="*" element={<NotFound />} />
+    <Route element={<SchoolDashboard />}>
+      {" "}
+      <Route path="/dashboard" element={<Dashboard />} />
+    </Route>
   </>
 );

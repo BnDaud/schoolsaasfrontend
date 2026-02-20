@@ -1,5 +1,5 @@
-import { contactDetails, AppName, whyContactUs } from "../utils/constant";
-import Button from "../component/ui/button";
+import { contactDetails, AppName, whyContactUs } from "../../utils/constant";
+import Button from "../../component/ui/button";
 import { FaTelegramPlane } from "react-icons/fa";
 export default function Contact() {
   return (

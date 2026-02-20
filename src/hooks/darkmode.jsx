@@ -8,7 +8,7 @@ export default function useDarkMode() {
   const [darkMode, setDarkMode] = useState(() => {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("darkMode");
-      return saved ? JSON.parse(saved) : true; // default: dark
+      return saved ? JSON.parse(saved) : false; // default: dark
     }
     return true;
   });

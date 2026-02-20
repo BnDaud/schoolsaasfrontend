@@ -1,6 +1,6 @@
 import { FaAngleRight, FaRegCheckCircle } from "react-icons/fa";
-import Banner from "../component/ui/banner";
-import { features } from "../utils/constant";
+import Banner from "../../component/ui/banner";
+import { features } from "../../utils/constant";
 import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 export default function Features() {

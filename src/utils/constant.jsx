@@ -13,7 +13,12 @@ import {
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
 
 import { FiPhoneCall } from "react-icons/fi";
-import { RiFlashlightLine, RiGroupLine, RiGeminiLine } from "react-icons/ri";
+import {
+  RiFlashlightLine,
+  RiGroupLine,
+  RiGeminiLine,
+  RiGraduationCapLine,
+} from "react-icons/ri";
 import { TfiLocationPin } from "react-icons/tfi";
 import { IoDocumentTextOutline, IoShieldOutline } from "react-icons/io5";
 import { GoLock, GoBook, GoTrophy } from "react-icons/go";
@@ -21,8 +26,24 @@ import cto from "../assets/images/cto.png";
 import ceo from "../assets/images/ceo.png";
 import hcs from "../assets/images/hcs.png";
 import PM from "../assets/images/PM.png";
+import { Link } from "react-router-dom";
 
 export const AppName = "Mat Learn";
+
+export const Logo = (
+  <div className=" bg-green p-2 rounded-xl cursor-pointer ">
+    <Link to={"/"}>
+      {" "}
+      <div className="flex gap-2">
+        {" "}
+        <RiGraduationCapLine className="text-2xl  dark:text-black text-white" />{" "}
+        <p className="md:block hidden font-bold dark:text-black text-white ">
+          {AppName}
+        </p>
+      </div>
+    </Link>
+  </div>
+);
 
 export const features = [
   {

@@ -1,9 +1,9 @@
 import React from "react";
-import Banner from "../component/ui/banner";
+import Banner from "../../component/ui/banner";
 import { FaAngleRight } from "react-icons/fa";
-import { AppName, ourValues, team } from "../utils/constant";
+import { AppName, ourValues, team } from "../../utils/constant";
 import { CiLinkedin } from "react-icons/ci";
-import { achivement } from "../utils/constant";
+import { achivement } from "../../utils/constant";
 export default function About() {
   return (
     <div>

@@ -1,9 +1,9 @@
 import { IoPricetags } from "react-icons/io5";
-import Button from "../component/ui/button";
-import Banner from "../component/ui/banner";
+import Button from "../../component/ui/button";
+import Banner from "../../component/ui/banner";
 import { FaArrowRight, FaRegCheckCircle, FaAngleRight } from "react-icons/fa";
-import { schoolPriceTag } from "../utils/constant";
-import { RFQ } from "../utils/constant";
+import { schoolPriceTag } from "../../utils/constant";
+import { RFQ } from "../../utils/constant";
 export default function Pricing() {
   return (
     <div>

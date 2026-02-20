@@ -2,10 +2,10 @@ import { TbPointFilled } from "react-icons/tb";
 
 import { FaAngleRight } from "react-icons/fa";
 
-import { AppName } from "../utils/constant";
-import Banner from "../component/ui/banner";
-import Button from "../component/ui/button";
-import { features } from "../utils/constant";
+import { AppName } from "../../utils/constant";
+import Banner from "../../component/ui/banner";
+import Button from "../../component/ui/button";
+import { features } from "../../utils/constant";
 import { useNavigate } from "react-router-dom";
 
 export default function Home() {

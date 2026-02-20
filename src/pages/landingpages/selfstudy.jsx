@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
-import Button from "../component/ui/button";
+import Button from "../../component/ui/button";
 import { LuGraduationCap } from "react-icons/lu";
 import { FaArrowRight, FaRegCheckCircle, FaAngleRight } from "react-icons/fa";
-import Banner from "../component/ui/banner";
+import Banner from "../../component/ui/banner";
 import { RiRobot2Line, RiGeminiLine } from "react-icons/ri";
 import { MdLightbulbOutline } from "react-icons/md";
 import { IoChatbubbleOutline, IoPlayOutline } from "react-icons/io5";
@@ -13,7 +13,7 @@ import {
   achivement,
   whyPracticeWithUs,
   Exams,
-} from "../utils/constant";
+} from "../../utils/constant";
 import { GoBook } from "react-icons/go";
 export default function SelfStudy() {
   const browseExam = useRef();

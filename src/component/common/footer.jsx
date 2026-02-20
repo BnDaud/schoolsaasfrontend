@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { RiGraduationCapLine } from "react-icons/ri";
-import { AppName } from "../../utils/constant";
+import { AppName, Logo } from "../../utils/constant";
 import { Link, useNavigate } from "react-router-dom";
 import { FaRegCopyright } from "react-icons/fa";
 import Button from "../ui/button";
@@ -23,14 +23,7 @@ export default function Footer() {
         <div className="w-full md:w-2/9">
           {" "}
           <div className="flex flex-col gap-4 ">
-            <div
-              className="flex gap-2  px-2 py-2 bg-green w-35 h-11 items-center justify-center rounded-xl cursor-pointer"
-              onClick={() => navigate("/")}
-            >
-              {" "}
-              <RiGraduationCapLine className="text-3xl  dark:text-black text-white" />{" "}
-              <p className="font-bold dark:text-black text-white ">{AppName}</p>
-            </div>
+            <p className="w-35"> {Logo}</p>
             <p className="dark:text-gray-300 text-gray-700">
               Modern CBT platform designed for African schools. Making education
               assessment better.
