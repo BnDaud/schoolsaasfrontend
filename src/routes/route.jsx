@@ -12,6 +12,11 @@ import LandingPagenav from "../layouts/publiclayout/landingpagenav";
 import Sidenav from "../component/navigations/sidenav";
 import SchoolDashboard from "../layouts/dashboardlayout/Schooldashboard";
 import Dashboard from "../pages/schoolpages/studentpages/dashboard";
+import Exams from "../pages/schoolpages/studentpages/exams";
+import Progress from "../pages/schoolpages/studentpages/progress";
+import Practice from "../pages/schoolpages/studentpages/practice";
+import Results from "../pages/schoolpages/studentpages/result";
+import Leaderboard from "../pages/schoolpages/commonpages/leaderboard";
 
 export const CustomRoutes = (
   <>
@@ -29,6 +34,11 @@ export const CustomRoutes = (
     <Route element={<SchoolDashboard />}>
       {" "}
       <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/exam" element={<Exams />} />
+      <Route path="/practice" element={<Practice />} />{" "}
+      <Route path="/progress" element={<Progress />} />{" "}
+      <Route path="/results" element={<Results />} />{" "}
+      <Route path="/leaderboard" element={<Leaderboard />} />
     </Route>
   </>
 );

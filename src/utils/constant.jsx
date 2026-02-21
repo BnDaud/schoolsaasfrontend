@@ -2,6 +2,7 @@ import { TbWorld, TbTargetArrow } from "react-icons/tb";
 import { CiMobile1 } from "react-icons/ci";
 import { FaRegCheckCircle, FaRegClock, FaRegHeart } from "react-icons/fa";
 import { GiHistogram } from "react-icons/gi";
+import { FaArrowTrendUp } from "react-icons/fa6";
 import {
   MdOutlineShield,
   MdOutlineSettings,
@@ -20,13 +21,20 @@ import {
   RiGraduationCapLine,
 } from "react-icons/ri";
 import { TfiLocationPin } from "react-icons/tfi";
-import { IoDocumentTextOutline, IoShieldOutline } from "react-icons/io5";
+import {
+  IoDocumentTextOutline,
+  IoShieldOutline,
+  IoHomeOutline,
+  IoBookOutline,
+} from "react-icons/io5";
+
 import { GoLock, GoBook, GoTrophy } from "react-icons/go";
 import cto from "../assets/images/cto.png";
 import ceo from "../assets/images/ceo.png";
 import hcs from "../assets/images/hcs.png";
 import PM from "../assets/images/PM.png";
 import { Link } from "react-router-dom";
+import { LuClipboardList } from "react-icons/lu";
 
 export const AppName = "Mat Learn";
 
@@ -37,9 +45,7 @@ export const Logo = (
       <div className="flex gap-2">
         {" "}
         <RiGraduationCapLine className="text-2xl  dark:text-black text-white" />{" "}
-        <p className="md:block hidden font-bold dark:text-black text-white ">
-          {AppName}
-        </p>
+        <p className=" font-bold dark:text-black text-white ">{AppName}</p>
       </div>
     </Link>
   </div>
@@ -567,5 +573,38 @@ export const whyContactUs = [
     icon: <FaRegClock className="text-green text-2xl" />,
     comment:
       "We offer free training and setup assistance to get your school up and running quickly.",
+  },
+];
+
+export const studentNav = [
+  {
+    name: "Dashboard",
+    icon: <IoHomeOutline className="text-xl" />,
+    href: "/dashboard",
+  },
+  {
+    name: "Exams",
+    icon: <LuClipboardList className="text-xl" />,
+    href: "/exam",
+  },
+  {
+    name: "Practice",
+    icon: <IoBookOutline className="text-xl" />,
+    href: "/practice",
+  },
+  {
+    name: "Results",
+    icon: <GiHistogram className="text-xl" />,
+    href: "/results",
+  },
+  {
+    name: "Progress",
+    icon: <FaArrowTrendUp className="text-xl" />,
+    href: "/progress",
+  },
+  {
+    name: "Leaderboard",
+    icon: <GoTrophy className="text-xl" />,
+    href: "/leaderboard",
   },
 ];
