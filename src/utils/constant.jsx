@@ -1,6 +1,11 @@
 import { TbWorld, TbTargetArrow } from "react-icons/tb";
 import { CiMobile1 } from "react-icons/ci";
-import { FaRegCheckCircle, FaRegClock, FaRegHeart } from "react-icons/fa";
+import {
+  FaRegCheckCircle,
+  FaRegClock,
+  FaRegHeart,
+  FaRegFolderOpen,
+} from "react-icons/fa";
 import { GiHistogram } from "react-icons/gi";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import {
@@ -13,7 +18,7 @@ import {
 } from "react-icons/md";
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
 
-import { FiPhoneCall } from "react-icons/fi";
+import { FiPhoneCall, FiUsers } from "react-icons/fi";
 import {
   RiFlashlightLine,
   RiGroupLine,
@@ -580,31 +585,69 @@ export const studentNav = [
   {
     name: "Dashboard",
     icon: <IoHomeOutline className="text-xl" />,
-    href: "/dashboard",
+    href: "/app/student-dashboard",
   },
   {
     name: "Exams",
     icon: <LuClipboardList className="text-xl" />,
-    href: "/exam",
+    href: "/app/exam",
   },
   {
     name: "Practice",
     icon: <IoBookOutline className="text-xl" />,
-    href: "/practice",
+    href: "/app/practice",
   },
   {
     name: "Results",
     icon: <GiHistogram className="text-xl" />,
-    href: "/results",
+    href: "/app/results",
   },
   {
     name: "Progress",
     icon: <FaArrowTrendUp className="text-xl" />,
-    href: "/progress",
+    href: "/app/progress",
   },
   {
     name: "Leaderboard",
     icon: <GoTrophy className="text-xl" />,
-    href: "/leaderboard",
+    href: "/app/leaderboard",
+  },
+];
+
+export const tutorNav = [
+  {
+    name: "Dashboard",
+    icon: <IoHomeOutline className="text-xl" />,
+    href: "/app/tutor-dashboard",
+  },
+  {
+    name: "Manage Exams",
+    icon: <LuClipboardList className="text-xl" />,
+    href: "/app/manage-exam",
+  },
+  {
+    name: "Question Bank",
+    icon: <IoDocumentTextOutline className="text-xl" />,
+    href: "/app/question-bank",
+  },
+  {
+    name: "Students",
+    icon: <FiUsers className="text-xl" />,
+    href: "/app/students",
+  },
+  {
+    name: "Classes",
+    icon: <FaRegFolderOpen className="text-xl" />,
+    href: "/app/classes",
+  },
+  {
+    name: "Analytics",
+    icon: <GiHistogram className="text-xl" />,
+    href: "/app/analytics",
+  },
+  {
+    name: "Leaderboard",
+    icon: <GoTrophy className="text-xl" />,
+    href: "/app/leaderboard",
   },
 ];

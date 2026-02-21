@@ -1,18 +1,16 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { Logo, studentNav } from "../../utils/constant";
+import { Logo, studentNav, tutorNav } from "../../utils/constant";
 import { IoExitOutline } from "react-icons/io5";
 import { LuMoon, LuSun } from "react-icons/lu";
-
-import { GiHistogram } from "react-icons/gi";
-
 import { globalContext } from "../../context/globalcontext";
 import Button from "../ui/button";
 import useDarkMode from "../../hooks/darkmode";
 
 export default function Sidenav() {
-  const { darkmode } = useContext(globalContext);
+  const { darkmode, role } = useContext(globalContext);
   const [toggleDarkMode] = useDarkMode();
+  const navItem = role === "Student" ? studentNav : tutorNav;
 
   return (
     <div className="w-full bg-white_bg dark:bg-black_bg h-full">
@@ -23,14 +21,13 @@ export default function Sidenav() {
           <p className="w-35">{Logo}</p>
         </div>
         <div className="flex-1  ">
-          <ul className="px-4 space-y-6 pt-6">
-            {" "}
-            {studentNav.map((item, idx) => (
+          <ul className="px-4 space-y-3 pt-6">
+            {navItem.map((item, idx) => (
               <li key={idx}>
                 <NavLink
                   to={item.href}
                   className={({ isActive }) =>
-                    `flex h-11 items-center gap-5 px-4 rounded-xl  ${isActive ? "bg-green  text-white dark:text-black" : "hover:bg-green dark:text-gray-400 text-gray-500"}`
+                    `flex h-11 items-center gap-5 px-4 rounded-xl  ${isActive ? "bg-green  text-white dark:text-black" : "hover:bg-amber-500 hover:text-black  dark:text-gray-400 text-gray-500"}`
                   }
                 >
                   {" "}
