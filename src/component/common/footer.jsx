@@ -19,7 +19,7 @@ export default function Footer() {
   return (
     <>
       <hr className="dark:text-gray-800 text-gray-200 " />
-      <div className="lg:px-[10%] px-[5%] py-10 space-y-5 md:flex md:flex-wrap justify-between  bg-white dark:bg-black_card">
+      <div className="lg:px-[10%] px-[5%] py-10 space-y-5 md:flex md:flex-wrap justify-between  bg-white dark:bg-black_card transition-all duration-700">
         <div className="w-full md:w-2/9">
           {" "}
           <div className="flex flex-col gap-4 ">
@@ -93,7 +93,7 @@ export default function Footer() {
         {" "}
         <div className="outline-1 dark:outline-gray-800 outline-gray-200"></div>
       </div>
-      <div className="lg:px-[10%] px-[5%]  flex flex-wrap justify-between items-center h-15 pb-30 bg-white dark:bg-black_card">
+      <div className="lg:px-[10%] px-[5%]  flex flex-wrap justify-between items-center h-15 pb-30 bg-white dark:bg-black_card transition-all duration-700">
         <div className="flex h-15 justify-center items-center gap-2 w-full md:w-max dark:text-gray-300 text-gray-700">
           <FaRegCopyright />{" "}
           <p>{`${year} ${AppName}. All rights reserved.`}</p>{" "}

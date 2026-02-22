@@ -13,10 +13,10 @@ export default function Sidenav() {
   const navItem = role === "Student" ? studentNav : tutorNav;
 
   return (
-    <div className="w-full bg-white_bg dark:bg-black_bg h-full">
+    <div className="w-full bg-white_bg dark:bg-black_bg h-full transition-all duration-700">
       <div className="flex flex-col h-full ">
         {" "}
-        <div className="flex items-center px-4  h-[10vh] border-b  border-gray-200 dark:border-gray-700">
+        <div className="flex items-center px-4  h-[10vh] border-b  border-gray-200 dark:border-gray-700 ">
           {" "}
           <p className="w-35">{Logo}</p>
         </div>
@@ -27,7 +27,7 @@ export default function Sidenav() {
                 <NavLink
                   to={item.href}
                   className={({ isActive }) =>
-                    `flex h-11 items-center gap-5 px-4 rounded-xl  ${isActive ? "bg-green  text-white dark:text-black" : "hover:bg-amber-500 hover:text-black  dark:text-gray-400 text-gray-500"}`
+                    `flex h-11 items-center gap-5 px-4 rounded-xl  ${isActive ? "bg-green  text-white dark:text-black" : "hover:bg-amber-500 hover:text-black  dark:text-gray-400 text-gray-500 "}`
                   }
                 >
                   {" "}

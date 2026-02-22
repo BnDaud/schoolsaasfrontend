@@ -4,7 +4,7 @@ export const globalContext = createContext();
 
 export default function GlobalContextFunction({ children }) {
   const [darkmode, setDarkmodeGlobally] = useState("dark");
-  const [role, setRole] = useState("Tutor");
+  const [role, setRole] = useState("Student");
   return (
     <globalContext.Provider
       value={{ darkmode, setDarkmodeGlobally, role, setRole }}

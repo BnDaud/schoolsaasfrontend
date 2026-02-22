@@ -56,7 +56,7 @@ function NavbarHomePage() {
                   <Button
                     icon={<MdOutlineWbSunny className="text-xl" />}
                     style={
-                      "p-2 hover:bg-amber-500  rounded-lg transition duration-500"
+                      "p-2 hover:bg-amber-500  rounded-lg transition duration-1000"
                     }
                     action={toggleDarkMode}
                   />
@@ -64,7 +64,7 @@ function NavbarHomePage() {
                   <Button
                     icon={<BsMoon className="text-xl" />}
                     style={
-                      "p-2 hover:bg-amber-500  rounded-lg transition duration-500"
+                      "p-2 hover:bg-amber-500  rounded-lg transition duration-1000"
                     }
                     action={toggleDarkMode}
                   />

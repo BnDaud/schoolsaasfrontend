@@ -3,7 +3,7 @@ import { FaRegBell } from "react-icons/fa";
 import { PiList } from "react-icons/pi";
 export default function StatusBanner({ open }) {
   return (
-    <div className="fixed top-0 z-30  flex h-[10vh]  items-center xl:w-5/6 w-full   bg-white_bg dark:bg-black_bg border-b border-gray-200 dark:border-gray-700  ">
+    <div className="fixed top-0 z-30  flex h-[10vh]  items-center xl:w-5/6 w-full   bg-white_bg dark:bg-black_bg border-b border-gray-200 dark:border-gray-700  transition-all duration-700">
       <p
         className="xl:hidden cursor-pointer xl:px-[0%] px-[3%] "
         onClick={() => open()}

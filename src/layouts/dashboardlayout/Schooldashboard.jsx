@@ -12,11 +12,10 @@ export default function SchoolDashboard() {
     setShownav(true);
   };
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-row ">
       {" "}
       <div
         className={`fixed top-0 left-0 z-50 w-65  xl:w-1/6 ${shownav ? "translate-x-0 " : "-translate-x-full"} transition-transform duration-500 xl:translate-x-0 xl:h-screen h-[90vh]`}
-        onClick={() => setShownav(false)}
       >
         {" "}
         <Sidenav />
@@ -27,7 +26,7 @@ export default function SchoolDashboard() {
           <StatusBanner open={open} />{" "}
         </div>{" "}
         <div
-          className="pt-[10vh] pb-[10vh] xl:pb-0"
+          className="pt-[10vh] dark:bg-black bg-white_bg pb-[10vh] xl:pb-0 transition-all duration-700"
           onClick={() => setShownav(false)}
         >
           {" "}

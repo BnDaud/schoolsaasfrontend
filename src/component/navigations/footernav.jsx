@@ -7,7 +7,7 @@ export default function Footernav() {
   const { role } = useContext(globalContext);
   const navItem = role === "Student" ? studentNav : tutorNav;
   return (
-    <div className="flex justify-between items-center px-[10%] bg-white_bg dark:bg-black_bg  h-full ">
+    <div className="flex justify-between items-center px-[10%] bg-white_bg dark:bg-black_bg  h-full transition-all duration-700">
       {navItem.slice(0, 4).map((item) => (
         <NavLink
           to={item.href}
