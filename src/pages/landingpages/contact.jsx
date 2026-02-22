@@ -61,7 +61,9 @@ export default function Contact() {
                   Full Name <span>*</span>
                 </label>
                 <input
-                  className="px-4 py-1 text-sm text-black dark:text-white font-semibold rounded-xl h-10 border dark:border-gray-800 border-gray-200 bg-white_bg dark:bg-black hover:border-transparent focus:outline-none focus:ring-2 focus:ring-green focus:ring-offset-2"
+                  className="px-4 py-1 text-sm text-black dark:text-white font-semibold rounded-xl h-10 border dark:border-gray-800 border-gray-200 bg-white_bg dark:bg-black hover:border-transparent focus:outline-none focus:ring-2 focus:ring-green focus:ring-offset-2 
+focus:ring-offset-white_bg 
+dark:focus:ring-offset-black"
                   placeholder="Your Full Name"
                   type="text"
                 />
@@ -73,7 +75,9 @@ export default function Contact() {
                   Email Address <span>*</span>
                 </label>
                 <input
-                  className="px-4 py-1 text-sm text-black dark:text-white font-semibold rounded-xl h-10 border border-gray-200 dark:border-gray-800 bg-white_bg dark:bg-black hover:border-transparent focus:outline-none focus:ring-2 focus:ring-green focus:ring-offset-2"
+                  className="px-4 py-1 text-sm text-black dark:text-white font-semibold rounded-xl h-10 border border-gray-200 dark:border-gray-800 bg-white_bg dark:bg-black hover:border-transparent focus:outline-none focus:ring-2 focus:ring-green focus:ring-offset-2 
+focus:ring-offset-white_bg 
+dark:focus:ring-offset-black"
                   placeholder="you@email.com"
                   type="email"
                 />
@@ -84,7 +88,9 @@ export default function Contact() {
                 {" "}
                 <label className="font-bold mb-2"> Phone Number</label>
                 <input
-                  className="px-4 py-1 text-sm text-black dark:text-white font-semibold rounded-xl h-10 border border-gray-200 dark:border-gray-800 bg-white_bg dark:bg-black hover:border-transparent focus:outline-none focus:ring-2 focus:ring-green focus:ring-offset-2"
+                  className="px-4 py-1 text-sm text-black dark:text-white font-semibold rounded-xl h-10 border border-gray-200 dark:border-gray-800 bg-white_bg dark:bg-black hover:border-transparent focus:outline-none focus:ring-2 focus:ring-green focus:ring-offset-2 
+focus:ring-offset-white_bg 
+dark:focus:ring-offset-black"
                   placeholder="+234 xxx xxx xxxx"
                   type="text"
                 />
@@ -93,7 +99,9 @@ export default function Contact() {
                 {" "}
                 <label className="mb-2"> School/Organization</label>
                 <input
-                  className="px-4 py-1 text-sm text-black dark:text-white font-semibold rounded-xl h-10 border border-gray-200 dark:border-gray-800 bg-white_bg dark:bg-black hover:border-transparent focus:outline-none focus:ring-2 focus:ring-green focus:ring-offset-2"
+                  className="px-4 py-1 text-sm text-black dark:text-white font-semibold rounded-xl h-10 border border-gray-200 dark:border-gray-800 bg-white_bg dark:bg-black hover:border-transparent focus:outline-none focus:ring-2 focus:ring-green focus:ring-offset-2 
+focus:ring-offset-white_bg 
+dark:focus:ring-offset-black"
                   placeholder="Your School Name "
                   type="text"
                 />
@@ -102,7 +110,11 @@ export default function Contact() {
             <div className=" ">
               {" "}
               <label className="font-bold ">I need help with *</label>
-              <select className="px-4 py-1 my-2 text-sm w-full text-black dark:text-white font-semibold rounded-xl h-10 border border-gray-200 dark:border-gray-800 bg-white_bg dark:bg-black hover:border-transparent focus:outline-none focus:ring-2 focus:ring-green focus:ring-offset-2">
+              <select
+                className="px-4 py-1 my-2 text-sm w-full text-black dark:text-white font-semibold rounded-xl h-10 border border-gray-200 dark:border-gray-800 bg-white_bg dark:bg-black hover:border-transparent focus:outline-none focus:ring-2 focus:ring-green focus:ring-offset-2 
+focus:ring-offset-white_bg 
+dark:focus:ring-offset-black"
+              >
                 {" "}
                 <option>General Inquiry</option>{" "}
                 <option>Sales - Pricing & Plans</option>{" "}
@@ -114,7 +126,9 @@ export default function Contact() {
               {" "}
               <label className="font-bold ">Message *</label>
               <textarea
-                className="px-4 py-3 my-2 text-sm w-full text-black dark:text-white font-semibold rounded-xl h-30 border border-gray-200 dark:border-gray-800 bg-white_bg dark:bg-black hover:border-transparent focus:outline-none focus:ring-2 focus:ring-green focus:ring-offset-2"
+                className="px-4 py-3 my-2 text-sm w-full text-black dark:text-white font-semibold rounded-xl h-30 border border-gray-200 dark:border-gray-800 bg-white_bg dark:bg-black hover:border-transparent focus:outline-none focus:ring-2 focus:ring-green focus:ring-offset-2 
+focus:ring-offset-white_bg 
+dark:focus:ring-offset-black"
                 placeholder="Tell us how we can help you..."
               ></textarea>
             </div>
