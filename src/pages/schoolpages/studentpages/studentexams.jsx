@@ -5,7 +5,8 @@ import { GrDocumentText } from "react-icons/gr";
 import { FaRegCalendar } from "react-icons/fa";
 import Button from "../../../component/ui/button";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 export default function Exams() {
   const [show, setshow] = useState("all");
@@ -162,10 +163,20 @@ export default function Exams() {
 
       <div className="flex flex-wrap gap-4">
         {" "}
-        {filteredExams.map((detail) => {
+        {filteredExams.map((detail, index) => {
           const { status, style } = getExamStatus(detail);
           return (
-            <div className="relative min-h-50 bg-white dark:bg-black_bg w-full md:w-[48%] rounded-2xl  p-5 space-y-2 hover:shadow-lg hover:-translate-y-1 duration-500 ease-in-out">
+            <motion.div
+              key={detail.id}
+              className="relative min-h-50 bg-white dark:bg-black_bg w-full md:w-[48%] rounded-2xl p-5 space-y-2 "
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{
+                duration: 0.7,
+                delay: index * 0.1,
+                ease: "easeInOut",
+              }}
+            >
               <p className={style}>{status}</p>
               <p className="text-black dark:text-white font-bold text-xl">
                 {detail.type}
@@ -205,12 +216,12 @@ export default function Exams() {
                   }
                   iconStyle={"rotate-180"}
                   action={() =>
-                    navigate("/exams", { state: { examId: detail.id } })
+                    navigate("/app/exams", { state: { examId: detail.id } })
                   }
                   icon={<IoMdArrowRoundBack />}
                 />
               </div>{" "}
-            </div>
+            </motion.div>
           );
         })}
       </div>

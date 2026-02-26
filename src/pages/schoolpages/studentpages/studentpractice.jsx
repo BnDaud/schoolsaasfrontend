@@ -2,31 +2,31 @@ import React, { useState, useEffect } from "react";
 import Input from "../../../component/ui/input";
 import { FiClock } from "react-icons/fi";
 import { GrDocumentText } from "react-icons/gr";
-import { FaRegCalendar } from "react-icons/fa";
+
 import Button from "../../../component/ui/button";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 export default function Practice() {
   const [show, setshow] = useState("all");
-  const [whatToList, setWhatToList] = useState([
+  const whatToList = [
     { name: "all" },
-    { name: "Upcoming" },
-    { name: "Ongoing" },
-    { name: "Completed" },
-  ]);
+    { name: "Science" },
+    { name: "Commerce" },
+    { name: "Arts" },
+  ];
   const date = new Date().getMonth();
   console.log(date);
 
-  const [demoExam, setDemoExam] = useState([
+  const demoExam = [
     {
-      id: 1,
-      name: "Mathematics",
+      id: 9,
+      name: "Geography",
       type: "Mid-Term",
-      duration: 60,
-      noQuestions: 40,
-      dateTime: "2026-03-01T10:00:00",
-      closesAt: "2026-03-01T23:59:00",
+      duration: 70,
+      noQuestions: 35,
+      department: "Art",
     },
     {
       id: 2,
@@ -34,17 +34,15 @@ export default function Practice() {
       type: "Practical",
       duration: 90,
       noQuestions: 30,
-      dateTime: "2026-03-03T13:00:00",
-      closesAt: "2026-03-03T18:00:00",
+      department: "Science",
     },
     {
-      id: 3,
-      name: "Chemistry",
-      type: "Final",
-      duration: 120,
-      noQuestions: 60,
-      dateTime: "2026-02-15T09:00:00",
-      closesAt: "2026-02-15T12:00:00",
+      id: 7,
+      name: "Business Studies",
+      type: "Quiz",
+      duration: 60,
+      noQuestions: 30,
+      department: "Commerce",
     },
     {
       id: 4,
@@ -52,57 +50,82 @@ export default function Practice() {
       type: "Quiz",
       duration: 45,
       noQuestions: 25,
-      dateTime: "2026-02-22T12:30:00", // ongoing now
-      closesAt: "2026-02-22T15:00:00",
+      department: "Science",
     },
     {
-      id: 5,
-      name: "English",
-      type: "Literature Test",
-      duration: 75,
+      id: 3,
+      name: "Chemistry",
+      type: "Final",
+      duration: 120,
       noQuestions: 50,
-      dateTime: "2026-03-10T14:00:00",
-      closesAt: "2026-03-11T00:00:00",
+      department: "Science",
     },
     {
       id: 6,
-      name: "Computer Science",
-      type: "Programming Fundamentals",
-      duration: 100,
+      name: "Economics",
+      type: "Final",
+      duration: 80,
       noQuestions: 35,
-      dateTime: "2026-02-10T16:00:00",
-      closesAt: "2026-02-10T20:00:00",
+      department: "Commerce",
     },
-  ]);
-  const getExamStatus = (exam) => {
-    const now = new Date().getTime(); // Use timestamps for reliable comparison
-    const start = new Date(exam.dateTime).getTime();
-    const close = new Date(exam.closesAt).getTime();
-
+    {
+      id: 8,
+      name: "History",
+      type: "Final",
+      duration: 90,
+      noQuestions: 45,
+      department: "Art",
+    },
+    {
+      id: 1,
+      name: "Mathematics",
+      type: "Mid-Term",
+      duration: 60,
+      noQuestions: 40,
+      department: "Science",
+    },
+    {
+      id: 5,
+      name: "Accountancy",
+      type: "Mid-Term",
+      duration: 75,
+      noQuestions: 40,
+      department: "Commerce",
+    },
+    {
+      id: 10,
+      name: "Literature",
+      type: "Quiz",
+      duration: 50,
+      noQuestions: 25,
+      department: "Art",
+    },
+  ];
+  const getDepartment = (exam) => {
     // 1. If current time is past the closing time
-    if (now > close) {
+    if (exam.department.toLowerCase() == "science") {
       return {
-        status: "completed",
+        department: "Science",
         style:
-          "top-5 right-5 absolute bg-gray-400 w-max px-2 rounded-full text-sm text-white",
+          "top-5 right-5 absolute bg-blue-300 w-max px-2 rounded-full text-sm text-blue-700",
       };
     }
 
     // 2. If current time is between start and closing time
     // Note: We use 'close' instead of 'duration' to define the active window
-    if (now >= start && now <= close) {
+    if (exam.department.toLowerCase() == "commerce") {
       return {
-        status: "ongoing",
+        department: "Commerce",
         style:
-          "top-5 right-5 absolute bg-green-500 w-max px-2 rounded-full text-sm text-white animate-pulse",
+          "top-5 right-5 absolute bg-green-300 w-max px-2 rounded-full text-sm text-green-700 ",
       };
     }
 
     // 3. Otherwise, it must be in the future
     return {
-      status: "upcoming",
+      department: "Arts",
       style:
-        "top-5 right-5 absolute bg-amber-500 w-max px-2 rounded-full text-sm text-white",
+        "top-5 right-5 absolute bg-amber-300 text-amber-700 w-max px-2 rounded-full text-sm ",
     };
   };
   const [filteredExams, setFilteredExams] = useState(demoExam); // State to hold filtered list
@@ -113,8 +136,8 @@ export default function Practice() {
     // 1. Filter by Status Tab
     if (show !== "all") {
       filtered = filtered.filter((exam) => {
-        const { status } = getExamStatus(exam);
-        return status.toLowerCase() === show.toLowerCase();
+        const { department } = getDepartment(exam);
+        return department.toLowerCase() === show.toLowerCase();
       });
     }
 
@@ -134,13 +157,15 @@ export default function Practice() {
     <div className="p-[3%] dark:bg-black bg-white_bg transition-all duration-700 w-full min-h-screen space-y-5">
       <div className="space-y-1">
         {" "}
-        <p className="text-black dark:text-white font-bold text-3xl"> Exams</p>
+        <p className="text-black dark:text-white font-bold text-3xl">
+          {" "}
+          Practice Tests
+        </p>
         <p className="text-lg text-gray-600 dark:text-gray-200">
           {" "}
-          View and manage all your exams
+          Sharpen your skills with practice questions
         </p>
       </div>
-
       <div className="md:flex justify-between block ">
         <Input
           type={"text"}
@@ -161,56 +186,52 @@ export default function Practice() {
       </div>
 
       <div className="flex flex-wrap gap-4">
-        {" "}
-        {filteredExams.map((detail) => {
-          const { status, style } = getExamStatus(detail);
+        {filteredExams.map((detail, index) => {
+          const { department, style } = getDepartment(detail);
+
           return (
-            <div className="relative min-h-50 bg-white dark:bg-black_bg w-full md:w-[48%] rounded-2xl  p-5 space-y-2 hover:shadow-lg hover:-translate-y-1 duration-500 ease-in-out">
-              <p className={style}>{status}</p>
+            <motion.div
+              key={detail.id}
+              className="relative min-h-50 bg-white dark:bg-black_bg w-full md:w-[48%] rounded-2xl p-5 space-y-2 "
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{
+                duration: 0.7,
+                delay: index * 0.1,
+                ease: "easeInOut",
+              }}
+            >
+              <p className={style}>{department}</p>
               <p className="text-black dark:text-white font-bold text-xl">
                 {detail.type}
               </p>
               <p className="text-gray-500 dark:text-gray-100 font-light text-lg">
-                {" "}
                 {detail.name}
               </p>
+
               <div className="flex gap-3 mt-4">
-                {" "}
                 <div className="flex gap-2 items-center text-gray-500 dark:text-gray-100 font-light min-h-5 w-max">
-                  {" "}
                   <FiClock /> <p>{detail.duration} mins</p>
-                </div>{" "}
+                </div>
                 <div className="flex gap-2 items-center text-gray-500 dark:text-gray-100 font-light min-h-5 w-max">
-                  {" "}
                   <GrDocumentText /> <p>{detail.noQuestions} questions</p>
-                </div>{" "}
-                <div className="flex gap-2 items-center text-gray-500 dark:text-gray-100 font-light min-h-5 w-max">
-                  {" "}
-                  <FaRegCalendar />{" "}
-                  <p>
-                    {new Date(detail.dateTime).toLocaleDateString("en-US", {
-                      month: "short",
-                      day: "numeric",
-                      year: "numeric",
-                    })}
-                  </p>
                 </div>
               </div>
+
               <div className="absolute left-6 bottom-5">
-                {" "}
                 <Button
-                  name={"View Details"}
+                  name={"Practice"}
                   style={
                     "flex items-center gap-3 min-h-5 text-green font-semibold"
                   }
                   iconStyle={"rotate-180"}
                   action={() =>
-                    navigate("/exams", { state: { examId: detail.id } })
+                    navigate("/app/exams", { state: { examId: detail.id } })
                   }
                   icon={<IoMdArrowRoundBack />}
                 />
-              </div>{" "}
-            </div>
+              </div>
+            </motion.div>
           );
         })}
       </div>
