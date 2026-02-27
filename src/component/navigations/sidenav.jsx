@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { Logo, studentNav, tutorNav } from "../../utils/constant";
+import { SchoolLogo, studentNav, tutorNav } from "../../utils/constant";
 import { IoExitOutline } from "react-icons/io5";
 import { LuMoon, LuSun } from "react-icons/lu";
 import { globalContext } from "../../context/globalcontext";
@@ -18,7 +18,7 @@ export default function Sidenav() {
         {" "}
         <div className="flex items-center px-4  h-[10vh] border-b  border-gray-200 dark:border-gray-700 ">
           {" "}
-          <p className="w-35">{Logo}</p>
+          {SchoolLogo("w-45 ")}
         </div>
         <div className="flex-1  ">
           <ul className="px-4 space-y-3 pt-6">

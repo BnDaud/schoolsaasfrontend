@@ -75,14 +75,14 @@ function NavbarHomePage() {
                   "hover:font-bold px-4 py-2 w-full border-2 border-gray-200 dark:border-gray-700 dark:outline-0  text-center hover:bg-amber-500 hover:cursor-pointer  rounded-lg"
                 }
                 name={"Login"}
-                href={"/login"}
+                href={"/auth/login"}
               />
               <Button
                 style={
                   "font-bold text-white w-full dark:text-black w-5/12 text-center  px-4 py-2  bg-green rounded-lg ease-out duration-300 hover:-translate-y-0.5 hover:scale-101 hover:shadow-2xl shadow:xl hover:cursor-pointer  shadow-green transition"
                 }
                 name={"Get Started"}
-                href={"/login"}
+                href={"/auth/signup"}
               />
             </div>
           </div>
@@ -150,7 +150,7 @@ function NavbarHomePage() {
                     "hover:font-bold px-2 py-2 w-full border-2 border-gray-200 dark:border-gray-700 dark:outline-0  text-center hover:bg-amber-500 hover:cursor-pointer  rounded-lg"
                   }
                   name={"Login"}
-                  href={"/login"}
+                  href={"/auth/login"}
                   action={() => setDropDown(false)}
                 />
               </div>
@@ -160,7 +160,7 @@ function NavbarHomePage() {
                     "font-bold text-white w-full dark:text-black w-5/12 text-center  px-4 py-2  bg-green rounded-lg ease-out duration-300 hover:-translate-y-0.5 hover:scale-101 hover:shadow-2xl shadow:xl hover:cursor-pointer  shadow-green transition"
                   }
                   name={"Get Started"}
-                  href={"/login"}
+                  href={"/auth/signup"}
                   action={() => setDropDown(false)}
                 />
               </div>

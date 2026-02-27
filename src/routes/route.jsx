@@ -14,6 +14,8 @@ import SchoolDashboard from "../layouts/dashboardlayout/Schooldashboard";
 import RoleBaseRoute from "./rolebaseroute";
 import NotFound from "../pages/Restricted/notFound";
 import Leaderboard from "../pages/schoolpages/commonpages/leaderboard";
+import Auth from "../layouts/authlayout/auth";
+import SchoolLoginPage from "../pages/Authpages/schoolLoginpage";
 
 export const CustomRoutes = (
   <>
@@ -31,7 +33,10 @@ export const CustomRoutes = (
       <Route path="*" element={<RoleBaseRoute />} />
       <Route path="leaderboard" element={<Leaderboard />} />
     </Route>
-
+    {/* Auth Page */}
+    <Route path="/auth/" element={<Auth />}>
+      <Route path="login" element={<SchoolLoginPage />} />
+    </Route>{" "}
     {/* Not Found*/}
     <Route path="*" element={<NotFound />} />
   </>

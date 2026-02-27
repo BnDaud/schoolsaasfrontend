@@ -40,6 +40,7 @@ import hcs from "../assets/images/hcs.png";
 import PM from "../assets/images/PM.png";
 import { Link } from "react-router-dom";
 import { LuClipboardList } from "react-icons/lu";
+import image from "../assets/images/logo.png";
 
 export const AppName = "Mat Learn";
 
@@ -55,6 +56,10 @@ export const Logo = (
     </Link>
   </div>
 );
+
+export const SchoolLogo = (arg) => <img src={image} className={arg} />;
+
+export const SchoolMotto = "Where Potential Becomes Purpose";
 
 export const features = [
   {
