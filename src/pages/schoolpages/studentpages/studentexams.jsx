@@ -7,6 +7,7 @@ import Button from "../../../component/ui/button";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { IoSearch } from "react-icons/io5";
 
 export default function Exams() {
   const [show, setshow] = useState("all");
@@ -148,6 +149,7 @@ export default function Exams() {
           width={"xl:w-[66.7%] md:w-[48%] w-full"}
           placeholder={"Search exams..."}
           onChange={setSearchTerm}
+          icon={<IoSearch className="text-lg" />}
         />
         <div className="flex gap-4  mt-5 md:mt-0 ">
           {whatToList.map((item) => (

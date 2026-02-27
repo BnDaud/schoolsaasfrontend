@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Input from "../../../component/ui/input";
 import { FiClock } from "react-icons/fi";
 import { GrDocumentText } from "react-icons/gr";
-
+import { IoSearch } from "react-icons/io5";
 import Button from "../../../component/ui/button";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
@@ -172,6 +172,7 @@ export default function Practice() {
           width={"xl:w-[66.7%] md:w-[48%] w-full"}
           placeholder={"Search exams..."}
           onChange={setSearchTerm}
+          icon={<IoSearch className="text-lg" />}
         />
         <div className="flex gap-4  mt-5 md:mt-0 ">
           {whatToList.map((item) => (
