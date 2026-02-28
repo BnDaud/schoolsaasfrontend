@@ -16,6 +16,7 @@ import NotFound from "../pages/Restricted/notFound";
 import Leaderboard from "../pages/schoolpages/commonpages/leaderboard";
 import Auth from "../layouts/authlayout/auth";
 import SchoolLoginPage from "../pages/Authpages/schoolLoginpage";
+import SchoolRegister from "../pages/Authpages/schoolRegister";
 
 export const CustomRoutes = (
   <>
@@ -36,6 +37,7 @@ export const CustomRoutes = (
     {/* Auth Page */}
     <Route path="/auth/" element={<Auth />}>
       <Route path="login" element={<SchoolLoginPage />} />
+      <Route path="register" element={<SchoolRegister />} />
     </Route>{" "}
     {/* Not Found*/}
     <Route path="*" element={<NotFound />} />

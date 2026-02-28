@@ -82,7 +82,7 @@ function NavbarHomePage() {
                   "font-bold text-white w-full dark:text-black w-5/12 text-center  px-4 py-2  bg-green rounded-lg ease-out duration-300 hover:-translate-y-0.5 hover:scale-101 hover:shadow-2xl shadow:xl hover:cursor-pointer  shadow-green transition"
                 }
                 name={"Get Started"}
-                href={"/auth/signup"}
+                href={"/auth/register"}
               />
             </div>
           </div>
@@ -160,7 +160,7 @@ function NavbarHomePage() {
                     "font-bold text-white w-full dark:text-black w-5/12 text-center  px-4 py-2  bg-green rounded-lg ease-out duration-300 hover:-translate-y-0.5 hover:scale-101 hover:shadow-2xl shadow:xl hover:cursor-pointer  shadow-green transition"
                   }
                   name={"Get Started"}
-                  href={"/auth/signup"}
+                  href={"/auth/register"}
                   action={() => setDropDown(false)}
                 />
               </div>
