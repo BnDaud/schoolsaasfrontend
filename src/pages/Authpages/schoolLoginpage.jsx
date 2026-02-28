@@ -59,6 +59,7 @@ export default function SchoolLoginPage() {
           <form className="w-full space-y-8 mt-5 ">
             {" "}
             <Input
+              name={"email"}
               label={"Email Address"}
               required={true}
               placeholder={"Reg/No or Email"}
@@ -72,6 +73,7 @@ export default function SchoolLoginPage() {
                 Forgot Password ?
               </div>
               <Input
+                name={"password"}
                 label={"Password"}
                 required={true}
                 placeholder={"Enter Your Password"}
@@ -83,15 +85,16 @@ export default function SchoolLoginPage() {
             <Button
               name={"Sign In"}
               style={
-                "flex items-center justify-center text-white dark:text-black font-bold text-lg bg-green h-10 rounded-xl hover:scale-x-103 transition duration-500 "
+                "flex items-center justify-center text-white dark:text-black font-bold text-lg bg-green h-10 w-full rounded-xl hover:scale-x-103 transition duration-500 "
               }
+              type={"submit"}
             />
           </form>
           <p className="mt-3 dark:text-gray-400 text-gray-700 ">
             Don't have an account ? {""}
-            <Link to={"/auth"} className="text-green font-bold">
+            <Link to={"/auth/register"} className="text-green font-bold">
               {" "}
-              {"  "}Create accont
+              {"  "}Create account
             </Link>
           </p>
         </div>

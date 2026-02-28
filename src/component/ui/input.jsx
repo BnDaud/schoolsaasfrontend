@@ -1,14 +1,17 @@
 import React, { useState } from "react";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+
+import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
 
 export default function Input({
   label,
+  name,
   required = false,
   placeholder,
   width,
   type = "text",
   onChange,
   icon,
+  value,
 }) {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -21,19 +24,23 @@ export default function Input({
       </label>
 
       <div
-        className="flex gap-2 items-center px-4 py-1 text-sm font-semibold rounded-xl h-10 
+        className={`flex gap-2 items-center px-4 py-1 text-sm font-semibold rounded-xl h-10 
   bg-white_bg dark:bg-black
   ring-1 ring-gray-200 dark:ring-gray-800
   focus-within:ring-2 focus-within:ring-green
-  transition-all duration-150"
+  has-[input:invalid:not(:placeholder-shown)]:ring-red-500
+  transition-all duration-150`}
       >
         {icon && <span>{icon}</span>}
 
         <input
           className="focus:outline-none w-full bg-transparent dark:text-white text-black"
+          name={name}
           placeholder={placeholder}
           type={isPassword && showPassword ? "text" : type}
           onChange={(e) => onChange(e.target.value)}
+          required={required}
+          value={value}
         />
 
         {isPassword && (
@@ -42,7 +49,7 @@ export default function Input({
             onClick={() => setShowPassword((prev) => !prev)}
             className="text-lg cursor-pointer"
           >
-            {showPassword ? <FaEyeSlash /> : <FaEye />}
+            {showPassword ? <IoEyeOffOutline /> : <IoEyeOutline />}
           </button>
         )}
       </div>
