@@ -8,8 +8,9 @@ export default function Footernav() {
   const navItem = role === "Student" ? studentNav : tutorNav;
   return (
     <div className="flex justify-between items-center px-[10%] bg-white_bg dark:bg-black_bg  h-full transition-all duration-700">
-      {navItem.slice(0, 4).map((item) => (
+      {navItem.slice(0, 4).map((item, idx) => (
         <NavLink
+          key={idx}
           to={item.href}
           className={({ isActive }) =>
             `${isActive ? "text-green" : "text-gray-500 dark:text-gray-400"}`

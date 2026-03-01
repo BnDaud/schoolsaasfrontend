@@ -18,8 +18,6 @@ export default function Exams() {
     { name: "Ongoing" },
     { name: "Completed" },
   ];
-  const date = new Date().getMonth();
-  console.log(date);
 
   const [demoExam, setDemoExam] = useState(demoExams);
   const getExamStatus = (exam) => {
@@ -98,8 +96,9 @@ export default function Exams() {
           icon={<IoSearch className="text-lg" />}
         />
         <div className="flex gap-4  mt-5 md:mt-0 ">
-          {whatToList.map((item) => (
+          {whatToList.map((item, idx) => (
             <p
+              key={idx}
               className={`flex border justify-center items-center dark:border-gray-800 border-gray-200 text-black dark:text-white font-semibold w-max px-3 py-2 rounded-xl capitalize ${show === item.name ? "dark:text-black text-white bg-green" : "dark:text-white text-black"} cursor-pointer`}
               onClick={() => setshow(item.name)}
             >

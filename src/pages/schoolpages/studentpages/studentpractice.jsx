@@ -16,8 +16,6 @@ export default function Practice() {
     { name: "Commerce" },
     { name: "Arts" },
   ];
-  const date = new Date().getMonth();
-  console.log(date);
 
   const getDepartment = (exam) => {
     // 1. If current time is past the closing time
@@ -93,8 +91,9 @@ export default function Practice() {
           icon={<IoSearch className="text-lg" />}
         />
         <div className="flex gap-4  mt-5 md:mt-0 ">
-          {whatToList.map((item) => (
+          {whatToList.map((item, idx) => (
             <p
+              key={idx}
               className={`flex border justify-center items-center dark:border-gray-800 border-gray-200 text-black dark:text-white font-semibold w-max px-3 py-2 rounded-xl capitalize ${show === item.name ? "dark:text-black text-white bg-green" : "dark:text-white text-black"} cursor-pointer`}
               onClick={() => setshow(item.name)}
             >

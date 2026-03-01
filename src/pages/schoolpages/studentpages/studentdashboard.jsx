@@ -9,6 +9,7 @@ import { GoTrophy } from "react-icons/go";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import { FiCalendar } from "react-icons/fi";
 import { FaRegClock, FaRegBell, FaAngleRight } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -137,9 +138,17 @@ export default function Dashboard() {
       </div>{" "}
       <div className="flex flex-wrap gap-4 justify-between">
         {" "}
-        {dashboard.map((item) => (
-          <div
+        {dashboard.map((item, idx) => (
+          <motion.div
+            key={idx}
             className="bg-white dark:bg-black_bg border border-gray-200 dark:border-gray-800 space-y-2  p-4 min-h-30 rounded-2xl w-[48%]  lg:w-[24%] hover:shadow-lg hover:-translate-y-1 duration-700 cursor-pointer"
+            initial={{ opacity: 0, x: 0, scale: 0.1 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{
+              duration: 0.2,
+              delay: idx * 0.2,
+              ease: "easeInOut",
+            }}
             onClick={() => navigate(item.to)}
           >
             {item.icon}
@@ -148,7 +157,7 @@ export default function Dashboard() {
               {item.score}
             </p>
             <p className="dark:text-gray-400 text-gray-700"> {item.name}</p>
-          </div>
+          </motion.div>
         ))}
       </div>
       <div className="flex justify-between gap-4 lg:gap-0 flex-wrap">
@@ -158,13 +167,13 @@ export default function Dashboard() {
         >
           <div className="flex justify-between">
             {" "}
-            <p className="flex gap-2">
+            <div className="flex gap-2">
               <FiCalendar className="text-2xl text-green" />{" "}
               <p className="font-bold text-lg dark:text-white">
                 {" "}
                 Upcoming Exams
               </p>
-            </p>
+            </div>
             <p className="text-green">
               {" "}
               <Link to={"/app/exam"}> View All</Link>
@@ -175,9 +184,16 @@ export default function Dashboard() {
             const ongoing = "ongoing";
             const { status } = getExamStatus(item);
             return (
-              <div
+              <motion.div
                 key={idx}
                 className={`flex justify-between px-4 items-center  ${status === ongoing ? "bg-amber-500" : "bg-white_bg dark:bg-black"}  h-20 rounded-2xl`}
+                initial={{ opacity: 0, y: 20, scale: 0.1 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{
+                  duration: 0.5,
+                  delay: idx * 0.5,
+                  ease: "easeInOut",
+                }}
               >
                 {" "}
                 <div className="flex ">
@@ -221,20 +237,20 @@ export default function Dashboard() {
                     })
                   )}
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>{" "}
-        <div className="relative w-full lg:w-[33%] bg-white dark:bg-black_bg border border-gray-200 dark:border-gray-800 space-y-2  p-5 min-h-30 rounded-2xl ">
+        <div className="relative w-full lg:w-[33%]  bg-white dark:bg-black_bg border border-gray-200 dark:border-gray-800 space-y-2  p-5 min-h-30 rounded-2xl ">
           <div className="flex justify-between">
             {" "}
-            <p className="flex gap-2">
+            <div className="flex gap-2">
               <FaRegBell className="text-2xl text-green" />{" "}
               <p className="font-bold text-lg dark:text-white">
                 {" "}
                 Notifications
               </p>
-            </p>
+            </div>
             <p className="flex min-h-3 items-center text-red-600 bg-red-200 px-2 rounded-2xl text-sm ">
               {" "}
               new
@@ -242,16 +258,16 @@ export default function Dashboard() {
           </div>{" "}
           <div className="flex h-full items-center">
             {" "}
-            <div className="flex items-center justify-center bg-white dark:bg-black_bg border border-gray-200 dark:border-gray-800 space-y-2  p-4  w-full h-20 rounded-2xl    hover:shadow-lg hover:-translate-y-1 duration-700 font-bold text-2xl ">
+            <div className="flex items-center justify-center bg-white dark:bg-black_bg border dark:text-white border-gray-200 dark:border-gray-800 space-y-2  p-4  w-full h-20 rounded-2xl    hover:shadow-lg hover:-translate-y-1 duration-700 font-bold text-2xl ">
               {" "}
               Coming Soon
             </div>
           </div>
-          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 w-full px-5">
+          <div className="hidden lg:block absolute bottom-3 left-1/2 -translate-x-1/2 w-full px-5">
             {" "}
             <Button
               style={
-                "flex gap-2 min-h-5 w-full justify-center py-2 items-center text-sm font-bold hover:bg-amber-500 rounded-lg"
+                "flex gap-2 min-h-5 w-full justify-center py-2 items-center text-sm font-bold hover:bg-amber-500 dark:text-white rounded-lg"
               }
               name={"View All Notifications"}
               icon={<FaAngleRight />}
