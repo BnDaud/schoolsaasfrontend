@@ -8,6 +8,7 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { IoSearch } from "react-icons/io5";
+import { demoExams } from "../../../utils/constant";
 
 export default function Exams() {
   const [show, setshow] = useState("all");
@@ -20,62 +21,7 @@ export default function Exams() {
   const date = new Date().getMonth();
   console.log(date);
 
-  const [demoExam, setDemoExam] = useState([
-    {
-      id: 1,
-      name: "Mathematics",
-      type: "Mid-Term",
-      duration: 60,
-      noQuestions: 40,
-      dateTime: "2026-03-01T10:00:00",
-      closesAt: "2026-03-01T23:59:00",
-    },
-    {
-      id: 2,
-      name: "Physics",
-      type: "Practical",
-      duration: 90,
-      noQuestions: 30,
-      dateTime: "2026-03-03T13:00:00",
-      closesAt: "2026-03-03T18:00:00",
-    },
-    {
-      id: 3,
-      name: "Chemistry",
-      type: "Final",
-      duration: 120,
-      noQuestions: 60,
-      dateTime: "2026-02-15T09:00:00",
-      closesAt: "2026-02-15T12:00:00",
-    },
-    {
-      id: 4,
-      name: "Biology",
-      type: "Quiz",
-      duration: 45,
-      noQuestions: 25,
-      dateTime: "2026-02-22T12:30:00", // ongoing now
-      closesAt: "2026-02-22T15:00:00",
-    },
-    {
-      id: 5,
-      name: "English",
-      type: "Literature Test",
-      duration: 75,
-      noQuestions: 50,
-      dateTime: "2026-03-10T14:00:00",
-      closesAt: "2026-03-11T00:00:00",
-    },
-    {
-      id: 6,
-      name: "Computer Science",
-      type: "Programming Fundamentals",
-      duration: 100,
-      noQuestions: 35,
-      dateTime: "2026-02-10T16:00:00",
-      closesAt: "2026-02-10T20:00:00",
-    },
-  ]);
+  const [demoExam, setDemoExam] = useState(demoExams);
   const getExamStatus = (exam) => {
     const now = new Date().getTime(); // Use timestamps for reliable comparison
     const start = new Date(exam.dateTime).getTime();
@@ -133,7 +79,7 @@ export default function Exams() {
   const navigate = useNavigate();
 
   return (
-    <div className="p-[3%] dark:bg-black bg-white_bg transition-all duration-700 w-full min-h-screen space-y-5">
+    <div className="px-[3%] py-[2%] dark:bg-black bg-white_bg transition-all duration-700 w-full min-h-screen space-y-5">
       <div className="space-y-1">
         {" "}
         <p className="text-black dark:text-white font-bold text-3xl"> Exams</p>

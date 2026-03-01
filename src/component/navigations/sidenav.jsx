@@ -46,7 +46,7 @@ export default function Sidenav() {
                 name={"Dark Mode"}
                 action={toggleDarkMode}
                 style={
-                  "flex  gap-3  items-center  text-lg rounded-xl hover:bg-amber-500 h-12 px-4"
+                  "flex  gap-3  items-center w-full text-lg rounded-xl hover:bg-amber-500 h-12 px-4"
                 }
                 icon={<LuMoon />}
               />
@@ -55,7 +55,7 @@ export default function Sidenav() {
                 name={"Light Mode"}
                 action={toggleDarkMode}
                 style={
-                  "flex  gap-3  items-center text-gray-400 text-lg rounded-xl hover:bg-amber-500 hover:text-black  h-12 px-4"
+                  "flex  gap-3  items-center w-full  text-gray-400 text-lg rounded-xl hover:bg-amber-500 hover:text-black  h-12 px-4"
                 }
                 icon={<LuSun />}
               />

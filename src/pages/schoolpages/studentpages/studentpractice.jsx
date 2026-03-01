@@ -7,7 +7,7 @@ import Button from "../../../component/ui/button";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-
+import { demoPractice } from "../../../utils/constant";
 export default function Practice() {
   const [show, setshow] = useState("all");
   const whatToList = [
@@ -19,88 +19,6 @@ export default function Practice() {
   const date = new Date().getMonth();
   console.log(date);
 
-  const demoExam = [
-    {
-      id: 9,
-      name: "Geography",
-      type: "Mid-Term",
-      duration: 70,
-      noQuestions: 35,
-      department: "Art",
-    },
-    {
-      id: 2,
-      name: "Physics",
-      type: "Practical",
-      duration: 90,
-      noQuestions: 30,
-      department: "Science",
-    },
-    {
-      id: 7,
-      name: "Business Studies",
-      type: "Quiz",
-      duration: 60,
-      noQuestions: 30,
-      department: "Commerce",
-    },
-    {
-      id: 4,
-      name: "Biology",
-      type: "Quiz",
-      duration: 45,
-      noQuestions: 25,
-      department: "Science",
-    },
-    {
-      id: 3,
-      name: "Chemistry",
-      type: "Final",
-      duration: 120,
-      noQuestions: 50,
-      department: "Science",
-    },
-    {
-      id: 6,
-      name: "Economics",
-      type: "Final",
-      duration: 80,
-      noQuestions: 35,
-      department: "Commerce",
-    },
-    {
-      id: 8,
-      name: "History",
-      type: "Final",
-      duration: 90,
-      noQuestions: 45,
-      department: "Art",
-    },
-    {
-      id: 1,
-      name: "Mathematics",
-      type: "Mid-Term",
-      duration: 60,
-      noQuestions: 40,
-      department: "Science",
-    },
-    {
-      id: 5,
-      name: "Accountancy",
-      type: "Mid-Term",
-      duration: 75,
-      noQuestions: 40,
-      department: "Commerce",
-    },
-    {
-      id: 10,
-      name: "Literature",
-      type: "Quiz",
-      duration: 50,
-      noQuestions: 25,
-      department: "Art",
-    },
-  ];
   const getDepartment = (exam) => {
     // 1. If current time is past the closing time
     if (exam.department.toLowerCase() == "science") {
@@ -128,10 +46,10 @@ export default function Practice() {
         "top-5 right-5 absolute bg-amber-300 text-amber-700 w-max px-2 rounded-full text-sm ",
     };
   };
-  const [filteredExams, setFilteredExams] = useState(demoExam); // State to hold filtered list
+  const [filteredExams, setFilteredExams] = useState(demoPractice); // State to hold filtered list
   const [searchTerm, setSearchTerm] = useState("");
   useEffect(() => {
-    let filtered = demoExam;
+    let filtered = demoPractice;
 
     // 1. Filter by Status Tab
     if (show !== "all") {
@@ -149,12 +67,12 @@ export default function Practice() {
     }
 
     setFilteredExams(filtered);
-  }, [show, searchTerm, demoExam]);
+  }, [show, searchTerm, demoPractice]);
 
   const navigate = useNavigate();
 
   return (
-    <div className="p-[3%] dark:bg-black bg-white_bg transition-all duration-700 w-full min-h-screen space-y-5">
+    <div className="px-[3%] py-[2%] dark:bg-black bg-white_bg transition-all duration-700 w-full min-h-screen space-y-5">
       <div className="space-y-1">
         {" "}
         <p className="text-black dark:text-white font-bold text-3xl">
