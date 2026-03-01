@@ -2,11 +2,13 @@ import React from "react";
 import { PiHandWaving } from "react-icons/pi";
 import { demoExams, demoPractice } from "../../../utils/constant";
 import Button from "../../../component/ui/button";
-import { IoBookOutline } from "react-icons/io5";
+import { IoBookOutline, IoPlayOutline } from "react-icons/io5";
 import { LuClipboardList } from "react-icons/lu";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { GoTrophy } from "react-icons/go";
 import { FaArrowTrendUp } from "react-icons/fa6";
+import { FiCalendar } from "react-icons/fi";
+import { FaRegClock, FaRegBell, FaAngleRight } from "react-icons/fa";
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -79,7 +81,7 @@ export default function Dashboard() {
       name: "Practice test",
       to: "/app/practice",
       icon: (
-        <p className="flex items-center justify-center size-12 bg-amber-100 rounded-lg">
+        <p className="flex items-center justify-center size-12 bg-amber-100 dark:bg-amber_deep/20 rounded-lg">
           <IoBookOutline className="text-2xl text-amber-500" />
         </p>
       ),
@@ -89,7 +91,7 @@ export default function Dashboard() {
       name: "Leaderboard Rank",
       to: "/app/leaderboard",
       icon: (
-        <p className="flex items-center justify-center size-12 bg-amber-100 rounded-lg">
+        <p className="flex items-center justify-center size-12 bg-amber-100 dark:bg-amber_deep/20 rounded-lg">
           {" "}
           <GoTrophy className="text-2xl text-amber-500" />
         </p>
@@ -141,13 +143,121 @@ export default function Dashboard() {
             onClick={() => navigate(item.to)}
           >
             {item.icon}
-            <p className="text-black dark:text-white font-bold text-2xl">
+            <p className="text-black dark:text-white font-bold text-2xl w-12 text-center ">
               {" "}
               {item.score}
             </p>
             <p className="dark:text-gray-400 text-gray-700"> {item.name}</p>
           </div>
         ))}
+      </div>
+      <div className="flex justify-between gap-4 lg:gap-0 flex-wrap">
+        {" "}
+        <div
+          className={`lg:w-[66%] w-full bg-white dark:bg-black_bg border border-gray-200 dark:border-gray-800 space-y-2  p-5 min-h-30 rounded-2xl transition-all duration-700`}
+        >
+          <div className="flex justify-between">
+            {" "}
+            <p className="flex gap-2">
+              <FiCalendar className="text-2xl text-green" />{" "}
+              <p className="font-bold text-lg dark:text-white">
+                {" "}
+                Upcoming Exams
+              </p>
+            </p>
+            <p className="text-green">
+              {" "}
+              <Link to={"/app/exam"}> View All</Link>
+            </p>
+          </div>
+
+          {demoExams.slice(0, 3).map((item, idx) => {
+            const ongoing = "ongoing";
+            const { status } = getExamStatus(item);
+            return (
+              <div
+                key={idx}
+                className={`flex justify-between px-4 items-center  ${status === ongoing ? "bg-amber-500" : "bg-white_bg dark:bg-black"}  h-20 rounded-2xl`}
+              >
+                {" "}
+                <div className="flex ">
+                  <div className="flex gap-4">
+                    {" "}
+                    <p
+                      className={`flex items-center justify-center font-bold  size-12  ${status === ongoing ? "animate-pulse bg-amber-800 text-2xl rounded-full" : "bg-green text-white dark:text-black text-lg rounded-2xl"} `}
+                    >
+                      {status === ongoing ? <IoPlayOutline /> : item.name[0]}
+                    </p>{" "}
+                    <div>
+                      {" "}
+                      <p className="dark:text-white text-black font-bold">
+                        {" "}
+                        {item.name}
+                      </p>{" "}
+                      <div className="flex gap-4 text-sm dark:text-gray-400 text-gray-700">
+                        <p className="flex gap-2 items-center min-h-2">
+                          {" "}
+                          <span>
+                            <FaRegClock />
+                          </span>{" "}
+                          {item.duration} mins
+                        </p>{" "}
+                        <p>{item.noQuestions} questions</p>
+                      </div>
+                    </div>
+                  </div>{" "}
+                </div>{" "}
+                <div className="dark:text-white text-black">
+                  {status === "ongoing" ? (
+                    <p className="text-lg w-max bg-red-700 px-2 py-1 rounded-lg cursor-pointer animate-pulse">
+                      {" "}
+                      On Going
+                    </p>
+                  ) : (
+                    new Date(item.dateTime).toLocaleDateString("en-US", {
+                      month: "short",
+                      day: "numeric",
+                      year: "numeric",
+                    })
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>{" "}
+        <div className="relative w-full lg:w-[33%] bg-white dark:bg-black_bg border border-gray-200 dark:border-gray-800 space-y-2  p-5 min-h-30 rounded-2xl ">
+          <div className="flex justify-between">
+            {" "}
+            <p className="flex gap-2">
+              <FaRegBell className="text-2xl text-green" />{" "}
+              <p className="font-bold text-lg dark:text-white">
+                {" "}
+                Notifications
+              </p>
+            </p>
+            <p className="flex min-h-3 items-center text-red-600 bg-red-200 px-2 rounded-2xl text-sm ">
+              {" "}
+              new
+            </p>
+          </div>{" "}
+          <div className="flex h-full items-center">
+            {" "}
+            <div className="flex items-center justify-center bg-white dark:bg-black_bg border border-gray-200 dark:border-gray-800 space-y-2  p-4  w-full h-20 rounded-2xl    hover:shadow-lg hover:-translate-y-1 duration-700 font-bold text-2xl ">
+              {" "}
+              Coming Soon
+            </div>
+          </div>
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 w-full px-5">
+            {" "}
+            <Button
+              style={
+                "flex gap-2 min-h-5 w-full justify-center py-2 items-center text-sm font-bold hover:bg-amber-500 rounded-lg"
+              }
+              name={"View All Notifications"}
+              icon={<FaAngleRight />}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

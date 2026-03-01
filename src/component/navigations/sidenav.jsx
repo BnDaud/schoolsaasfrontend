@@ -16,7 +16,7 @@ export default function Sidenav() {
     <div className="w-full bg-white_bg dark:bg-black_bg h-full transition-all duration-700">
       <div className="flex flex-col h-full ">
         {" "}
-        <div className="flex items-center px-4  h-[10vh] border-b  border-gray-200 dark:border-gray-700 ">
+        <div className="flex items-center justify-center px-4  h-[10vh] border-b  border-gray-200 dark:border-gray-700 ">
           {" "}
           {SchoolLogo("w-45 ")}
         </div>
