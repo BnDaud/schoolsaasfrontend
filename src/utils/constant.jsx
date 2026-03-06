@@ -24,6 +24,7 @@ import {
   RiGroupLine,
   RiGeminiLine,
   RiGraduationCapLine,
+  RiBookShelfLine,
 } from "react-icons/ri";
 import { TfiLocationPin } from "react-icons/tfi";
 import {
@@ -613,6 +614,11 @@ export const studentNav = [
     href: "/app/progress",
   },
   {
+    name: "Books",
+    icon: <RiBookShelfLine className="text-xl" />,
+    href: "/app/books",
+  },
+  {
     name: "Leaderboard",
     icon: <GoTrophy className="text-xl" />,
     href: "/app/leaderboard",
@@ -649,6 +655,11 @@ export const tutorNav = [
     name: "Analytics",
     icon: <GiHistogram className="text-xl" />,
     href: "/app/analytics",
+  },
+  {
+    name: "Books",
+    icon: <RiBookShelfLine className="text-xl" />,
+    href: "/app/books",
   },
   {
     name: "Leaderboard",

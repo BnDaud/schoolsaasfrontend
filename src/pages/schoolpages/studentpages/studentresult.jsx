@@ -60,7 +60,7 @@ export default function Result() {
           <GoTrophy className="text-2xl text-green" />
         </p>
       ),
-      score: getExamsCompleted(),
+      score: `${getExamsCompleted()}%`,
     },
     {
       name: "Improvement",

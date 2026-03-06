@@ -14,6 +14,7 @@ import SchoolDashboard from "../layouts/dashboardlayout/Schooldashboard";
 import RoleBaseRoute from "./rolebaseroute";
 import NotFound from "../pages/Restricted/notFound";
 import Leaderboard from "../pages/schoolpages/commonpages/leaderboard";
+import Books from "../pages/schoolpages/commonpages/books";
 import Auth from "../layouts/authlayout/auth";
 import SchoolLoginPage from "../pages/Authpages/schoolLoginpage";
 import SchoolRegister from "../pages/Authpages/schoolRegister";
@@ -32,7 +33,8 @@ export const CustomRoutes = (
     {/* School Route */}
     <Route path="/app/" element={<SchoolDashboard />}>
       <Route path="*" element={<RoleBaseRoute />} />
-      <Route path="leaderboard" element={<Leaderboard />} />
+      <Route path="leaderboard" element={<Leaderboard />} />{" "}
+      <Route path="books" element={<Books />} />
     </Route>
     {/* Auth Page */}
     <Route path="/auth/" element={<Auth />}>
