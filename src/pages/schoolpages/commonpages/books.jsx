@@ -1,5 +1,6 @@
 import React from "react";
+import ComingSoon from "../../Restricted/comingsoon";
 
 export default function Books() {
-  return <div className="text-green w-full bg-red-300 min-h-screen">Books</div>;
+  return <ComingSoon />;
 }

@@ -1,18 +1,46 @@
-import React from "react";
 import { GiHistogram } from "react-icons/gi";
 import { FaRegCalendar } from "react-icons/fa6";
 import Button from "../../../component/ui/button";
 import { FaRegClock } from "react-icons/fa";
-import { VscOutput } from "react-icons/vsc";
+
 import { useNavigate } from "react-router-dom";
+import {
+  Radar,
+  RadarChart,
+  PolarGrid,
+  PolarAngleAxis,
+  PolarRadiusAxis,
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  Line,
+} from "recharts";
 
 import { RiFlashlightLine, RiAwardLine } from "react-icons/ri";
-import { FiDownload } from "react-icons/fi";
 
 import { motion } from "framer-motion";
 
 export default function Progress() {
   const navigate = useNavigate();
+
+  const data = [
+    { subject: "Speed", value: 80 },
+    { subject: "Power", value: 60 },
+    { subject: "Accuracy", value: 90 },
+    { subject: "Defense", value: 70 },
+    { subject: "Skill", value: 70 },
+    { subject: "Acuracy", value: 90 },
+    { subject: "Goverment", value: 60 },
+    { subject: "Skil", value: 70 },
+  ];
+  const dataline = [
+    { name: "Jan", value: 30, average: 35 },
+    { name: "Feb", value: 45, average: 37 },
+    { name: "Mar", value: 28, average: 34 },
+    { name: "Apr", value: 60, average: 41 },
+    { name: "May", value: 50, average: 42 },
+  ];
 
   const dashboard = [
     {
@@ -112,13 +140,46 @@ export default function Progress() {
           <p className="font-bold text-lg dark:text-white">
             Performance Over Time
           </p>
+          <div className="flex h-full w-full justify-center items-center text-sm mb-5">
+            <AreaChart width={600} height={300} data={dataline}>
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Area
+                type="monotone"
+                dataKey="value"
+                fill="#E6FFE6"
+                stroke="#2eb89c"
+              />{" "}
+              <Line
+                type="monotone"
+                dataKey="average"
+                stroke="#C2C7C2"
+                strokeWidth={2}
+                strokeDasharray="5 5"
+              />
+            </AreaChart>
+          </div>
         </div>{" "}
         <div
           className={` w-full md:w-[49%] bg-white dark:bg-black_bg border border-gray-200 dark:border-gray-800 space-y-2  p-5 min-h-30 rounded-2xl transition-all duration-700`}
         >
           <p className="font-bold text-lg dark:text-white">
-            Performance Over Time
+            Subject Proficiency
           </p>
+          <div className="flex h-full w-full justify-center items-center text-sm mb-5">
+            {" "}
+            <RadarChart width={400} height={200} data={data}>
+              <PolarGrid />
+              <PolarAngleAxis dataKey="subject" />
+              <PolarRadiusAxis />
+              <Radar
+                dataKey="value"
+                fillOpacity={0.6}
+                stroke="#2eb89c"
+                fill="#E6FFE6"
+              />
+            </RadarChart>
+          </div>
         </div>
       </div>{" "}
     </div>
