@@ -1,9 +1,11 @@
-import React from "react";
+import { useContext } from "react";
 import { FaRegBell } from "react-icons/fa";
 import { PiList } from "react-icons/pi";
+import { globalContext } from "../../context/globalcontext";
 export default function StatusBanner({ open }) {
+  const { name, schoolName, role } = useContext(globalContext);
   return (
-    <div className="fixed top-0 z-30  flex h-[10vh]  items-center xl:w-5/6 w-full   bg-white_bg dark:bg-black_bg border-b border-gray-200 dark:border-gray-700  transition-all duration-700">
+    <div className="fixed top-0 z-30  flex h-[10vh]  items-center xl:w-5/6 w-full   bg-white dark:bg-black_bg border-b border-gray-200 dark:border-gray-700  transition-all duration-700">
       <p
         className="xl:hidden cursor-pointer xl:px-[0%] px-[3%] "
         onClick={() => open()}
@@ -15,9 +17,9 @@ export default function StatusBanner({ open }) {
         {" "}
         <div>
           <p className="font-semibold text-xl text-black dark:text-white">
-            School Name
+            {schoolName}
           </p>
-          <p className="text-gray-700 dark:text-gray-300">Student Dashboard</p>
+          <p className="text-gray-700 dark:text-gray-300">{role} Dashboard</p>
         </div>
         <div className="flex h-full items-center gap-6 text-black dark:text-white">
           <div className="relative flex items-center justify-center  size-10">
@@ -32,10 +34,7 @@ export default function StatusBanner({ open }) {
               {" "}
               A{" "}
             </p>{" "}
-            <p className="text-lg font-semibold w-3/5 truncate">
-              {" "}
-              Adebayo John
-            </p>
+            <p className="text-lg font-semibold w-3/5 truncate"> {name}</p>
           </div>
         </div>
       </div>

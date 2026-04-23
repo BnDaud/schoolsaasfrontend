@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { PiHandWaving } from "react-icons/pi";
 import { demoExams, demoPractice } from "../../../utils/constant";
 import Button from "../../../component/ui/button";
@@ -10,8 +10,10 @@ import { FaArrowTrendUp } from "react-icons/fa6";
 import { FiCalendar } from "react-icons/fi";
 import { FaRegClock, FaRegBell, FaAngleRight } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { globalContext } from "../../../context/globalcontext";
 
 export default function Dashboard() {
+  const { name } = useContext(globalContext);
   const navigate = useNavigate();
   const getExamStatus = (exam) => {
     const now = new Date().getTime(); // Use timestamps for reliable comparison
@@ -54,7 +56,7 @@ export default function Dashboard() {
   };
   const getExamsCompleted = () => {
     const c = demoExams.filter((p) => getExamStatus(p).status === "completed");
-    return c.length;
+    return c;
   };
 
   const dashboard = [
@@ -66,7 +68,7 @@ export default function Dashboard() {
           <LuClipboardList className="text-2xl text-green" />
         </p>
       ),
-      score: getExamsCompleted(),
+      score: getExamsCompleted().length,
     },
     {
       name: "Average Score",
@@ -108,7 +110,7 @@ export default function Dashboard() {
         <div className="space-y-1">
           {" "}
           <div className="flex items-center gap-2 min-h-4 text-black dark:text-white font-bold text-3xl">
-            <p> Hi student name</p>
+            <p> Hi {name}</p>
             <PiHandWaving />
           </div>
           <p className="text-lg text-gray-600 dark:text-gray-200">

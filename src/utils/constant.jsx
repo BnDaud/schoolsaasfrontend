@@ -632,6 +632,11 @@ export const tutorNav = [
     href: "/app/tutor-dashboard",
   },
   {
+    name: "My Classes",
+    icon: <FaRegFolderOpen className="text-xl" />,
+    href: "/app/classes",
+  },
+  {
     name: "Manage Exams",
     icon: <LuClipboardList className="text-xl" />,
     href: "/app/manage-exam",
@@ -646,14 +651,16 @@ export const tutorNav = [
     icon: <FiUsers className="text-xl" />,
     href: "/app/students",
   },
+
   {
-    name: "Classes",
-    icon: <FaRegFolderOpen className="text-xl" />,
-    href: "/app/classes",
+    name: "Performance",
+    icon: <GiHistogram className="text-xl" />,
+    href: "/app/performance",
   },
+
   {
     name: "Analytics",
-    icon: <GiHistogram className="text-xl" />,
+    icon: <FaArrowTrendUp className="text-xl" />,
     href: "/app/analytics",
   },
   {
@@ -661,22 +668,19 @@ export const tutorNav = [
     icon: <RiBookShelfLine className="text-xl" />,
     href: "/app/books",
   },
-  {
-    name: "Leaderboard",
-    icon: <GoTrophy className="text-xl" />,
-    href: "/app/leaderboard",
-  },
 ];
 
 export const demoExams = [
+  // ✅ Past exams
   {
     id: 1,
     name: "Mathematics",
-    type: "Mid-Term",
+    type: "Mathematics Mid-Term",
     duration: 60,
     noQuestions: 40,
-    dateTime: "2026-03-01T10:00:00",
-    closesAt: "2026-03-01T23:59:00",
+    class: "SS1",
+    dateTime: "2026-04-01T10:00:00",
+    closesAt: "2026-04-01T23:59:00",
   },
   {
     id: 2,
@@ -684,26 +688,33 @@ export const demoExams = [
     type: "Practical",
     duration: 90,
     noQuestions: 30,
-    dateTime: "2026-03-03T13:00:00",
-    closesAt: "2026-03-03T18:00:00",
+    class: "SS3",
+    dateTime: "2026-03-25T13:00:00",
+    closesAt: "2026-03-25T18:00:00",
   },
+
+  // 🟢 Ongoing exam (today)
   {
     id: 3,
-    name: "Chemistry",
-    type: "Final",
-    duration: 120,
-    noQuestions: 60,
-    dateTime: "2026-02-15T09:00:00",
-    closesAt: "2026-02-15T12:00:00",
-  },
-  {
-    id: 4,
     name: "Biology",
     type: "Quiz",
     duration: 45,
     noQuestions: 25,
-    dateTime: "2026-02-22T12:30:00", // ongoing now
-    closesAt: "2026-02-22T15:00:00",
+    class: "JS1",
+    dateTime: "2026-04-04T10:00:00",
+    closesAt: "2026-04-04T23:59:00",
+  },
+
+  // 🔵 Upcoming exams
+  {
+    id: 4,
+    name: "Chemistry",
+    type: "Final",
+    duration: 120,
+    noQuestions: 60,
+    class: "SS2",
+    dateTime: "2026-04-10T09:00:00",
+    closesAt: "2026-04-10T12:00:00",
   },
   {
     id: 5,
@@ -711,8 +722,9 @@ export const demoExams = [
     type: "Literature Test",
     duration: 75,
     noQuestions: 50,
-    dateTime: "2026-03-10T14:00:00",
-    closesAt: "2026-03-11T00:00:00",
+    class: "JS3",
+    dateTime: "2026-04-18T14:00:00",
+    closesAt: "2026-04-18T18:00:00",
   },
   {
     id: 6,
@@ -720,11 +732,11 @@ export const demoExams = [
     type: "Programming Fundamentals",
     duration: 100,
     noQuestions: 35,
-    dateTime: "2026-02-10T16:00:00",
-    closesAt: "2026-02-10T20:00:00",
+    class: "SS1",
+    dateTime: "2026-04-22T16:00:00",
+    closesAt: "2026-04-22T20:00:00",
   },
 ];
-
 export const demoPractice = [
   {
     id: 9,
