@@ -671,7 +671,6 @@ export const tutorNav = [
 ];
 
 export const demoExams = [
-  // ✅ Past exams
   {
     id: 1,
     name: "Mathematics",
@@ -679,8 +678,10 @@ export const demoExams = [
     duration: 60,
     noQuestions: 40,
     class: "SS1",
-    dateTime: "2026-04-01T10:00:00",
-    closesAt: "2026-04-01T23:59:00",
+    negMark: false,
+    eqMark: false,
+    dateTime: "2026-04-24T10:00:00",
+    closesAt: "2026-04-26T23:59:00",
   },
   {
     id: 2,
@@ -689,23 +690,25 @@ export const demoExams = [
     duration: 90,
     noQuestions: 30,
     class: "SS3",
-    dateTime: "2026-03-25T13:00:00",
-    closesAt: "2026-03-25T18:00:00",
+    negMark: false,
+    eqMark: false,
+    dateTime: "2026-06-25T13:00:00",
+    closesAt: "2026-06-25T18:00:00",
   },
 
-  // 🟢 Ongoing exam (today)
   {
     id: 3,
     name: "Biology",
     type: "Quiz",
     duration: 45,
     noQuestions: 25,
-    class: "JS1",
+    class: "JSS1",
+    negMark: false,
+    eqMark: false,
     dateTime: "2026-04-04T10:00:00",
     closesAt: "2026-04-04T23:59:00",
   },
 
-  // 🔵 Upcoming exams
   {
     id: 4,
     name: "Chemistry",
@@ -713,8 +716,10 @@ export const demoExams = [
     duration: 120,
     noQuestions: 60,
     class: "SS2",
-    dateTime: "2026-04-10T09:00:00",
-    closesAt: "2026-04-10T12:00:00",
+    negMark: true,
+    eqMark: true,
+    dateTime: "2026-10-10T09:00:00",
+    closesAt: "2026-10-10T12:00:00",
   },
   {
     id: 5,
@@ -723,8 +728,10 @@ export const demoExams = [
     duration: 75,
     noQuestions: 50,
     class: "JS3",
-    dateTime: "2026-04-18T14:00:00",
-    closesAt: "2026-04-18T18:00:00",
+    negMark: true,
+    eqMark: false,
+    dateTime: "2026-11-18T14:00:00",
+    closesAt: "2026-11-18T18:00:00",
   },
   {
     id: 6,
@@ -733,6 +740,8 @@ export const demoExams = [
     duration: 100,
     noQuestions: 35,
     class: "SS1",
+    negMark: false,
+    eqMark: true,
     dateTime: "2026-04-22T16:00:00",
     closesAt: "2026-04-22T20:00:00",
   },
