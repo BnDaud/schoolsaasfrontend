@@ -1,513 +1,387 @@
 import { useContext } from "react";
-import { PiHandWaving } from "react-icons/pi";
-import { demoExams, demoPractice } from "../../../utils/constant";
-import Button from "../../../component/ui/button";
-import { IoDocumentTextOutline } from "react-icons/io5";
-import { CiEdit } from "react-icons/ci";
-import { LuClipboardList } from "react-icons/lu";
 import { Link, useNavigate } from "react-router-dom";
-import { AiOutlineThunderbolt } from "react-icons/ai";
-import { FaArrowTrendUp } from "react-icons/fa6";
-import { FiCalendar, FiUser, FiUsers } from "react-icons/fi";
-import { FaAngleRight, FaPlus, FaRegFolderOpen } from "react-icons/fa";
-import { motion, percent } from "framer-motion";
+import { motion } from "framer-motion";
+import {
+  FiAlertTriangle,
+  FiBarChart2,
+  FiBookOpen,
+  FiCalendar,
+  FiChevronRight,
+  FiEdit3,
+  FiFileText,
+  FiPlus,
+  FiUsers,
+} from "react-icons/fi";
+import { PiHandWaving } from "react-icons/pi";
 import { globalContext } from "../../../context/globalcontext";
-import { GoTrophy, GoDotFill } from "react-icons/go";
-import { GiHistogram, GiPodiumWinner } from "react-icons/gi";
-import { IoEyeOutline } from "react-icons/io5";
-import { CgDanger } from "react-icons/cg";
+import {
+  initialTutorExams,
+  questionBank,
+  tutorAssignments,
+} from "../../../utils/tutorQuestionBank";
+
+const classPerformance = [
+  {
+    className: "JSS1",
+    subject: "Mathematics",
+    students: 40,
+    average: 72,
+    passRate: 78,
+    change: 6,
+  },
+  {
+    className: "SS3",
+    subject: "Physics",
+    students: 16,
+    average: 81,
+    passRate: 86,
+    change: 4,
+  },
+  {
+    className: "SS2",
+    subject: "Chemistry",
+    students: 24,
+    average: 76,
+    passRate: 80,
+    change: -2,
+  },
+];
+
+const topPerformers = [
+  { name: "Daniel Emeka", className: "SS3", subject: "Physics", score: 89 },
+  { name: "Lawal Sulaimon", className: "SS2", subject: "Chemistry", score: 90 },
+  { name: "Aisha Bello", className: "JSS1", subject: "Mathematics", score: 74 },
+];
+
+const studentsNeedingAttention = [
+  { name: "Hassan Musa", className: "JSS1", subject: "Mathematics", score: 48 },
+  { name: "Adewale Martins", className: "SS3", subject: "Physics", score: 51 },
+];
+
+const getStatusStyle = (status) => {
+  if (status === "Published") return "bg-green/10 text-green";
+  return "bg-amber-100 text-amber-600 dark:bg-amber_deep/20";
+};
+
 export default function Dashboard() {
   const { name, title, role } = useContext(globalContext);
   const navigate = useNavigate();
-  const getExamStatus = (exam) => {
-    const now = new Date().getTime(); // Use timestamps for reliable comparison
-    const start = new Date(exam.dateTime).getTime();
-    const close = new Date(exam.closesAt).getTime();
 
-    // 1. If current time is past the closing time
-    if (now > close) {
-      return {
-        status: "completed",
-        style:
-          "top-5 right-5 absolute bg-gray-400 w-max px-2 rounded-full text-sm text-white",
-      };
-    }
+  const publishedExams = initialTutorExams.filter(
+    (exam) => exam.status === "Published",
+  );
+  const draftExams = initialTutorExams.filter((exam) => exam.status === "Draft");
 
-    // 2. If current time is between start and closing time
-    // Note: We use 'close' instead of 'duration' to define the active window
-    if (now >= start && now <= close) {
-      return {
-        status: "ongoing",
-        style:
-          "top-5 right-5 absolute bg-green-500 w-max px-2 rounded-full text-sm text-white animate-pulse",
-      };
-    }
-
-    // 3. Otherwise, it must be in the future
-    return {
-      status: "upcoming",
-      style:
-        "top-5 right-5 absolute bg-amber-500 w-max px-2 rounded-full text-sm text-white",
-    };
-  };
-
-  const getUpComingExams = () => {
-    const number = demoExams.filter(
-      (p) => getExamStatus(p).status === "upcoming",
-    );
-
-    return number;
-  };
-  const getExamsCompleted = () => {
-    const c = demoExams.filter((p) => getExamStatus(p).status === "completed");
-    return c;
-  };
-
-  const topPerformance = [
-    { name: "Fatima Abdullahi", class: "SS3", score: "91", increment: 8 },
-    { name: "Chidi Okafor", class: "SS2", score: "89", increment: -5 },
-    { name: "Kwame Mensah", class: "SS3", score: "87", increment: 12 },
-    { name: "Amina Yusuf", class: "SS1", score: "85", increment: 7 },
-    { name: "Olumide Bakare", class: "SS2", score: "82", increment: 4 },
-  ];
-  const classPerformance = [
+  const dashboardCards = [
     {
-      class: "SS1",
-      noStudent: 32,
-      score: 85,
-      percentIncrease: 8,
-      passrate: 72,
+      name: "Assigned Classes",
+      value: tutorAssignments.length,
+      to: "/app/classes",
+      icon: <FiUsers />,
     },
     {
-      class: "SS2",
-      noStudent: 12,
-      score: 63,
-      percentIncrease: -2,
-      passrate: 72,
-    },
-    ,
-    {
-      class: "JS1",
-      noStudent: 40,
-      score: 25,
-      percentIncrease: 4,
-      passrate: 42,
-    },
-    {
-      class: "SS3",
-      noStudent: 16,
-      score: 55,
-      percentIncrease: -5,
-      passrate: 50,
-    },
-  ];
-
-  const dashboard = [
-    {
-      name: "Total Students",
-      to: "/app/students",
-      icon: (
-        <p className="flex items-center justify-center size-12 bg-green/10 rounded-lg">
-          <FiUsers className="text-2xl text-green" />
-        </p>
-      ),
-      score: 130,
-    },
-    {
-      name: "Active Exams",
+      name: "Published Exams",
+      value: publishedExams.length,
       to: "/app/manage-exam",
-      icon: (
-        <p className="flex items-center justify-center size-12 bg-green/10 rounded-lg">
-          <LuClipboardList className="text-2xl text-green" />
-        </p>
-      ),
-      score: getUpComingExams().length,
+      icon: <FiCalendar />,
+    },
+    {
+      name: "Draft Exams",
+      value: draftExams.length,
+      to: "/app/manage-exam",
+      icon: <FiEdit3 />,
     },
     {
       name: "Question Bank",
+      value: questionBank.length,
       to: "/app/question-bank",
-      icon: (
-        <p className="flex items-center justify-center size-12 bg-amber-100 dark:bg-amber_deep/20 rounded-lg">
-          <IoDocumentTextOutline className="text-2xl text-amber-500" />
-        </p>
-      ),
-      score: demoPractice.length,
-    },
-    {
-      name: "Avg performance",
-      to: "/app/performance",
-      icon: (
-        <p className="flex items-center justify-center size-12 bg-amber-100 dark:bg-amber_deep/20 rounded-lg">
-          {" "}
-          <FaArrowTrendUp className="text-2xl text-amber-500" />
-        </p>
-      ),
-      score: "72%",
+      icon: <FiFileText />,
     },
   ];
-  const quickAction = [
+
+  const quickActions = [
     {
-      icon: (
-        <p className="flex items-center justify-center size-10 bg-green rounded-lg">
-          <FaPlus className="text-xl text-black" />
-        </p>
-      ),
+      label: "Create Exam",
       to: "/app/manage-exam",
-      action: "Create New Exam",
+      icon: <FiPlus />,
+      primary: true,
     },
     {
-      icon: (
-        <p className="flex items-center justify-center size-10 bg-amber-100 dark:bg-amber_deep/20  rounded-lg">
-          <IoDocumentTextOutline className="text-xl text-amber-500" />
-        </p>
-      ),
+      label: "Add Question",
       to: "/app/question-bank",
-      action: "Question Bank",
+      icon: <FiFileText />,
     },
     {
-      icon: (
-        <p className="flex items-center justify-center size-10 bg-amber-100 dark:bg-amber_deep/20  rounded-lg">
-          <FaRegFolderOpen className="text-xl text-amber-500" />
-        </p>
-      ),
+      label: "View My Classes",
       to: "/app/classes",
-      action: "Manage Classes",
+      icon: <FiBookOpen />,
     },
     {
-      icon: (
-        <p className="flex items-center justify-center size-10 bg-purple-900/20 rounded-lg">
-          <GoTrophy className="text-xl text-purple-500" />
-        </p>
-      ),
-      to: "/app/leaderboard",
-      action: "Leaderboard",
-    },
-    {
-      icon: (
-        <p className="flex items-center justify-center size-10 bg-green/10 rounded-lg">
-          <GiHistogram className="text-xl text-green" />
-        </p>
-      ),
-      to: "/app/analytics",
-      action: "View Analytics",
+      label: "Insights",
+      to: "/app/performance",
+      icon: <FiBarChart2 />,
     },
   ];
 
   return (
-    <div className="px-[3%] py-[2%] dark:bg-black bg-white_bg transition-all duration-700 w-full min-h-screen space-y-5">
-      <div className="md:flex justify-between">
-        {" "}
+    <div className="min-h-screen w-full space-y-5 bg-white_bg px-[3%] py-[2%] transition-all duration-700 dark:bg-black">
+      <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-start">
         <div className="space-y-1">
-          {" "}
-          <p className="min-h-4 text-black dark:text-white font-bold text-3xl">
-            {" "}
+          <p className="text-3xl font-bold text-black dark:text-white">
             {role} Dashboard
           </p>
-          <div className="flex items-center gap-2 text-2xl">
-            {" "}
-            <p className="text-lg text-gray-600 dark:text-gray-200">
-              {" "}
-              {`Welcome back, ${title} ${name}`}
-            </p>
-            <PiHandWaving />
+          <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+            <p className="text-lg">{`Welcome back, ${title} ${name}`}</p>
+            <PiHandWaving className="text-2xl text-amber-500" />
           </div>
         </div>
-        <div className="flex w-max gap-2 mt-4 md:mt-0">
-          {" "}
-          <Button
-            name={"Add Question"}
-            icon={<IoDocumentTextOutline />}
-            style={
-              "flex flex-row-reverse items-center text-lg gap-2 h-10 border-2 dark:border-gray-700 border-gray-300 dark:text-white text-sm text-black px-5  rounded-lg hover:bg-amber-500 hover:text-black font-bold"
-            }
-            action={() => navigate("/app/practice")}
-          />{" "}
-          <Button
-            name={"Create Exam"}
-            icon={<FaPlus />}
-            style={
-              "flex flex-row-reverse items-center text-lg gap-2 h-10 dark:text-black text-white text-sm text-black px-5  rounded-lg bg-green  font-bold"
-            }
-            action={() => navigate("/app/exam")}
-          />{" "}
-        </div>
-      </div>{" "}
-      <div className="flex flex-wrap gap-4 justify-between">
-        {" "}
-        {dashboard.map((item, idx) => (
-          <motion.div
-            key={idx}
-            className="bg-white dark:bg-black_bg border border-gray-200 dark:border-gray-800 space-y-2  p-4 min-h-30 rounded-2xl w-[48%]  lg:w-[24%] hover:shadow-lg hover:-translate-y-1 duration-700 cursor-pointer"
-            initial={{ opacity: 0, x: 0, scale: 0.1 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{
-              duration: 0.2,
-              delay: idx * 0.2,
-              ease: "easeInOut",
-            }}
-            onClick={() => navigate(item.to)}
+
+        <div className="flex flex-col gap-2 sm:flex-row">
+          <button
+            type="button"
+            onClick={() => navigate("/app/question-bank")}
+            className="flex min-h-11 items-center justify-center gap-2 rounded-2xl border border-gray-300 px-5 font-bold text-black transition-all duration-300 hover:border-green hover:text-green dark:border-gray-700 dark:text-white"
           >
-            {item.icon}
-            <p className="text-black dark:text-white font-bold text-2xl w-12 text-center ">
-              {" "}
-              {item.score}
+            <FiFileText />
+            Add Question
+          </button>
+          <button
+            type="button"
+            onClick={() => navigate("/app/manage-exam")}
+            className="flex min-h-11 items-center justify-center gap-2 rounded-2xl bg-green px-5 font-bold text-white transition-all duration-300 hover:shadow-lg hover:shadow-green/20 dark:text-black"
+          >
+            <FiPlus />
+            Create Exam
+          </button>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        {dashboardCards.map((item, index) => (
+          <motion.button
+            key={item.name}
+            type="button"
+            onClick={() => navigate(item.to)}
+            className="rounded-2xl border border-gray-200 bg-white p-5 text-left transition-all duration-500 hover:-translate-y-1 hover:shadow-lg dark:border-gray-800 dark:bg-black_bg"
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.25, delay: index * 0.06 }}
+          >
+            <span className="flex size-12 items-center justify-center rounded-xl bg-green/10 text-2xl text-green">
+              {item.icon}
+            </span>
+            <p className="mt-4 text-3xl font-bold text-black dark:text-white">
+              {item.value}
             </p>
-            <p className="dark:text-gray-400 text-gray-700"> {item.name}</p>
-          </motion.div>
+            <p className="mt-1 text-gray-600 dark:text-gray-300">{item.name}</p>
+          </motion.button>
         ))}
       </div>
-      <div className="flex justify-between gap-4 lg:gap-0 flex-wrap">
-        {" "}
-        <div
-          className={`lg:w-[66%] w-full bg-white dark:bg-black_bg border border-gray-200 dark:border-gray-800 space-y-2  p-5 min-h-30 rounded-2xl transition-all duration-700`}
-        >
-          <div className="flex justify-between">
-            {" "}
-            <div className="flex gap-2">
-              <FiCalendar className="text-2xl text-green" />{" "}
-              <p className="font-bold text-lg dark:text-white"> Recent Exams</p>
+
+      <div className="grid grid-cols-1 gap-5 xl:grid-cols-[1fr_360px]">
+        <section className="rounded-2xl border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-black_bg sm:p-5">
+          <div className="mb-4 flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <FiCalendar className="text-2xl text-green" />
+              <p className="text-lg font-bold text-black dark:text-white">
+                Recent Exams
+              </p>
             </div>
-            <p className="text-green font-semibold">
-              {" "}
-              <Link to={"/app/manage-exam"}> View All</Link>
-            </p>
+            <Link
+              to="/app/manage-exam"
+              className="font-bold text-green hover:underline"
+            >
+              View All
+            </Link>
           </div>
 
-          <table className="w-full">
-            <thead>
-              <tr className=" w-full text-gray-700 h-10 dark:text-gray-400 font-bold">
-                <td className="w-[39%] lg:w-[25%]  "> Exam Title</td>
-                <td className="w-[29%] lg:w-[15%]"> Class</td>
-                <td className="w-[29%] lg:w-[15%]"> Status</td>
-                <td className="lg:table-cell hidden lg:w-[15%]"> Questions</td>
-                <td className="hidden lg:table-cell lg:w-[15%]"> Actions</td>
-              </tr>
-            </thead>
-            <tbody>
-              {demoExams.slice(0, 5).map((exam, idx) => {
-                const ongoing = "ongoing";
-                const { status } = getExamStatus(exam);
-                return (
-                  <tr
-                    key={idx}
-                    className="h-15 border-b border-gray-200 dark:border-gray-700"
+          <div className="grid grid-cols-1 gap-3">
+            {initialTutorExams.map((exam) => (
+              <div
+                key={exam.id}
+                className="flex flex-col justify-between gap-3 rounded-2xl border border-gray-200 bg-white_bg p-4 dark:border-gray-800 dark:bg-black sm:flex-row sm:items-center"
+              >
+                <div>
+                  <p className="font-bold text-black dark:text-white">
+                    {exam.title}
+                  </p>
+                  <p className="text-gray-600 dark:text-gray-300">
+                    {exam.className} - {exam.subject} -{" "}
+                    {exam.selectedQuestions.length} questions
+                  </p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <p
+                    className={`rounded-full px-3 py-1 text-sm font-bold ${getStatusStyle(
+                      exam.status,
+                    )}`}
                   >
-                    <td className="w-[39%] lg:w-[25%] ">
-                      <p className="dark:text-white font-bold text-ellipsis">
-                        {exam?.type}
-                      </p>
-                      <p className="text-gray-700 dark:text-gray-400">
-                        {exam.name}
-                      </p>
-                    </td>
-                    <td className="w-[29%] lg:w-[15%] text-gray-600 dark:text-gray-400 ">
-                      {exam?.class}
-                    </td>
-                    <td className={`w-[29%] lg:w-[15%] `}>
-                      <p
-                        className={`text-center w px-3 rounded-full w-max ${status == "completed" ? "text-gray-500 bg-gray-100 dark:bg-gray-700 dark:text-gray-300" : status == "upcoming" ? "bg-amber-100 dark:bg-amber_deep/20 text-amber-500  " : " text-green bg-green/10"}`}
-                      >
-                        {status}
-                      </p>
-                    </td>
-                    <td className="hidden lg:table-cell lg:w-[15%] text-gray-600 dark:text-gray-400">
-                      {exam?.noQuestions}
-                    </td>
-                    <td className="hidden lg:table-cell lg:w-[15%]">
-                      <CiEdit className="text-xl text-black dark:text-white" />
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>{" "}
-        <div className="relative w-full lg:w-[33%] ">
-          <div className=" bg-white dark:bg-black_bg border border-gray-200 dark:border-gray-800 space-y-2  p-5 min-h-70 rounded-2xl ">
-            {" "}
-            <div className="flex gap-2">
-              <AiOutlineThunderbolt className="text-2xl text-green" />{" "}
-              <p className="font-bold text-lg dark:text-white">
-                {" "}
+                    {exam.status}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => navigate("/app/manage-exam")}
+                    className="flex size-10 items-center justify-center rounded-xl border border-gray-200 text-black transition-all duration-300 hover:border-green hover:text-green dark:border-gray-700 dark:text-white"
+                  >
+                    <FiChevronRight />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="space-y-4">
+          <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-black_bg">
+            <div className="mb-4 flex items-center gap-2">
+              <FiPlus className="text-2xl text-green" />
+              <p className="text-lg font-bold text-black dark:text-white">
                 Quick Actions
               </p>
             </div>
-            <div className=" min-h-[40] space-y-2">
-              {" "}
-              {quickAction.map((action, idx) => (
-                <div
-                  key={idx}
+            <div className="space-y-3">
+              {quickActions.map((action) => (
+                <button
+                  key={action.label}
+                  type="button"
                   onClick={() => navigate(action.to)}
-                  className="flex items-center justify-between bg-white_bg dark:bg-black_bg border dark:text-white border-gray-200 dark:border-gray-800   p-4  w-full h-15 rounded-2xl hover:shadow-lg hover:-translate-y-0.5 duration-700 font-semibold"
+                  className={`flex min-h-14 w-full items-center justify-between rounded-2xl px-4 font-bold transition-all duration-300 ${
+                    action.primary
+                      ? "bg-green text-white hover:shadow-lg hover:shadow-green/20 dark:text-black"
+                      : "border border-gray-200 bg-white_bg text-black hover:border-green hover:text-green dark:border-gray-800 dark:bg-black dark:text-white"
+                  }`}
                 >
-                  {" "}
-                  <div className="flex gap-4 items-center h-full">
+                  <span className="flex items-center gap-3">
                     {action.icon}
-                    <p className="">{action.action}</p>
-                  </div>
-                  <p>
-                    {" "}
-                    <FaAngleRight className="text-sm h-full" />
-                  </p>
-                </div>
+                    {action.label}
+                  </span>
+                  <FiChevronRight />
+                </button>
               ))}
             </div>
           </div>
-          <div className="mt-4 bg-white dark:bg-black_bg  border-green border p-5 min-h-40 rounded-2xl ">
-            {" "}
-            <div className="flex gap-3 items-center h-6  font-semibold  text-green">
-              {" "}
-              <GoDotFill className=" animate-pulse " /> <p> Exam in Progress</p>
+
+          <div className="rounded-2xl border border-green bg-white p-5 dark:bg-black_bg">
+            <div className="flex items-center gap-2 text-green">
+              <span className="size-2 animate-pulse rounded-full bg-green" />
+              <p className="font-bold">Published Exam</p>
             </div>
-            <div className="mt-2 space-y-2 text-black dark:text-white">
-              <p className="font-bold">{demoExams[0].type} </p>
-              <p> 32 students currently taking this exam</p>{" "}
-              <Button
-                name={"Monitor Live"}
-                style={
-                  "flex justify-center text-white dark:text-black items-center gap-3 font-bold w-full   h-10  bg-green rounded-lg"
-                }
-                icon={<IoEyeOutline />}
-                type={"submit"}
-                action={() => navigate("/app/manage-exam")}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="lg:flex space-y-3 lg:space-y-0 justify-between">
-        {" "}
-        <div className="relative lg:w-[32%] w-full bg-white dark:bg-black_bg border border-gray-200 dark:border-gray-800 space-y-2  p-5 min-h-70 rounded-2xl ">
-          <div className=" flex justify-between items-center h-6">
-            {" "}
-            <div className="flex gap-3 w-[65%] items-center h-6">
-              <CgDanger className="text-amber-500 text-2xl" />{" "}
-              <p className="text-black dark:text-white font-bold text-sm ">
-                {" "}
-                Students Needing Attentions{" "}
-              </p>
-            </div>{" "}
-            <p className="bg-amber-100 dark:bg-amber_deep/20  text-amber-500 w-max px-2 py-1 rounded-2xl">
-              {" "}
-              0 Students
+            <p className="mt-3 font-bold text-black dark:text-white">
+              {publishedExams[0]?.title || "No published exam yet"}
+            </p>
+            <p className="mt-1 text-gray-600 dark:text-gray-300">
+              {publishedExams[0]
+                ? `${publishedExams[0].className} ${publishedExams[0].subject}`
+                : "Publish a draft exam when it is ready for students."}
             </p>
           </div>
-          <div className="absolute w-11/12 left-1/2 bottom-3">
-            {" "}
-            <Button
-              name={"View All Students"}
-              style={
-                "-translate-x-1/2 w-full  flex items-center justify-center  gap-3 h-10  text-black dark:text-white font-semibold"
-              }
-              action={() => navigate("/app/students")}
-              icon={<FaAngleRight />}
-            />
+        </section>
+      </div>
+
+      <div className="grid grid-cols-1 gap-5 xl:grid-cols-3">
+        <section className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-black_bg">
+          <div className="mb-4 flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <FiAlertTriangle className="text-2xl text-amber-500" />
+              <p className="font-bold text-black dark:text-white">
+                Needs Attention
+              </p>
+            </div>
+            <p className="rounded-full bg-amber-100 px-3 py-1 text-sm font-bold text-amber-600 dark:bg-amber_deep/20">
+              {studentsNeedingAttention.length}
+            </p>
           </div>
-        </div>{" "}
-        <div className="lg:w-[32%] w-full bg-white dark:bg-black_bg border border-gray-200 dark:border-gray-800 space-y-2  p-5 min-h-70 rounded-2xl ">
-          <div className="flex gap-3 w-[65%] items-center h-6">
-            <FiUsers className="text-green text-2xl" />{" "}
-            <p className="text-black dark:text-white font-bold text-sm ">
-              {" "}
-              Class Performance{" "}
-            </p>{" "}
+          <div className="space-y-3">
+            {studentsNeedingAttention.map((student) => (
+              <div
+                key={student.name}
+                className="rounded-2xl bg-white_bg p-4 dark:bg-black"
+              >
+                <p className="font-bold text-black dark:text-white">
+                  {student.name}
+                </p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">
+                      {student.className} {student.subject} - {student.score}%
+                </p>
+              </div>
+            ))}
           </div>
-          {classPerformance.map((cp, idx) => (
-            <div
-              key={idx}
-              className="flex flex-col space-y-3 my-4 dark:text-white font-bold"
-            >
-              <div className="flex justify-between">
-                <div className="flex gap-4">
-                  <p> {cp.class}</p>{" "}
-                  <p className="w-max px-2 border border-gray-200 dark:border-gray-700 rounded-full text-sm">
-                    {cp.noStudent} students
-                  </p>{" "}
-                </div>{" "}
-                <div className="flex gap-2 h-full items-center text-green">
-                  {" "}
+        </section>
+
+        <section className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-black_bg">
+          <div className="mb-4 flex items-center gap-2">
+            <FiBarChart2 className="text-2xl text-green" />
+            <p className="font-bold text-black dark:text-white">
+              Class Performance
+            </p>
+          </div>
+          <div className="space-y-4">
+            {classPerformance.map((item) => (
+              <div key={`${item.className}-${item.subject}`} className="space-y-2">
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <p className="font-bold text-black dark:text-white">
+                      {item.className} {item.subject}
+                    </p>
+                    <p className="text-sm text-gray-600 dark:text-gray-300">
+                      {item.students} students - {item.passRate}% pass rate
+                    </p>
+                  </div>
                   <p
-                    className={`font-bold  ${cp.score < 50 ? "text-red-500" : ""}`}
+                    className={`rounded-full px-3 py-1 text-sm font-bold ${
+                      item.change < 0
+                        ? "bg-red-100 text-red-600 dark:bg-red-950/30"
+                        : "bg-green/10 text-green"
+                    }`}
                   >
-                    {cp.score} %
+                    {item.change > 0 ? "+" : ""}
+                    {item.change}%
                   </p>
-                  <div
-                    className={`flex h-full items-center text-sm px-2 gap-2 rounded-full ${cp.percentIncrease < 0 ? "text-red-600 bg-red-200 dark:bg-red-400/30" : "bg-green/20"}`}
-                  >
-                    {" "}
-                    <FaArrowTrendUp
-                      className={`${cp.percentIncrease < 0 ? "rotate-180" : ""}`}
-                    />{" "}
-                    <p>{Math.abs(cp.percentIncrease)}%</p>
+                </div>
+                <div className="h-2 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-800">
+                  <motion.div
+                    className="h-full rounded-full bg-green"
+                    initial={{ width: 0 }}
+                    animate={{ width: `${item.average}%` }}
+                    transition={{ duration: 0.6 }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-black_bg">
+          <div className="mb-4 flex items-center gap-2">
+            <FiUsers className="text-2xl text-green" />
+            <p className="font-bold text-black dark:text-white">
+              Top Performers
+            </p>
+          </div>
+          <div className="space-y-3">
+            {topPerformers.map((student, index) => (
+              <div
+                key={student.name}
+                className="flex items-center justify-between rounded-2xl bg-white_bg p-4 dark:bg-black"
+              >
+                <div className="flex items-center gap-3">
+                  <p className="flex size-10 items-center justify-center rounded-full bg-green/10 font-bold text-green">
+                    {index + 1}
+                  </p>
+                  <div>
+                    <p className="font-bold text-black dark:text-white">
+                      {student.name}
+                    </p>
+                    <p className="text-sm text-gray-600 dark:text-gray-300">
+                      {student.className} {student.subject}
+                    </p>
                   </div>
                 </div>
+                <p className="font-bold text-green">{student.score}%</p>
               </div>
-              <div className="w-full h-2 bg-amber-500 rounded-full overflow-hidden">
-                {/* Fill */}
-                <motion.div
-                  className={`h-full ${cp.score < 50 ? "bg-red-500" : "bg-emerald-400"}`}
-                  initial={{ width: 0 }}
-                  animate={{ width: `${cp?.score}%` }}
-                  transition={{ ease: "easeInOut", duration: 0.6 }}
-                />
-              </div>
-              <div className="flex gap-2 text-xs ">
-                {" "}
-                Pass Rate{" "}
-                <p
-                  className={`${cp.passrate < 50 ? "text-red-500" : " text-green"}`}
-                >
-                  {cp?.passrate}%
-                </p>{" "}
-              </div>
-            </div>
-          ))}
-        </div>{" "}
-        <div className="lg:w-[32%] w-full bg-white dark:bg-black_bg border border-gray-200 dark:border-gray-800 space-y-4  p-5 min-h-70 rounded-2xl ">
-          <div className="flex gap-3 w-[65%] items-center h-6">
-            <GiPodiumWinner className="text-amber-500 text-2xl" />{" "}
-            <p className="text-black dark:text-white font-bold text-sm ">
-              {" "}
-              Top Performers{" "}
-            </p>{" "}
+            ))}
           </div>
-          {topPerformance.map((top, idx) => (
-            <div
-              key={idx}
-              className="flex items-center justify-between px-2 dark:bg-gray-800 bg-gray-100 h-15 rounded-xl"
-            >
-              {" "}
-              <div className="flex gap-2 items-center">
-                {" "}
-                <p
-                  className={`flex justify-center items-center font-bold size-10 rounded-full ${idx + 1 === 1 ? "bg-amber-500" : idx + 1 === 2 ? "bg-pink-500" : idx + 1 === 3 ? "dark:bg-white bg-yellow-900 " : "dark:bg-gray-400 bg-gray-200"} `}
-                >
-                  {idx + 1}
-                </p>
-                <div>
-                  <p className="font-bold text-black dark:text-white">
-                    {top.name}
-                  </p>
-                  <p className="dark:text-gray-400 text-gray-600">
-                    {top.class}
-                  </p>
-                </div>
-              </div>
-              <div className="flex flex-col items-center text-green font-bold">
-                {" "}
-                <p>{top.score}%</p>{" "}
-                <p
-                  className={`flex gap-2 text-xs ${top.increment < 0 ? "text-red-500" : ""}`}
-                >
-                  <FaArrowTrendUp
-                    className={`${top.increment < 0 ? "rotate-180" : ""}`}
-                  />{" "}
-                  <p> {Math.abs(top.increment)}%</p>
-                </p>
-              </div>
-            </div>
-          ))}{" "}
-        </div>
+        </section>
       </div>
     </div>
   );

@@ -5,7 +5,6 @@ import { globalContext } from "../../context/globalcontext";
 const ComingSoon = () => {
   const { role } = useContext(globalContext);
 
-  console.log(role);
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-64px)] bg-peach px-6 relative overflow-hidden">
       {/* Soft Background Decor */}

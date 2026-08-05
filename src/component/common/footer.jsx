@@ -14,7 +14,6 @@ export default function Footer() {
   const [toggleDarkMode] = useDarkMode();
   const { darkmode } = useContext(globalContext);
 
-  console.log(year);
   const navigate = useNavigate();
   return (
     <>

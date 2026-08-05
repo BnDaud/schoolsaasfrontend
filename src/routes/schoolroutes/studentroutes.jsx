@@ -5,6 +5,8 @@ import Progress from "../../pages/schoolpages/studentpages/studentprogress";
 import Practice from "../../pages/schoolpages/studentpages/studentpractice";
 import Exam from "../../pages/schoolpages/studentpages/studentexams";
 import NotAllowed from "../../pages/Restricted/restricted";
+import ExamPage from "../../component/exam/exampage";
+import PracticeQuestion from "../../component/practice/practiceQuestion";
 
 export default function StudentRoutes() {
   return (
@@ -12,7 +14,9 @@ export default function StudentRoutes() {
       {" "}
       <Route path="student-dashboard" element={<Dashboard />} />{" "}
       <Route path="exam" element={<Exam />} />
+      <Route path="exam/:id" element={<ExamPage />} />
       <Route path="practice" element={<Practice />} />
+      <Route path="practice/:id" element={<PracticeQuestion />} />
       <Route path="results" element={<Result />} />
       <Route path="progress" element={<Progress />} />
       <Route path="*" element={<NotAllowed />} />

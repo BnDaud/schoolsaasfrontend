@@ -163,7 +163,9 @@ export default function Exams() {
                   }
                   iconStyle={"rotate-180"}
                   action={() =>
-                    navigate("/app/exams", { state: { examId: detail.id } })
+                    navigate(`/app/exam/${detail.id}`, {
+                      state: { detail },
+                    })
                   }
                   icon={<IoMdArrowRoundBack />}
                 />

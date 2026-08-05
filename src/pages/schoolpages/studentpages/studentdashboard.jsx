@@ -52,7 +52,6 @@ export default function Dashboard() {
       (p) => getExamStatus(p).status != "completed",
     );
     // upcoming variable returns exams that ongoing or yet to be done
-    console.log(upComing);
 
     return upComing;
   };
