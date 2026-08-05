@@ -3,7 +3,8 @@ import { FaRegBell } from "react-icons/fa";
 import { PiList } from "react-icons/pi";
 import { globalContext } from "../../context/globalcontext";
 export default function StatusBanner({ open }) {
-  const { name, schoolName, role } = useContext(globalContext);
+  const { name, schoolName, role, brand } = useContext(globalContext);
+  const displayName = role === "SuperAdmin" ? brand?.brandName : schoolName;
   return (
     <div className="fixed top-0 z-30  flex h-[10vh]  items-center xl:w-5/6 w-full   bg-white dark:bg-black_bg border-b border-gray-200 dark:border-gray-700  transition-all duration-700">
       <p
@@ -17,7 +18,7 @@ export default function StatusBanner({ open }) {
         {" "}
         <div>
           <p className="font-semibold text-xl text-black dark:text-white">
-            {schoolName}
+            {displayName}
           </p>
           <p className="text-gray-700 dark:text-gray-300">{role} Dashboard</p>
         </div>
@@ -30,9 +31,11 @@ export default function StatusBanner({ open }) {
             </p>
           </div>
           <div className="flex gap-3 h-full items-center">
-            <p className="flex items-center justify-center text-2xl font-bold rounded-full size-10 bg-green">
-              {" "}
-              A{" "}
+            <p
+              className="flex items-center justify-center text-2xl font-bold rounded-full size-10 text-white"
+              style={{ backgroundColor: "var(--brand-color)" }}
+            >
+              {name?.[0] || "A"}
             </p>{" "}
             <p className="text-lg font-semibold w-3/5 truncate"> {name}</p>
           </div>

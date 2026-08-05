@@ -1,6 +1,12 @@
 import React, { useContext, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { SchoolLogo, studentNav, tutorNav } from "../../utils/constant";
+import {
+  adminNav,
+  SchoolLogo,
+  studentNav,
+  superAdminNav,
+  tutorNav,
+} from "../../utils/constant";
 import { IoExitOutline } from "react-icons/io5";
 import { LuMoon, LuSun } from "react-icons/lu";
 import { globalContext } from "../../context/globalcontext";
@@ -8,9 +14,16 @@ import Button from "../ui/button";
 import useDarkMode from "../../hooks/darkmode";
 
 export default function Sidenav() {
-  const { darkmode, role } = useContext(globalContext);
+  const { darkmode, role, brand } = useContext(globalContext);
   const [toggleDarkMode] = useDarkMode();
-  const navItem = role === "Student" ? studentNav : tutorNav;
+  const navItem =
+    role === "Student"
+      ? studentNav
+      : role === "Admin"
+        ? adminNav
+        : role === "SuperAdmin"
+          ? superAdminNav
+          : tutorNav;
 
   return (
     <div className="w-full bg-white dark:bg-black_bg h-full transition-all duration-700">
@@ -18,7 +31,21 @@ export default function Sidenav() {
         {" "}
         <div className="flex items-center justify-center px-4  h-[10vh] border-b  border-gray-200 dark:border-gray-700 ">
           {" "}
-          {SchoolLogo("w-45 ")}
+          {brand?.logoUrl ? (
+            <div className="flex items-center gap-2">
+              <img src={brand.logoUrl} alt={brand.brandName} className="w-10 rounded-lg object-cover" />
+              <p className="font-bold text-black dark:text-white">{brand.brandName}</p>
+            </div>
+          ) : role === "SuperAdmin" ? (
+            <div
+              className="flex size-10 items-center justify-center rounded-lg font-bold text-white"
+              style={{ backgroundColor: "var(--brand-color)" }}
+            >
+              {brand?.brandName?.[0] || "M"}
+            </div>
+          ) : (
+            SchoolLogo("w-45 ")
+          )}
         </div>
         <div className="flex-1  ">
           <ul className="px-4 space-y-3 pt-6">
@@ -26,8 +53,11 @@ export default function Sidenav() {
               <li key={idx}>
                 <NavLink
                   to={item.href}
+                  style={({ isActive }) =>
+                    isActive ? { backgroundColor: "var(--brand-color)" } : undefined
+                  }
                   className={({ isActive }) =>
-                    `flex h-11 items-center gap-5 px-4 rounded-xl  ${isActive ? "bg-green  text-white dark:text-black" : "hover:bg-amber-500 hover:text-black  dark:text-gray-400 text-gray-500 "}`
+                    `flex h-11 items-center gap-5 px-4 rounded-xl  ${isActive ? "text-white dark:text-black" : "hover:bg-amber-500 hover:text-black  dark:text-gray-400 text-gray-500 "}`
                   }
                 >
                   {" "}
