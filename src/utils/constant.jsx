@@ -653,20 +653,80 @@ export const tutorNav = [
   },
 
   {
-    name: "Performance",
+    name: "Insights",
     icon: <GiHistogram className="text-xl" />,
     href: "/app/performance",
-  },
-
-  {
-    name: "Analytics",
-    icon: <FaArrowTrendUp className="text-xl" />,
-    href: "/app/analytics",
   },
   {
     name: "Books",
     icon: <RiBookShelfLine className="text-xl" />,
     href: "/app/books",
+  },
+  {
+    name: "Leaderboard",
+    icon: <GoTrophy className="text-xl" />,
+    href: "/app/leaderboard",
+  },
+];
+
+export const adminNav = [
+  {
+    name: "Dashboard",
+    icon: <IoHomeOutline className="text-xl" />,
+    href: "/app/admin-dashboard",
+  },
+  {
+    name: "Users",
+    icon: <FiUsers className="text-xl" />,
+    href: "/app/admin-users",
+  },
+  {
+    name: "Classes",
+    icon: <FaRegFolderOpen className="text-xl" />,
+    href: "/app/admin-classes",
+  },
+  {
+    name: "Tutors",
+    icon: <RiGroupLine className="text-xl" />,
+    href: "/app/admin-tutors",
+  },
+  {
+    name: "Exams",
+    icon: <LuClipboardList className="text-xl" />,
+    href: "/app/admin-exams",
+  },
+  {
+    name: "Question Bank",
+    icon: <IoDocumentTextOutline className="text-xl" />,
+    href: "/app/admin-question-bank",
+  },
+  {
+    name: "Insights",
+    icon: <GiHistogram className="text-xl" />,
+    href: "/app/admin-insights",
+  },
+  {
+    name: "Settings",
+    icon: <MdOutlineSettings className="text-xl" />,
+    href: "/app/admin-settings",
+  },
+];
+
+export const superAdminNav = [
+  {
+    name: "Dashboard",
+    icon: <IoHomeOutline className="text-xl" />,
+    href: "/matlearn/super-admin-dashboard",
+  },
+  {
+    name: "Tenants",
+    icon: <HiOutlineOfficeBuilding className="text-xl" />,
+    href: "/matlearn/super-admin-tenants",
+  },
+  {
+    name: "Settings",
+    icon: <MdOutlineSettings className="text-xl" />,
+    href: "/matlearn/super-admin-settings",
   },
 ];
 
@@ -716,7 +776,7 @@ export const demoExams = [
     duration: 120,
     noQuestions: 60,
     class: "SS2",
-    negMark: true,
+    negMark: false,
     eqMark: true,
     dateTime: "2026-10-10T09:00:00",
     closesAt: "2026-10-10T12:00:00",

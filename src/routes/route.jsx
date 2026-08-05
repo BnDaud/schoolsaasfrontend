@@ -19,6 +19,12 @@ import Auth from "../layouts/authlayout/auth";
 import SchoolLoginPage from "../pages/Authpages/schoolLoginpage";
 import SchoolRegister from "../pages/Authpages/schoolRegister";
 
+// MatLearn platform operator (the SaaS itself, not a tenant). Lives outside /app/
+// on purpose — /app/ is per-tenant (school) space; /matlearn/ is the operator space
+// that creates and manages every tenant.
+import SuperAdminRoutes from "./schoolroutes/superadminroutes";
+import ProtectedRoute from "./schoolroutes/protectedRoutes";
+
 export const CustomRoutes = (
   <>
     {/* Public Pages*/}
@@ -35,6 +41,17 @@ export const CustomRoutes = (
       <Route path="*" element={<RoleBaseRoute />} />
       <Route path="leaderboard" element={<Leaderboard />} />{" "}
       <Route path="books" element={<Books />} />
+    </Route>
+    {/* MatLearn (platform operator, not a tenant) */}
+    <Route path="/matlearn/" element={<SchoolDashboard />}>
+      <Route
+        path="*"
+        element={
+          <ProtectedRoute allowedRole="SuperAdmin">
+            <SuperAdminRoutes />
+          </ProtectedRoute>
+        }
+      />
     </Route>
     {/* Auth Page */}
     <Route path="/auth/" element={<Auth />}>

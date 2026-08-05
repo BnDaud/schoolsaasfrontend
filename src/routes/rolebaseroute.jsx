@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { globalContext } from "../context/globalcontext";
+import AdminRoutes from "./schoolroutes/adminroutes";
 import StudentRoutes from "./schoolroutes/studentroutes";
 import TutorRoutes from "./schoolroutes/tutorroutes";
 
@@ -18,7 +19,13 @@ export default function RoleBaseRoute() {
   if (role === "Tutor")
     return (
       <ProtectedRoute allowedRole="Tutor">
-        <TutorRoutes />;
+        <TutorRoutes />
+      </ProtectedRoute>
+    );
+  if (role === "Admin")
+    return (
+      <ProtectedRoute allowedRole="Admin">
+        <AdminRoutes />
       </ProtectedRoute>
     );
   return <NotAllowed />;
