@@ -3,20 +3,19 @@ import { FaArrowLeft, FaRegUser } from "react-icons/fa6";
 import { MdOutlineWbSunny } from "react-icons/md";
 import { BsMoon } from "react-icons/bs";
 import { globalContext } from "../../context/globalcontext";
-import { tenantContext } from "../../app/tenant-provider";
 import useDarkMode from "../../hooks/darkmode";
 import Button from "../../component/ui/button";
-import { SchoolLogo } from "../../utils/constant";
+import { AppName, SchoolLogo } from "../../utils/constant";
 import Input from "../../component/ui/input";
 import { GiPadlockOpen } from "react-icons/gi";
 import { findUserByEmail } from "../../mocks/users";
 import { Link, useNavigate } from "react-router-dom";
 
-const SCHOOL_ROLES = ["Admin", "Tutor", "Student"];
-
-export default function SchoolLoginPage() {
-  const { darkmode, setRole, setName, setSchoolName } = useContext(globalContext);
-  const { tenantType, tenantId, tenant } = useContext(tenantContext);
+// Independent-learner login for the public MatLearn platform (matlearn.com),
+// distinct host/session from any school tenant's /auth/login per
+// MATLEARN_ROADMAP.md §4.1/§6.
+export default function LearnerLoginPage() {
+  const { darkmode, setRole, setName } = useContext(globalContext);
   const [toggleDarkMode] = useDarkMode();
   const navigate = useNavigate();
 
@@ -27,37 +26,29 @@ export default function SchoolLoginPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (tenantType !== "school" || !tenantId) {
-      setError("No school selected for this address. Open this page from a school's own login link.");
-      return;
-    }
-
     // BACKEND: POST /api/auth/login { email, password } -> { token }; token's
-    // tenantId must match the resolved host's tenant (MATLEARN_ROADMAP.md §14).
-    // Password is unchecked here — no backend yet, any non-empty value passes.
+    // tenantId must be null (independent learner), never a school tenantId.
     const user = findUserByEmail(email);
-    if (!user || user.tenantId !== tenantId || !SCHOOL_ROLES.includes(user.role)) {
-      setError("Invalid email or password for this school.");
+    if (!user || user.role !== "Learner" || user.tenantId !== null) {
+      setError("Invalid email or password.");
       return;
     }
 
     setRole(user.role);
     setName(user.name);
-    setSchoolName(tenant?.name ?? "");
-    navigate("/app/");
+    navigate("/");
   };
 
   return (
     <div className="p-[5%] dark:bg-black min-h-screen w-full transition-all duration-700">
       <div className="flex items-center justify-between w-full min-h-5 mb-10">
-        {" "}
         <p
           className="flex gap-3 min-h-3 items-center dark:text-gray-400 text-gray-700 cursor-pointer"
           onClick={() => navigate("/")}
         >
           <FaArrowLeft />
           <p> Back to Home</p>
-        </p>{" "}
+        </p>
         {darkmode ? (
           <Button
             icon={<BsMoon className="text-xl" />}
@@ -75,24 +66,19 @@ export default function SchoolLoginPage() {
         )}
       </div>
 
-      <div className="flex w-full  justify-center">
-        {" "}
-        <div className="flex flex-col  items-center space-y-3 md:w-2/3 w-full">
+      <div className="flex w-full justify-center">
+        <div className="flex flex-col items-center space-y-3 md:w-2/3 w-full">
           {SchoolLogo("size-30")}
           <p className="text-black dark:text-white font-bold text-2xl">
             Welcome Back
-          </p>{" "}
-          <p className="text-gray-700 dark:text-gray-400">
-            {" "}
-            Sign in to your portal
           </p>
-          <form className="w-full space-y-8 mt-5 " onSubmit={handleSubmit}>
-            {" "}
+          <p className="text-gray-700 dark:text-gray-400">Sign in to {AppName}</p>
+          <form className="w-full space-y-8 mt-5" onSubmit={handleSubmit}>
             <Input
               name={"email"}
               label={"Email Address"}
               required={true}
-              placeholder={"Reg/No or Email"}
+              placeholder={"you@example.com"}
               width={"w-full"}
               type={"email"}
               value={email}
@@ -100,11 +86,7 @@ export default function SchoolLoginPage() {
               icon={<FaRegUser className="text-lg" />}
             />
             <div className="relative w-full">
-              <Link
-                to={"/auth/forgot-password"}
-                className="absolute text-green top-0 right-1"
-              >
-                {" "}
+              <Link to={"/forgot-password"} className="absolute text-green top-0 right-1">
                 Forgot Password ?
               </Link>
               <Input
@@ -128,11 +110,10 @@ export default function SchoolLoginPage() {
               type={"submit"}
             />
           </form>
-          <p className="mt-3 dark:text-gray-400 text-gray-700 ">
-            Don't have an account ? {""}
-            <Link to={"/auth/register"} className="text-green font-bold">
-              {" "}
-              {"  "}Create account
+          <p className="mt-3 dark:text-gray-400 text-gray-700">
+            Don't have an account?{" "}
+            <Link to={"/register"} className="text-green font-bold">
+              Create account
             </Link>
           </p>
         </div>

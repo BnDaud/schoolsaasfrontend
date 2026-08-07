@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Route } from "react-router-dom";
 
 import Home from "../pages/landingpages/home";
@@ -18,6 +18,9 @@ import Books from "../pages/schoolpages/commonpages/books";
 import Auth from "../layouts/authlayout/auth";
 import SchoolLoginPage from "../pages/Authpages/schoolLoginpage";
 import SchoolRegister from "../pages/Authpages/schoolRegister";
+import ForgotPasswordPage from "../pages/Authpages/forgotPasswordPage";
+import LearnerLoginPage from "../pages/Authpages/learnerLoginpage";
+import LearnerRegisterPage from "../pages/Authpages/learnerRegisterpage";
 
 // MatLearn platform operator (the SaaS itself, not a tenant). Lives outside /app/
 // on purpose — /app/ is per-tenant (school) space; /matlearn/ is the operator space
@@ -53,11 +56,24 @@ export const CustomRoutes = (
         }
       />
     </Route>
-    {/* Auth Page */}
+    {/* Auth Page (school tenant) */}
     <Route path="/auth/" element={<Auth />}>
       <Route path="login" element={<SchoolLoginPage />} />
       <Route path="register" element={<SchoolRegister />} />
+      <Route
+        path="forgot-password"
+        element={<ForgotPasswordPage backHref="/auth/login" loginHref="/auth/login" />}
+      />
     </Route>{" "}
+    {/* Auth Pages (public MatLearn, independent learner) */}
+    <Route element={<Auth />}>
+      <Route path="/login" element={<LearnerLoginPage />} />
+      <Route path="/register" element={<LearnerRegisterPage />} />
+      <Route
+        path="/forgot-password"
+        element={<ForgotPasswordPage backHref="/login" loginHref="/login" />}
+      />
+    </Route>
     {/* Not Found*/}
     <Route path="*" element={<NotFound />} />
   </>
