@@ -1,13 +1,11 @@
 import React from "react";
 import { Route } from "react-router-dom";
 
-import Home from "../pages/landingpages/home";
 import Features from "../pages/landingpages/features";
-import Contact from "../pages/landingpages/contact";
 import About from "../pages/landingpages/about";
 import Pricing from "../pages/landingpages/pricing";
 import SelfStudy from "../pages/landingpages/selfstudy";
-import LandingPagenav from "../layouts/publiclayout/landingpagenav";
+import { PublicLayoutDispatch, HomeDispatch, ContactDispatch } from "../app/public-site-dispatch";
 
 import SchoolDashboard from "../layouts/dashboardlayout/Schooldashboard";
 
@@ -30,14 +28,16 @@ import ProtectedRoute from "./schoolroutes/protectedRoutes";
 
 export const CustomRoutes = (
   <>
-    {/* Public Pages*/}
-    <Route element={<LandingPagenav />}>
-      <Route path="/" element={<Home />} />
+    {/* Public Pages — layout and content switch by tenantType (school vs
+        public MatLearn) for the paths a school tenant actually has its own
+        version of; see app/public-site-dispatch.jsx */}
+    <Route element={<PublicLayoutDispatch />}>
+      <Route path="/" element={<HomeDispatch />} />
       <Route path="/features" element={<Features />} />
       <Route path="/self-study" element={<SelfStudy />} />
       <Route path="/about" element={<About />} />
       <Route path="pricing" element={<Pricing />} />
-      <Route path="contact" element={<Contact />} />
+      <Route path="contact" element={<ContactDispatch />} />
     </Route>
     {/* School Route */}
     <Route path="/app/" element={<SchoolDashboard />}>

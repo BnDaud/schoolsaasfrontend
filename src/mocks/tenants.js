@@ -12,6 +12,14 @@ const tenants = [
       brandName: "Greenfield Academy",
       faviconUrl: "/vite.svg",
     },
+    publicSite: {
+      motto: "Where Character Meets Excellence",
+      about:
+        "Greenfield Academy has prepared students for WAEC, JAMB, and NECO success since 2005, with a focus on Science and Art tracks from JSS1 through SS3.",
+      address: "12 Greenfield Road, Ikeja, Lagos",
+      email: "info@greenfield.matlearn.com",
+      phone: "+234 801 234 5678",
+    },
   },
   {
     tenantId: "bluecrest",
@@ -22,6 +30,14 @@ const tenants = [
       brandName: "Bluecrest College",
       faviconUrl: "/vite.svg",
     },
+    publicSite: {
+      motto: "Building Global Thinkers",
+      about:
+        "Bluecrest College runs a Grade 7-10 international curriculum with dedicated Science and Humanities tracks, and a strong record in JAMB and WAEC prep.",
+      address: "45 Bluecrest Avenue, Abuja",
+      email: "info@bluecrest.matlearn.com",
+      phone: "+234 802 345 6789",
+    },
   },
   {
     tenantId: "royalheights",
@@ -31,6 +47,14 @@ const tenants = [
       logoUrl: "",
       brandName: "Royal Heights School",
       faviconUrl: "/vite.svg",
+    },
+    publicSite: {
+      motto: "Rising to Every Height",
+      about:
+        "Royal Heights School is a growing JSS1-SS1 school with Science and Art departments, focused on personalized attention in smaller class sizes.",
+      address: "8 Royal Close, Port Harcourt",
+      email: "info@royalheights.matlearn.com",
+      phone: "+234 803 456 7890",
     },
   },
 ];
