@@ -5,6 +5,9 @@ const auditLog = [
   { id: "log1", tenantId: "greenfield", actorId: "greenfield-admin-1", action: "user.created", target: "greenfield-tutor-1", createdAt: "2026-07-20T11:00:00Z" },
   { id: "log2", tenantId: "greenfield", actorId: "greenfield-admin-1", action: "result.released", target: "greenfield-r2", createdAt: "2026-08-01T09:00:00Z" },
   { id: "log3", tenantId: "platform", actorId: "super-1", action: "tenant.created", target: "royalheights", createdAt: "2026-06-15T10:00:00Z" },
+  { id: "log4", tenantId: "bluecrest", actorId: "bluecrest-admin-1", action: "user.created", target: "bluecrest-tutor-1", createdAt: "2026-07-22T13:00:00Z" },
+  { id: "log5", tenantId: "bluecrest", actorId: "bluecrest-admin-1", action: "result.released", target: "bluecrest-r2", createdAt: "2026-08-02T10:00:00Z" },
+  { id: "log6", tenantId: "royalheights", actorId: "royalheights-admin-1", action: "user.created", target: "royalheights-tutor-1", createdAt: "2026-07-25T09:00:00Z" },
 ];
 
 export function listAuditLogForTenant(tenantId) {

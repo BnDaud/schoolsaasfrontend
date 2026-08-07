@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import AdminClasses from "../../pages/schoolpages/adminpages/adminclasses";
 import AdminSessions from "../../pages/schoolpages/adminpages/adminsessions";
+import AdminAuditLog from "../../pages/schoolpages/adminpages/adminauditlog";
 import AdminDashboard from "../../pages/schoolpages/adminpages/admindashboard";
 import AdminExams from "../../pages/schoolpages/adminpages/adminexams";
 import AdminInsights from "../../pages/schoolpages/adminpages/admininsights";
@@ -17,6 +18,7 @@ export default function AdminRoutes() {
       <Route path="admin-users" element={<AdminUsers />} />
       <Route path="admin-classes" element={<AdminClasses />} />
       <Route path="admin-sessions" element={<AdminSessions />} />
+      <Route path="admin-audit-log" element={<AdminAuditLog />} />
       <Route path="admin-tutors" element={<AdminTutors />} />
       <Route path="admin-exams" element={<AdminExams />} />
       <Route path="admin-question-bank" element={<AdminQuestionBank />} />
