@@ -15,7 +15,8 @@ import { Link, useNavigate } from "react-router-dom";
 const SCHOOL_ROLES = ["Admin", "Tutor", "Student"];
 
 export default function SchoolLoginPage() {
-  const { darkmode, setRole, setName, setSchoolName, setClassId } = useContext(globalContext);
+  const { darkmode, setRole, setName, setSchoolName, setClassId, setAssignedClassIds, setAssignedSubjectIds } =
+    useContext(globalContext);
   const { tenantType, tenantId, tenant } = useContext(tenantContext);
   const [toggleDarkMode] = useDarkMode();
   const navigate = useNavigate();
@@ -45,6 +46,8 @@ export default function SchoolLoginPage() {
     setName(user.name);
     setSchoolName(tenant?.name ?? "");
     setClassId(user.classId ?? null);
+    setAssignedClassIds(user.assignedClassIds ?? []);
+    setAssignedSubjectIds(user.assignedSubjectIds ?? []);
     navigate("/app/");
   };
 

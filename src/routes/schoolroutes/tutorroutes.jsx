@@ -8,6 +8,7 @@ import Analytics from "../../pages/schoolpages/tutorpages/analytics";
 import QuestionBank from "../../pages/schoolpages/tutorpages/questionbank";
 import NotAllowed from "../../pages/Restricted/restricted";
 import Performance from "../../pages/schoolpages/tutorpages/performance";
+import Grading from "../../pages/schoolpages/tutorpages/grading";
 
 export default function TutorRoutes() {
   return (
@@ -15,6 +16,7 @@ export default function TutorRoutes() {
       <Route path="tutor-dashboard" element={<Dashboard />} />
       <Route path="manage-exam" element={<ManageExam />} />
       <Route path="question-bank" element={<QuestionBank />} />
+      <Route path="grading" element={<Grading />} />
       <Route path="students" element={<Students />} />
       <Route path="analytics" element={<Analytics />} />
       <Route path="performance" element={<Performance />} />

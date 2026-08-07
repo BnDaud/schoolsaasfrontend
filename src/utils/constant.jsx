@@ -18,7 +18,7 @@ import {
 } from "react-icons/md";
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
 
-import { FiPhoneCall, FiUsers, FiCalendar } from "react-icons/fi";
+import { FiPhoneCall, FiUsers, FiCalendar, FiCheckCircle } from "react-icons/fi";
 import {
   RiFlashlightLine,
   RiGroupLine,
@@ -650,6 +650,11 @@ export const tutorNav = [
     name: "Question Bank",
     icon: <IoDocumentTextOutline className="text-xl" />,
     href: "/app/question-bank",
+  },
+  {
+    name: "Grading",
+    icon: <FiCheckCircle className="text-xl" />,
+    href: "/app/grading",
   },
   {
     name: "Students",
