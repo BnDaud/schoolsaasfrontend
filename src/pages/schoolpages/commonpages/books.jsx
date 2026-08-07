@@ -1,6 +1,8 @@
-import React, { useMemo, useState } from "react";
-import { FiBookOpen, FiDownload, FiSearch } from "react-icons/fi";
+import React, { useContext, useMemo, useState } from "react";
+import { FiBookOpen, FiDownload, FiGlobe, FiLock, FiSearch, FiUnlock } from "react-icons/fi";
 import Input from "../../../component/ui/input";
+import { tenantContext } from "../../../app/tenant-provider";
+import { listGlobalLibrary, listTenantLibrary } from "../../../mocks/library";
 
 const classes = ["JSS1", "JSS2", "JSS3", "SS1", "SS2", "SS3"];
 
@@ -69,10 +71,19 @@ const buildBooks = (className) =>
 
 const allBooks = classes.flatMap((className) => buildBooks(className));
 
+const accessLevelStyle = (accessLevel) => {
+  if (accessLevel === "free") return "bg-green/10 text-green";
+  return "bg-amber-100 text-amber-600 dark:bg-amber_deep/20";
+};
+
 export default function Books() {
+  const { tenantId } = useContext(tenantContext);
   const [selectedClass, setSelectedClass] = useState("JSS1");
   const [selectedSubject, setSelectedSubject] = useState("All");
   const [searchTerm, setSearchTerm] = useState("");
+
+  const globalLibrary = listGlobalLibrary();
+  const tenantLibrary = listTenantLibrary(tenantId);
 
   const subjects = ["All", ...subjectsByClass[selectedClass]];
   const filteredBooks = useMemo(() => {
@@ -191,6 +202,75 @@ export default function Books() {
           No books found for this class and filter.
         </div>
       )}
+
+      {/* E-Library: global (WAEC/JAMB/NECO) + this school's own resources,
+          with access-level lock state (MATLEARN_ROADMAP.md §11 — browse +
+          access-control UI). Distinct from the class books above. */}
+      <div className="space-y-1 pt-4">
+        <p className="text-2xl font-bold text-black dark:text-white">E-Library</p>
+        <p className="text-gray-600 dark:text-gray-300">
+          MatLearn's shared resources and this school's own uploads.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
+        <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-black_bg">
+          <div className="mb-4 flex items-center gap-2">
+            <FiGlobe className="text-green" />
+            <p className="text-xl font-bold text-black dark:text-white">Global Resources</p>
+          </div>
+          <div className="space-y-3">
+            {globalLibrary.map((resource) => (
+              <div
+                key={resource.resourceId}
+                className="flex items-center justify-between rounded-xl border border-gray-100 p-3 dark:border-gray-800"
+              >
+                <div>
+                  <p className="font-semibold text-black dark:text-white">{resource.title}</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">{resource.type}</p>
+                </div>
+                <p
+                  className={`flex items-center gap-1 rounded-full px-3 py-1 text-sm font-bold ${accessLevelStyle(
+                    resource.accessLevel,
+                  )}`}
+                >
+                  {resource.accessLevel === "free" ? <FiUnlock /> : <FiLock />}
+                  {resource.accessLevel === "free" ? "Free" : "Subscriber"}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-black_bg">
+          <div className="mb-4 flex items-center gap-2">
+            <FiBookOpen className="text-green" />
+            <p className="text-xl font-bold text-black dark:text-white">This School's Resources</p>
+          </div>
+          <div className="space-y-3">
+            {tenantLibrary.map((resource) => (
+              <div
+                key={resource.resourceId}
+                className="flex items-center justify-between rounded-xl border border-gray-100 p-3 dark:border-gray-800"
+              >
+                <div>
+                  <p className="font-semibold text-black dark:text-white">{resource.title}</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">{resource.type}</p>
+                </div>
+                <p className="flex items-center gap-1 rounded-full bg-green/10 px-3 py-1 text-sm font-bold text-green">
+                  <FiUnlock />
+                  School
+                </p>
+              </div>
+            ))}
+            {tenantLibrary.length === 0 && (
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                No school resources uploaded yet.
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
