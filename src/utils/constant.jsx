@@ -18,7 +18,7 @@ import {
 } from "react-icons/md";
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
 
-import { FiPhoneCall, FiUsers } from "react-icons/fi";
+import { FiPhoneCall, FiUsers, FiCalendar } from "react-icons/fi";
 import {
   RiFlashlightLine,
   RiGroupLine,
@@ -684,6 +684,11 @@ export const adminNav = [
     name: "Classes",
     icon: <FaRegFolderOpen className="text-xl" />,
     href: "/app/admin-classes",
+  },
+  {
+    name: "Sessions",
+    icon: <FiCalendar className="text-xl" />,
+    href: "/app/admin-sessions",
   },
   {
     name: "Tutors",
