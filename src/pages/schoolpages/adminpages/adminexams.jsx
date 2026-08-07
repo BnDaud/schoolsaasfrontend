@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useContext, useMemo } from "react";
 import { FiCalendar, FiCheckCircle, FiClock, FiFileText } from "react-icons/fi";
-import { initialTutorExams } from "../../../utils/tutorQuestionBank";
+import {
+  buildInitialExams,
+  mergeTutorAssignments,
+  resolveTutorAssignments,
+} from "../../../utils/tutorQuestionBank";
+import { tenantContext } from "../../../app/tenant-provider";
+import { listUsersForTenant } from "../../../mocks/users";
 
 const getStatusStyle = (status) => {
   if (status === "Published") return "bg-green/10 text-green";
@@ -8,6 +14,16 @@ const getStatusStyle = (status) => {
 };
 
 export default function AdminExams() {
+  const { tenantId } = useContext(tenantContext);
+
+  const initialTutorExams = useMemo(() => {
+    const tutors = listUsersForTenant(tenantId).filter((user) => user.role === "Tutor");
+    const perTutorAssignments = tutors.map((tutor) =>
+      resolveTutorAssignments(tenantId, tutor.assignedClassIds, tutor.assignedSubjectIds),
+    );
+    return buildInitialExams(mergeTutorAssignments(perTutorAssignments));
+  }, [tenantId]);
+
   return (
     <div className="min-h-screen w-full space-y-5 bg-white_bg px-[3%] py-[2%] transition-all duration-700 dark:bg-black">
       <div className="space-y-1">

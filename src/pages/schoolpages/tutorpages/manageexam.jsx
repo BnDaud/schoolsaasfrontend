@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useContext, useMemo, useState } from "react";
 import {
   FiCalendar,
   FiCheckCircle,
@@ -12,12 +12,16 @@ import {
 import { GrDocumentText } from "react-icons/gr";
 import { motion } from "framer-motion";
 import Input from "../../../component/ui/input";
+import { globalContext } from "../../../context/globalcontext";
+import { tenantContext } from "../../../app/tenant-provider";
 import {
-  defaultAssignment,
+  buildInitialExams,
+  buildQuestionBank,
   getClassOptions,
+  getDefaultAssignment,
   getSubjectsForClass,
-  initialTutorExams,
   loadTutorQuestionBank,
+  resolveTutorAssignments,
 } from "../../../utils/tutorQuestionBank";
 
 const getStatusStyle = (status) => {
@@ -26,10 +30,20 @@ const getStatusStyle = (status) => {
 };
 
 export default function ManageExams() {
-  const [exams, setExams] = useState(initialTutorExams);
+  const { assignedClassIds, assignedSubjectIds } = useContext(globalContext);
+  const { tenantId } = useContext(tenantContext);
+
+  const tutorAssignments = useMemo(
+    () => resolveTutorAssignments(tenantId, assignedClassIds, assignedSubjectIds),
+    [tenantId, assignedClassIds, assignedSubjectIds],
+  );
+  const defaultAssignment = useMemo(() => getDefaultAssignment(tutorAssignments), [tutorAssignments]);
+  const fallbackQuestionBank = useMemo(() => buildQuestionBank(tutorAssignments), [tutorAssignments]);
+
+  const [exams, setExams] = useState(() => buildInitialExams(tutorAssignments));
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
-  const [availableQuestions] = useState(() => loadTutorQuestionBank());
+  const [availableQuestions] = useState(() => loadTutorQuestionBank(tenantId, fallbackQuestionBank));
   const [form, setForm] = useState({
     title: "",
     subject: defaultAssignment.subject,
@@ -41,12 +55,12 @@ export default function ManageExams() {
   const [editingExamId, setEditingExamId] = useState(null);
 
   const classOptions = useMemo(
-    () => getClassOptions(),
-    [],
+    () => getClassOptions(tutorAssignments),
+    [tutorAssignments],
   );
   const subjectOptions = useMemo(
-    () => getSubjectsForClass(form.className),
-    [form.className],
+    () => getSubjectsForClass(form.className, tutorAssignments),
+    [form.className, tutorAssignments],
   );
 
   const filteredQuestions = useMemo(() => {
@@ -73,7 +87,7 @@ export default function ManageExams() {
 
   const updateForm = (key, value) => {
     if (key === "className") {
-      const nextSubject = getSubjectsForClass(value)[0];
+      const nextSubject = getSubjectsForClass(value, tutorAssignments)[0];
 
       setForm((prev) => ({
         ...prev,

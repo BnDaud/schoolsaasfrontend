@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
@@ -14,10 +14,11 @@ import {
 } from "react-icons/fi";
 import { PiHandWaving } from "react-icons/pi";
 import { globalContext } from "../../../context/globalcontext";
+import { tenantContext } from "../../../app/tenant-provider";
 import {
-  initialTutorExams,
-  questionBank,
-  tutorAssignments,
+  buildInitialExams,
+  buildQuestionBank,
+  resolveTutorAssignments,
 } from "../../../utils/tutorQuestionBank";
 
 const classPerformance = [
@@ -64,8 +65,16 @@ const getStatusStyle = (status) => {
 };
 
 export default function Dashboard() {
-  const { name, title, role } = useContext(globalContext);
+  const { name, title, role, assignedClassIds, assignedSubjectIds } = useContext(globalContext);
+  const { tenantId } = useContext(tenantContext);
   const navigate = useNavigate();
+
+  const tutorAssignments = useMemo(
+    () => resolveTutorAssignments(tenantId, assignedClassIds, assignedSubjectIds),
+    [tenantId, assignedClassIds, assignedSubjectIds],
+  );
+  const questionBank = useMemo(() => buildQuestionBank(tutorAssignments), [tutorAssignments]);
+  const initialTutorExams = useMemo(() => buildInitialExams(tutorAssignments), [tutorAssignments]);
 
   const publishedExams = initialTutorExams.filter(
     (exam) => exam.status === "Published",

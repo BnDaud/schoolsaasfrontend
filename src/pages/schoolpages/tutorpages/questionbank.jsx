@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useContext, useMemo, useState } from "react";
 import {
   FiBookOpen,
   FiCheckCircle,
@@ -12,11 +12,15 @@ import {
 } from "react-icons/fi";
 import { motion } from "framer-motion";
 import Input from "../../../component/ui/input";
+import { globalContext } from "../../../context/globalcontext";
+import { tenantContext } from "../../../app/tenant-provider";
 import {
-  defaultAssignment,
+  buildQuestionBank,
   getClassOptions,
+  getDefaultAssignment,
   getSubjectsForClass,
   loadTutorQuestionBank,
+  resolveTutorAssignments,
   saveTutorQuestionBank,
 } from "../../../utils/tutorQuestionBank";
 
@@ -152,7 +156,17 @@ const getTemplateCsv = () => {
 };
 
 export default function QuestionBank() {
-  const [questions, setQuestions] = useState(() => loadTutorQuestionBank());
+  const { assignedClassIds, assignedSubjectIds } = useContext(globalContext);
+  const { tenantId } = useContext(tenantContext);
+
+  const tutorAssignments = useMemo(
+    () => resolveTutorAssignments(tenantId, assignedClassIds, assignedSubjectIds),
+    [tenantId, assignedClassIds, assignedSubjectIds],
+  );
+  const defaultAssignment = useMemo(() => getDefaultAssignment(tutorAssignments), [tutorAssignments]);
+  const fallbackQuestionBank = useMemo(() => buildQuestionBank(tutorAssignments), [tutorAssignments]);
+
+  const [questions, setQuestions] = useState(() => loadTutorQuestionBank(tenantId, fallbackQuestionBank));
   const [selectedClass, setSelectedClass] = useState(defaultAssignment.className);
   const [selectedSubject, setSelectedSubject] = useState(defaultAssignment.subject);
   const [searchTerm, setSearchTerm] = useState("");
@@ -161,10 +175,10 @@ export default function QuestionBank() {
   const [showImportModal, setShowImportModal] = useState(false);
   const [importMessage, setImportMessage] = useState("");
 
-  const classOptions = useMemo(() => getClassOptions(), []);
+  const classOptions = useMemo(() => getClassOptions(tutorAssignments), [tutorAssignments]);
   const subjectOptions = useMemo(
-    () => getSubjectsForClass(selectedClass),
-    [selectedClass],
+    () => getSubjectsForClass(selectedClass, tutorAssignments),
+    [selectedClass, tutorAssignments],
   );
 
   const filteredQuestions = useMemo(() => {
@@ -182,7 +196,7 @@ export default function QuestionBank() {
 
   const updateSelectedClass = (className) => {
     setSelectedClass(className);
-    setSelectedSubject(getSubjectsForClass(className)[0]);
+    setSelectedSubject(getSubjectsForClass(className, tutorAssignments)[0]);
     resetForm();
   };
 
@@ -226,7 +240,7 @@ export default function QuestionBank() {
           question.id === editingQuestionId ? nextQuestion : question,
         );
 
-        saveTutorQuestionBank(nextQuestions);
+        saveTutorQuestionBank(tenantId, nextQuestions);
         return nextQuestions;
       });
       resetForm();
@@ -236,7 +250,7 @@ export default function QuestionBank() {
     setQuestions((prev) => {
       const nextQuestions = [nextQuestion, ...prev];
 
-      saveTutorQuestionBank(nextQuestions);
+      saveTutorQuestionBank(tenantId, nextQuestions);
       return nextQuestions;
     });
     resetForm();
@@ -272,7 +286,7 @@ export default function QuestionBank() {
       setQuestions((prev) => {
         const nextQuestions = [...importedQuestions, ...prev];
 
-        saveTutorQuestionBank(nextQuestions);
+        saveTutorQuestionBank(tenantId, nextQuestions);
         return nextQuestions;
       });
       setImportMessage(`${importedQuestions.length} questions imported.`);
@@ -311,7 +325,7 @@ export default function QuestionBank() {
     setQuestions((prev) => {
       const nextQuestions = prev.filter((question) => question.id !== questionId);
 
-      saveTutorQuestionBank(nextQuestions);
+      saveTutorQuestionBank(tenantId, nextQuestions);
       return nextQuestions;
     });
 

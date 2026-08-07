@@ -1,11 +1,28 @@
-import React, { useContext } from "react";
+import React, { useContext, useMemo } from "react";
 import { FiBookOpen, FiCheckCircle, FiDatabase, FiGlobe, FiLock } from "react-icons/fi";
-import { questionBank, tutorAssignments } from "../../../utils/tutorQuestionBank";
+import {
+  buildQuestionBank,
+  mergeTutorAssignments,
+  resolveTutorAssignments,
+} from "../../../utils/tutorQuestionBank";
 import { tenantContext } from "../../../app/tenant-provider";
 import { listGlobalQuestions, listTenantQuestions } from "../../../mocks/questions";
+import { listUsersForTenant } from "../../../mocks/users";
 
 export default function AdminQuestionBank() {
   const { tenantId } = useContext(tenantContext);
+
+  // School-wide coverage: every tutor's own assignment, merged — not the old
+  // hardcoded 3-pair constant shared by every school (MATLEARN_ROADMAP.md §14).
+  const tutorAssignments = useMemo(() => {
+    const tutors = listUsersForTenant(tenantId).filter((user) => user.role === "Tutor");
+    const perTutorAssignments = tutors.map((tutor) =>
+      resolveTutorAssignments(tenantId, tutor.assignedClassIds, tutor.assignedSubjectIds),
+    );
+    return mergeTutorAssignments(perTutorAssignments);
+  }, [tenantId]);
+  const questionBank = useMemo(() => buildQuestionBank(tutorAssignments), [tutorAssignments]);
+
   const globalQuestions = listGlobalQuestions();
   const tenantQuestions = listTenantQuestions(tenantId);
   const examBodies = [...new Set(globalQuestions.map((q) => q.examBody))];
