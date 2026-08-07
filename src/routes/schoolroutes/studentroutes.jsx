@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import Dashboard from "../../pages/schoolpages/studentpages/studentdashboard";
+import StudentSubjects from "../../pages/schoolpages/studentpages/studentsubjects";
 import Result from "../../pages/schoolpages/studentpages/studentresult";
 import Progress from "../../pages/schoolpages/studentpages/studentprogress";
 import Practice from "../../pages/schoolpages/studentpages/studentpractice";
@@ -13,6 +14,7 @@ export default function StudentRoutes() {
     <Routes>
       {" "}
       <Route path="student-dashboard" element={<Dashboard />} />{" "}
+      <Route path="subjects" element={<StudentSubjects />} />
       <Route path="exam" element={<Exam />} />
       <Route path="exam/:id" element={<ExamPage />} />
       <Route path="practice" element={<Practice />} />

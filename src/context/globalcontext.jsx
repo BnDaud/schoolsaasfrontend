@@ -24,6 +24,7 @@ export default function GlobalContextFunction({ children }) {
   const [schoolName, setSchoolName] = useState("Compro");
   const [title, setTitle] = useState("Dr");
   const [brand, setBrand] = useState(defaultBrand);
+  const [classId, setClassId] = useState(null); // logged-in student's own class, set on login
 
   // Apply branding live: CSS var drives any bg-[var(--brand-color)]/text-[var(--brand-color)]
   // usage, plus real <title> and favicon swap so each tenant feels like its own product.
@@ -55,6 +56,8 @@ export default function GlobalContextFunction({ children }) {
         setTitle,
         brand,
         setBrand,
+        classId,
+        setClassId,
       }}
     >
       {children}

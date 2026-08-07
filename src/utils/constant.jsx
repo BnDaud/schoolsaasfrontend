@@ -594,6 +594,11 @@ export const studentNav = [
     href: "/app/student-dashboard",
   },
   {
+    name: "Subjects",
+    icon: <GoBook className="text-xl" />,
+    href: "/app/subjects",
+  },
+  {
     name: "Exams",
     icon: <LuClipboardList className="text-xl" />,
     href: "/app/exam",
