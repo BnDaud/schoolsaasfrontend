@@ -2,7 +2,7 @@ import React, { useContext, useMemo, useState } from "react";
 import { FiBookOpen, FiDownload, FiGlobe, FiLock, FiSearch, FiUnlock } from "react-icons/fi";
 import Input from "../../../component/ui/input";
 import { tenantContext } from "../../../app/tenant-provider";
-import { listGlobalLibrary, listTenantLibrary } from "../../../mocks/library";
+import { listGlobalLibrary, loadTenantLibrary } from "../../../mocks/library";
 
 const classes = ["JSS1", "JSS2", "JSS3", "SS1", "SS2", "SS3"];
 
@@ -83,7 +83,7 @@ export default function Books() {
   const [searchTerm, setSearchTerm] = useState("");
 
   const globalLibrary = listGlobalLibrary();
-  const tenantLibrary = listTenantLibrary(tenantId);
+  const tenantLibrary = loadTenantLibrary(tenantId);
 
   const subjects = ["All", ...subjectsByClass[selectedClass]];
   const filteredBooks = useMemo(() => {
@@ -254,7 +254,18 @@ export default function Books() {
                 className="flex items-center justify-between rounded-xl border border-gray-100 p-3 dark:border-gray-800"
               >
                 <div>
-                  <p className="font-semibold text-black dark:text-white">{resource.title}</p>
+                  {resource.url ? (
+                    <a
+                      href={resource.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="font-semibold text-black hover:text-green dark:text-white"
+                    >
+                      {resource.title}
+                    </a>
+                  ) : (
+                    <p className="font-semibold text-black dark:text-white">{resource.title}</p>
+                  )}
                   <p className="text-sm text-gray-500 dark:text-gray-400">{resource.type}</p>
                 </div>
                 <p className="flex items-center gap-1 rounded-full bg-green/10 px-3 py-1 text-sm font-bold text-green">

@@ -5,6 +5,7 @@ import AdminAuditLog from "../../pages/schoolpages/adminpages/adminauditlog";
 import AdminDashboard from "../../pages/schoolpages/adminpages/admindashboard";
 import AdminExams from "../../pages/schoolpages/adminpages/adminexams";
 import AdminInsights from "../../pages/schoolpages/adminpages/admininsights";
+import AdminLibrary from "../../pages/schoolpages/adminpages/adminlibrary";
 import AdminQuestionBank from "../../pages/schoolpages/adminpages/adminquestionbank";
 import AdminSettings from "../../pages/schoolpages/adminpages/adminsettings";
 import AdminTutors from "../../pages/schoolpages/adminpages/admintutors";
@@ -23,6 +24,7 @@ export default function AdminRoutes() {
       <Route path="admin-exams" element={<AdminExams />} />
       <Route path="admin-question-bank" element={<AdminQuestionBank />} />
       <Route path="admin-insights" element={<AdminInsights />} />
+      <Route path="admin-library" element={<AdminLibrary />} />
       <Route path="admin-settings" element={<AdminSettings />} />
       <Route path="*" element={<NotAllowed />} />
     </Routes>

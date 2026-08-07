@@ -18,7 +18,7 @@ import {
 } from "react-icons/md";
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
 
-import { FiPhoneCall, FiUsers, FiCalendar, FiCheckCircle, FiActivity } from "react-icons/fi";
+import { FiPhoneCall, FiUsers, FiCalendar, FiCheckCircle, FiActivity, FiLink } from "react-icons/fi";
 import {
   RiFlashlightLine,
   RiGroupLine,
@@ -719,6 +719,11 @@ export const adminNav = [
     name: "Insights",
     icon: <GiHistogram className="text-xl" />,
     href: "/app/admin-insights",
+  },
+  {
+    name: "Library",
+    icon: <FiLink className="text-xl" />,
+    href: "/app/admin-library",
   },
   {
     name: "Audit Log",
