@@ -42,7 +42,93 @@ const users = [
   },
   { id: "royalheights-student-1", name: "Fatima Lawal", email: "student@royalheights.matlearn.com", role: "Student", tenantId: "royalheights", classId: "ss1-science" },
 
-  { id: "learner-1", name: "Peter James", email: "learner@matlearn.com", role: "Learner", tenantId: null },
+  // Independent learners — no tenant, self-managed profile (§0 assumption 3).
+  // Spread across signup months + a mix of subscription tiers/exam goals so
+  // the Super Admin learner stats screen shows real variety, not one row.
+  {
+    id: "learner-1",
+    name: "Peter James",
+    email: "learner@matlearn.com",
+    role: "Learner",
+    tenantId: null,
+    educationLevel: "SS3",
+    examGoals: ["WAEC", "JAMB"],
+    subscriptionTier: "free",
+    createdAt: "2026-05-10",
+    lastActiveAt: "2026-08-06",
+  },
+  {
+    id: "learner-2",
+    name: "Ngozi Chukwu",
+    email: "ngozi.chukwu@example.com",
+    role: "Learner",
+    tenantId: null,
+    educationLevel: "SS2",
+    examGoals: ["WAEC"],
+    subscriptionTier: "subscriber",
+    createdAt: "2026-05-22",
+    lastActiveAt: "2026-08-05",
+  },
+  {
+    id: "learner-3",
+    name: "Emeka Obi",
+    email: "emeka.obi@example.com",
+    role: "Learner",
+    tenantId: null,
+    educationLevel: "JSS3",
+    examGoals: ["NECO"],
+    subscriptionTier: "free",
+    createdAt: "2026-06-01",
+    lastActiveAt: "2026-07-20",
+  },
+  {
+    id: "learner-4",
+    name: "Blessing Okoro",
+    email: "blessing.okoro@example.com",
+    role: "Learner",
+    tenantId: null,
+    educationLevel: "SS3",
+    examGoals: ["JAMB", "WAEC"],
+    subscriptionTier: "subscriber",
+    createdAt: "2026-06-15",
+    lastActiveAt: "2026-08-07",
+  },
+  {
+    id: "learner-5",
+    name: "Ibrahim Sule",
+    email: "ibrahim.sule@example.com",
+    role: "Learner",
+    tenantId: null,
+    educationLevel: "SS1",
+    examGoals: ["IELTS", "TOEFL"],
+    subscriptionTier: "subscriber",
+    createdAt: "2026-07-02",
+    lastActiveAt: "2026-08-01",
+  },
+  {
+    id: "learner-6",
+    name: "Grace Adeyemi",
+    email: "grace.adeyemi@example.com",
+    role: "Learner",
+    tenantId: null,
+    educationLevel: "SS2",
+    examGoals: ["WAEC", "NECO"],
+    subscriptionTier: "free",
+    createdAt: "2026-07-20",
+    lastActiveAt: "2026-07-25",
+  },
+  {
+    id: "learner-7",
+    name: "David Umeh",
+    email: "david.umeh@example.com",
+    role: "Learner",
+    tenantId: null,
+    educationLevel: "SS3",
+    examGoals: ["JAMB"],
+    subscriptionTier: "free",
+    createdAt: "2026-08-03",
+    lastActiveAt: "2026-08-03",
+  },
 ];
 
 export function getUserById(id) {
@@ -55,4 +141,11 @@ export function findUserByEmail(email) {
 
 export function listUsersForTenant(tenantId) {
   return users.filter((user) => user.tenantId === tenantId);
+}
+
+// Independent learners: no tenant affiliation at all (not just "not this
+// tenant" — role must also be Learner, since a Super Admin's own tenantId
+// is "platform", not null).
+export function listIndependentLearners() {
+  return users.filter((user) => user.role === "Learner" && user.tenantId === null);
 }
