@@ -749,6 +749,11 @@ export const superAdminNav = [
     href: "/matlearn/super-admin-tenants",
   },
   {
+    name: "Audit Log",
+    icon: <FiActivity className="text-xl" />,
+    href: "/matlearn/super-admin-audit-log",
+  },
+  {
     name: "Settings",
     icon: <MdOutlineSettings className="text-xl" />,
     href: "/matlearn/super-admin-settings",

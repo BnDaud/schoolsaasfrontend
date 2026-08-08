@@ -13,3 +13,11 @@ const auditLog = [
 export function listAuditLogForTenant(tenantId) {
   return auditLog.filter((entry) => entry.tenantId === tenantId);
 }
+
+// Platform-wide view for Super Admin (§4.3 /audit-log) — spans every tenant
+// plus platform-level entries. These are lightweight action-log lines (who
+// did what, when), not the underlying academic data itself, so this doesn't
+// cross the §14 line against Super Admin seeing a tenant's private records.
+export function listAllAuditLog() {
+  return auditLog;
+}
