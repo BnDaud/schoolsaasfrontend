@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FiPlus, FiSearch, FiTrash2, FiX } from "react-icons/fi";
+import { FiCheckCircle, FiMail, FiPlus, FiSearch, FiTrash2, FiX } from "react-icons/fi";
 import { RiPauseCircleLine, RiPlayCircleLine } from "react-icons/ri";
 import { useLocation } from "react-router-dom";
 import Input from "../../../component/ui/input";
@@ -102,6 +102,7 @@ export default function SuperAdminTenants() {
   const [search, setSearch] = useState(location.state?.search || "");
   const [statusFilter, setStatusFilter] = useState(location.state?.statusFilter || "all");
   const [showCreate, setShowCreate] = useState(false);
+  const [createdTenant, setCreatedTenant] = useState(null);
   const [activeTenant, setActiveTenant] = useState(null);
   const [form, setForm] = useState({
     schoolName: "",
@@ -121,10 +122,14 @@ export default function SuperAdminTenants() {
   const handleCreate = (e) => {
     e.preventDefault();
     // TODO: POST /api/superadmin/tenants with `form`, then refresh list from response.
+    // Backend sends the admin invite/setup email with a temp password on
+    // success (per the contract above) — the UI's job is just to confirm
+    // that happened and preview what the new admin does next.
     const newTenant = {
       tenantId: `t_${Date.now()}`,
       schoolName: form.schoolName,
       subdomain: form.subdomain,
+      adminName: form.adminName,
       adminEmail: form.adminEmail,
       plan: form.plan,
       status: "trial",
@@ -141,7 +146,12 @@ export default function SuperAdminTenants() {
       adminPhone: "",
       plan: "Trial",
     });
+    setCreatedTenant(newTenant);
+  };
+
+  const closeCreateModal = () => {
     setShowCreate(false);
+    setCreatedTenant(null);
   };
 
   const handleToggleSuspend = (e, tenant) => {
@@ -287,60 +297,108 @@ export default function SuperAdminTenants() {
           <div className="w-full max-w-lg space-y-5 rounded-2xl bg-white p-6 dark:bg-black_bg">
             <div className="flex items-center justify-between">
               <p className="text-xl font-bold text-black dark:text-white">
-                Create Tenant
+                {createdTenant ? "Tenant Created" : "Create Tenant"}
               </p>
-              <button type="button" onClick={() => setShowCreate(false)}>
+              <button type="button" onClick={closeCreateModal}>
                 <FiX className="text-2xl text-gray-500" />
               </button>
             </div>
-            <form className="space-y-4" onSubmit={handleCreate}>
-              <Input
-                name="schoolName"
-                label="School Name"
-                required
-                width="w-full"
-                value={form.schoolName}
-                onChange={updateForm("schoolName")}
-              />
-              <Input
-                name="subdomain"
-                label="Subdomain"
-                required
-                placeholder="e.g. compro"
-                width="w-full"
-                value={form.subdomain}
-                onChange={updateForm("subdomain")}
-              />
-              <Input
-                name="adminName"
-                label="School Admin Name"
-                required
-                width="w-full"
-                value={form.adminName}
-                onChange={updateForm("adminName")}
-              />
-              <Input
-                name="adminEmail"
-                label="School Admin Email"
-                type="email"
-                required
-                width="w-full"
-                value={form.adminEmail}
-                onChange={updateForm("adminEmail")}
-              />
-              <Input
-                name="adminPhone"
-                label="School Admin Phone"
-                width="w-full"
-                value={form.adminPhone}
-                onChange={updateForm("adminPhone")}
-              />
-              <Button
-                name="Create Tenant"
-                type="submit"
-                style="flex h-11 w-full items-center justify-center rounded-xl bg-green font-bold text-white dark:text-black"
-              />
-            </form>
+
+            {createdTenant ? (
+              // The "next screen after generate tenant" (MATLEARN_ROADMAP.md
+              // §8) — confirms what just happened and previews the new
+              // admin's first-login setup, instead of just closing silently.
+              <div className="space-y-5">
+                <div className="flex items-start gap-3 rounded-2xl bg-green/10 p-4">
+                  <FiCheckCircle className="mt-0.5 shrink-0 text-xl text-green" />
+                  <div>
+                    <p className="font-bold text-black dark:text-white">
+                      {createdTenant.schoolName} is live on {createdTenant.subdomain}
+                      .matlearn.com
+                    </p>
+                    <p className="mt-1 flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+                      <FiMail />
+                      Invite + temp password sent to {createdTenant.adminEmail}
+                    </p>
+                  </div>
+                </div>
+
+                <div>
+                  <p className="mb-3 font-bold text-black dark:text-white">
+                    What {createdTenant.adminName || "the admin"} does next
+                  </p>
+                  <ol className="space-y-2">
+                    {[
+                      "Opens the invite email and signs in with the temp password",
+                      "Sets a real password on first login",
+                      "Completes initial setup — branding, first class, first teacher",
+                    ].map((step, index) => (
+                      <li key={step} className="flex items-start gap-3">
+                        <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-green/10 text-sm font-bold text-green">
+                          {index + 1}
+                        </span>
+                        <p className="text-gray-700 dark:text-gray-300">{step}</p>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+
+                <Button
+                  name="Done"
+                  action={closeCreateModal}
+                  style="flex h-11 w-full items-center justify-center rounded-xl bg-green font-bold text-white dark:text-black"
+                />
+              </div>
+            ) : (
+              <form className="space-y-4" onSubmit={handleCreate}>
+                <Input
+                  name="schoolName"
+                  label="School Name"
+                  required
+                  width="w-full"
+                  value={form.schoolName}
+                  onChange={updateForm("schoolName")}
+                />
+                <Input
+                  name="subdomain"
+                  label="Subdomain"
+                  required
+                  placeholder="e.g. compro"
+                  width="w-full"
+                  value={form.subdomain}
+                  onChange={updateForm("subdomain")}
+                />
+                <Input
+                  name="adminName"
+                  label="School Admin Name"
+                  required
+                  width="w-full"
+                  value={form.adminName}
+                  onChange={updateForm("adminName")}
+                />
+                <Input
+                  name="adminEmail"
+                  label="School Admin Email"
+                  type="email"
+                  required
+                  width="w-full"
+                  value={form.adminEmail}
+                  onChange={updateForm("adminEmail")}
+                />
+                <Input
+                  name="adminPhone"
+                  label="School Admin Phone"
+                  width="w-full"
+                  value={form.adminPhone}
+                  onChange={updateForm("adminPhone")}
+                />
+                <Button
+                  name="Create Tenant"
+                  type="submit"
+                  style="flex h-11 w-full items-center justify-center rounded-xl bg-green font-bold text-white dark:text-black"
+                />
+              </form>
+            )}
           </div>
         </div>
       )}
