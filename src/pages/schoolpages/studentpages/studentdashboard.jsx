@@ -12,6 +12,7 @@ import { FaRegClock, FaRegBell, FaAngleRight } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { globalContext } from "../../../context/globalcontext";
 import { listNotificationsForUser, markAllNotificationsRead } from "../../../mocks/notifications";
+import AnnouncementsBanner from "../../../component/common/announcementsbanner";
 
 export default function Dashboard() {
   const { name, userId } = useContext(globalContext);
@@ -178,6 +179,7 @@ export default function Dashboard() {
 
   return (
     <div className="px-[3%] py-[2%] dark:bg-black bg-white_bg transition-all duration-700 w-full min-h-screen space-y-5">
+      <AnnouncementsBanner />
       <div className="md:flex justify-between">
         {" "}
         <div className="space-y-1">

@@ -15,6 +15,7 @@ import {
 import { PiHandWaving } from "react-icons/pi";
 import { globalContext } from "../../../context/globalcontext";
 import { tenantContext } from "../../../app/tenant-provider";
+import AnnouncementsBanner from "../../../component/common/announcementsbanner";
 import {
   buildInitialExams,
   buildQuestionBank,
@@ -134,6 +135,7 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen w-full space-y-5 bg-white_bg px-[3%] py-[2%] transition-all duration-700 dark:bg-black">
+      <AnnouncementsBanner />
       <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-start">
         <div className="space-y-1">
           <p className="text-3xl font-bold text-black dark:text-white">
