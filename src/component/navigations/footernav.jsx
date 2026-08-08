@@ -1,12 +1,18 @@
 import React, { useContext } from "react";
-import { adminNav, studentNav, tutorNav } from "../../utils/constant";
+import { adminNav, studentNav, superAdminNav, tutorNav } from "../../utils/constant";
 import { NavLink } from "react-router-dom";
 import { globalContext } from "../../context/globalcontext";
 
 export default function Footernav() {
   const { role } = useContext(globalContext);
   const navItem =
-    role === "Student" ? studentNav : role === "Admin" ? adminNav : tutorNav;
+    role === "Student"
+      ? studentNav
+      : role === "Admin"
+        ? adminNav
+        : role === "SuperAdmin"
+          ? superAdminNav
+          : tutorNav;
   return (
     <div className="flex justify-between items-center px-[10%] bg-white_bg dark:bg-black_bg  h-full transition-all duration-700">
       {navItem.slice(0, 4).map((item, idx) => (
