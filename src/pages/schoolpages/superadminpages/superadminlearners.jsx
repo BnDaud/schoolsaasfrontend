@@ -1,5 +1,7 @@
 import React, { useMemo, useState } from "react";
 import {
+  FiCpu,
+  FiInfo,
   FiSearch,
   FiStar,
   FiTrendingUp,
@@ -30,6 +32,13 @@ import { listIndependentLearners } from "../../../mocks/users";
  */
 
 const ACTIVE_WINDOW_DAYS = 14;
+
+// Placeholder only — no AI Tutor / usage-tracking backend exists yet.
+const FEATURE_USAGE_PREVIEW = [
+  { label: "AI Tutor Sessions", value: "—" },
+  { label: "Practice Attempts", value: "—" },
+  { label: "Library Opens", value: "—" },
+];
 
 const monthLabel = (isoDate) =>
   new Date(isoDate).toLocaleString(undefined, { month: "short", year: "2-digit" });
@@ -163,6 +172,38 @@ export default function SuperAdminLearners() {
             </ResponsiveContainer>
           </div>
         </section>
+      </div>
+
+      {/* No AI Tutor or usage-tracking backend exists yet (it's a "coming
+          soon" placeholder everywhere else in the app), so these are
+          explicitly marked preview/placeholder values, not real telemetry.
+          Swap for real counts once feature usage is actually instrumented. */}
+      <div className="rounded-2xl border border-dashed border-gray-300 bg-white p-5 dark:border-gray-700 dark:bg-black_bg">
+        <div className="mb-4 flex items-center gap-2">
+          <FiCpu className="text-2xl text-gray-400" />
+          <p className="text-lg font-bold text-black dark:text-white">Feature Usage</p>
+          <span className="rounded-full bg-gray-100 px-3 py-1 text-xs font-bold text-gray-500 dark:bg-gray-800 dark:text-gray-400">
+            Preview
+          </span>
+        </div>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+          {FEATURE_USAGE_PREVIEW.map((feature) => (
+            <div
+              key={feature.label}
+              className="rounded-2xl border border-gray-100 p-4 dark:border-gray-800"
+            >
+              <p className="text-sm text-gray-500 dark:text-gray-400">{feature.label}</p>
+              <p className="mt-1 text-2xl font-bold text-gray-400 dark:text-gray-600">
+                {feature.value}
+              </p>
+            </div>
+          ))}
+        </div>
+        <p className="mt-4 flex items-start gap-2 text-sm text-gray-500 dark:text-gray-400">
+          <FiInfo className="mt-0.5 shrink-0" />
+          Placeholder — real usage tracking (AI Tutor sessions, practice attempts, library
+          opens) needs backend instrumentation, which lands with the AI Tutor feature itself.
+        </p>
       </div>
 
       <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-black_bg">
