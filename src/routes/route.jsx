@@ -1,5 +1,5 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Navigate, Route } from "react-router-dom";
 
 import Features from "../pages/landingpages/features";
 import About from "../pages/landingpages/about";
@@ -10,6 +10,7 @@ import { PublicLayoutDispatch, HomeDispatch, ContactDispatch } from "../app/publ
 import SchoolDashboard from "../layouts/dashboardlayout/Schooldashboard";
 
 import RoleBaseRoute from "./rolebaseroute";
+import AppRootRedirect from "./approotredirect";
 import NotFound from "../pages/Restricted/notFound";
 import Leaderboard from "../pages/schoolpages/commonpages/leaderboard";
 import Books from "../pages/schoolpages/commonpages/books";
@@ -42,12 +43,14 @@ export const CustomRoutes = (
     </Route>
     {/* School Route */}
     <Route path="/app/" element={<SchoolDashboard />}>
+      <Route index element={<AppRootRedirect />} />
       <Route path="*" element={<RoleBaseRoute />} />
       <Route path="leaderboard" element={<Leaderboard />} />{" "}
       <Route path="books" element={<Books />} />
     </Route>
     {/* MatLearn (platform operator, not a tenant) */}
     <Route path="/matlearn/" element={<SchoolDashboard />}>
+      <Route index element={<Navigate to="super-admin-dashboard" replace />} />
       <Route
         path="*"
         element={

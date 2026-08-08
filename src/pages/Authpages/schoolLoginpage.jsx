@@ -14,6 +14,12 @@ import { Link, useNavigate } from "react-router-dom";
 
 const SCHOOL_ROLES = ["Admin", "Tutor", "Student"];
 
+const DASHBOARD_PATH_BY_ROLE = {
+  Admin: "/app/admin-dashboard",
+  Tutor: "/app/tutor-dashboard",
+  Student: "/app/student-dashboard",
+};
+
 export default function SchoolLoginPage() {
   const { darkmode, setRole, setName, setSchoolName, setClassId, setAssignedClassIds, setAssignedSubjectIds } =
     useContext(globalContext);
@@ -48,7 +54,7 @@ export default function SchoolLoginPage() {
     setClassId(user.classId ?? null);
     setAssignedClassIds(user.assignedClassIds ?? []);
     setAssignedSubjectIds(user.assignedSubjectIds ?? []);
-    navigate("/app/");
+    navigate(DASHBOARD_PATH_BY_ROLE[user.role]);
   };
 
   return (
