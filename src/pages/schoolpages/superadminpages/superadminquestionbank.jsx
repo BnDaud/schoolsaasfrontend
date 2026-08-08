@@ -101,12 +101,76 @@ const getSampleCsv = () =>
     "\n",
   );
 
+// The shape an "import from URL" API/JSON response must match — same fields
+// as the CSV, just as an array of objects instead of rows. `options` must be
+// an array; everything else is a plain string/number.
+const sampleJsonQuestions = [
+  {
+    examBody: "SAT",
+    year: 2026,
+    subject: "Mathematics",
+    topic: "Algebra",
+    text: "Solve for x: 3x = 12",
+    options: ["2", "4", "6", "8"],
+    answer: "4",
+    difficulty: "Easy",
+  },
+  {
+    examBody: "IELTS",
+    year: 2026,
+    subject: "English Language",
+    topic: "Listening",
+    text: "Which section of the IELTS test assesses listening comprehension?",
+    options: ["Section 1", "Section 2", "Section 3", "Section 4"],
+    answer: "Section 1",
+    difficulty: "Medium",
+  },
+];
+
+const getSampleJson = () => JSON.stringify(sampleJsonQuestions, null, 2);
+
+const parseJsonQuestions = (text) => {
+  const parsed = JSON.parse(text);
+  const rows = Array.isArray(parsed) ? parsed : [parsed];
+
+  return rows
+    .map((row, index) => {
+      const {
+        examBody,
+        year,
+        subject,
+        topic,
+        text: questionText,
+        options,
+        answer,
+        difficulty,
+      } = row ?? {};
+
+      if (!examBody || !subject || !topic || !questionText || !Array.isArray(options)) return null;
+
+      return {
+        questionId: `${String(examBody).toLowerCase()}-${year || "na"}-import-${Date.now()}-${index}`,
+        examBody,
+        year: Number(year) || new Date().getFullYear(),
+        subject,
+        topic,
+        text: questionText,
+        options: options.filter(Boolean),
+        answer: answer || options[0],
+        difficulty: DIFFICULTIES.includes(difficulty) ? difficulty : "Easy",
+      };
+    })
+    .filter(Boolean);
+};
+
 /**
  * BACKEND CONTRACT
  * GET /api/questions/global?examBody=&year=&subject=
  * POST /api/questions/global { examBody, year, subject, topic, text, options, answer, difficulty }
  * POST /api/questions/global/import { sourceUrl } -> backend fetches + parses server-side
- *   (avoids browser CORS restrictions a client-side fetch would hit)
+ *   (avoids browser CORS restrictions a client-side fetch would hit). Expects
+ *   the URL to return JSON: an array of { examBody, year, subject, topic,
+ *   text, options: string[], answer, difficulty }.
  * DELETE /api/questions/global/:questionId
  * Auth: Bearer token, role=SuperAdmin — this is MatLearn's own shared bank,
  * curated centrally, distinct from any tenant's private question bank.
@@ -143,6 +207,16 @@ export default function SuperAdminQuestionBank() {
     URL.revokeObjectURL(url);
   };
 
+  const downloadSampleJson = () => {
+    const blob = new Blob([getSampleJson()], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "global-question-bank-sample.json";
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
   const importFromFile = (event) => {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -162,14 +236,19 @@ export default function SuperAdminQuestionBank() {
     setImporting(true);
     setImportMessage("");
     try {
-      // NOTE: a browser-side fetch only works if the URL's server allows
-      // cross-origin requests (CORS). Most exam-body/API providers won't —
-      // this is why the BACKEND CONTRACT above has the server do the fetch
-      // instead. Kept client-side here since there's no backend yet.
+      // The link is expected to be a JSON API/endpoint (an array of question
+      // objects — see the sample below), not CSV — the browser parses JSON
+      // natively, so this is the natural format for a fetched link, while
+      // the file upload above stays CSV (the natural format for a local
+      // spreadsheet export). NOTE: a browser-side fetch only works if the
+      // URL's server allows cross-origin requests (CORS). Most exam-body/
+      // API providers won't — this is why the BACKEND CONTRACT above has the
+      // server do the fetch instead. Kept client-side here since there's no
+      // backend yet.
       const response = await fetch(importUrl.trim());
       if (!response.ok) throw new Error(`Request failed (${response.status})`);
       const text = await response.text();
-      addImportedQuestions(parseCsvQuestions(text));
+      addImportedQuestions(parseJsonQuestions(text));
     } catch (err) {
       setImportMessage(`Couldn't import from that URL: ${err.message}`);
     } finally {
@@ -375,27 +454,46 @@ export default function SuperAdminQuestionBank() {
           </label>
         </div>
 
-        <form onSubmit={importFromUrl} className="flex flex-col gap-3 sm:flex-row sm:items-end">
-          <div className="flex-1">
-            <Input
-              name={"importUrl"}
-              label={"Import from API / CSV link"}
-              placeholder={"https://api.example.com/waec-questions.csv"}
-              width={"w-full"}
-              type={"url"}
-              value={importUrl}
-              onChange={setImportUrl}
-              icon={<FiGlobe className="text-lg" />}
+        <div className="space-y-2">
+          <form onSubmit={importFromUrl} className="flex flex-col gap-3 sm:flex-row sm:items-end">
+            <div className="flex-1">
+              <Input
+                name={"importUrl"}
+                label={"Import from API / JSON link"}
+                placeholder={"https://api.example.com/waec-questions.json"}
+                width={"w-full"}
+                type={"url"}
+                value={importUrl}
+                onChange={setImportUrl}
+                icon={<FiGlobe className="text-lg" />}
+              />
+            </div>
+            <Button
+              name={importing ? "Importing..." : "Import"}
+              type="submit"
+              style={
+                "flex h-11 items-center justify-center rounded-xl border border-green px-5 font-bold text-green transition-all duration-300 hover:bg-green/10 disabled:cursor-not-allowed disabled:opacity-50"
+              }
             />
+          </form>
+          <div className="flex flex-wrap items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+            <p>
+              The link must return JSON — an array of question objects (
+              <code className="rounded bg-gray-100 px-1 py-0.5 text-xs dark:bg-gray-800">
+                examBody, year, subject, topic, text, options[], answer, difficulty
+              </code>
+              ).
+            </p>
+            <button
+              type="button"
+              onClick={downloadSampleJson}
+              className="inline-flex items-center gap-1 font-bold text-green hover:underline"
+            >
+              <FiDownload />
+              Download sample JSON
+            </button>
           </div>
-          <Button
-            name={importing ? "Importing..." : "Import"}
-            type="submit"
-            style={
-              "flex h-11 items-center justify-center rounded-xl border border-green px-5 font-bold text-green transition-all duration-300 hover:bg-green/10 disabled:cursor-not-allowed disabled:opacity-50"
-            }
-          />
-        </form>
+        </div>
 
         {importMessage && (
           <p className="text-sm text-gray-600 dark:text-gray-300">{importMessage}</p>
