@@ -4,6 +4,8 @@ import SuperAdminTenants from "../../pages/schoolpages/superadminpages/superadmi
 import SuperAdminSettings from "../../pages/schoolpages/superadminpages/superadminsettings";
 import SuperAdminAuditLog from "../../pages/schoolpages/superadminpages/superadminauditlog";
 import SuperAdminLearners from "../../pages/schoolpages/superadminpages/superadminlearners";
+import SuperAdminQuestionBank from "../../pages/schoolpages/superadminpages/superadminquestionbank";
+import SuperAdminLibrary from "../../pages/schoolpages/superadminpages/superadminlibrary";
 import NotAllowed from "../../pages/Restricted/restricted";
 
 export default function SuperAdminRoutes() {
@@ -12,6 +14,8 @@ export default function SuperAdminRoutes() {
       <Route path="super-admin-dashboard" element={<SuperAdminDashboard />} />
       <Route path="super-admin-tenants" element={<SuperAdminTenants />} />
       <Route path="super-admin-learners" element={<SuperAdminLearners />} />
+      <Route path="super-admin-question-bank" element={<SuperAdminQuestionBank />} />
+      <Route path="super-admin-library" element={<SuperAdminLibrary />} />
       <Route path="super-admin-settings" element={<SuperAdminSettings />} />
       <Route path="super-admin-audit-log" element={<SuperAdminAuditLog />} />
       <Route path="*" element={<NotAllowed />} />

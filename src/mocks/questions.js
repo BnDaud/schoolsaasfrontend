@@ -86,8 +86,35 @@ const tenantQuestions = {
   ],
 };
 
+// Single shared key — this bank is genuinely global (same for every tenant
+// and every independent learner), not namespaced like a tenant's own data.
+const GLOBAL_QUESTIONS_STORAGE_KEY = "matlearn:global-questions";
+
+function loadGlobalQuestionsRaw() {
+  if (typeof window === "undefined") return globalQuestions;
+
+  try {
+    const stored = window.localStorage.getItem(GLOBAL_QUESTIONS_STORAGE_KEY);
+    return stored ? JSON.parse(stored) : globalQuestions;
+  } catch {
+    return globalQuestions;
+  }
+}
+
+// Super Admin curation (MATLEARN_ROADMAP.md §16 item 12) — add/remove from
+// the shared WAEC/JAMB/NECO bank without touching any tenant's own data.
+export function loadGlobalQuestions() {
+  return loadGlobalQuestionsRaw();
+}
+
+export function saveGlobalQuestions(questions) {
+  if (typeof window === "undefined") return;
+
+  window.localStorage.setItem(GLOBAL_QUESTIONS_STORAGE_KEY, JSON.stringify(questions));
+}
+
 export function listGlobalQuestions({ examBody, year, subject } = {}) {
-  return globalQuestions.filter(
+  return loadGlobalQuestionsRaw().filter(
     (q) =>
       (!examBody || q.examBody === examBody) &&
       (!year || q.year === year) &&
@@ -101,7 +128,7 @@ export function listTenantQuestions(tenantId) {
 
 export function getQuestionById(questionId) {
   return (
-    globalQuestions.find((q) => q.questionId === questionId) ??
+    loadGlobalQuestionsRaw().find((q) => q.questionId === questionId) ??
     Object.values(tenantQuestions)
       .flat()
       .find((q) => q.questionId === questionId) ??

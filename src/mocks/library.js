@@ -5,10 +5,31 @@
 //   external links, not uploaded files, so the backend only ever stores a
 //   URL reference, never file content.
 
-const globalLibrary = [
-  { resourceId: "lib-waec-past-questions-2023", title: "WAEC Past Questions 2023", type: "PDF", scope: "global", accessLevel: "free" },
-  { resourceId: "lib-jamb-syllabus-2025", title: "JAMB Syllabus 2025", type: "PDF", scope: "global", accessLevel: "subscriber" },
-  { resourceId: "lib-neco-past-questions-2024", title: "NECO Past Questions 2024", type: "PDF", scope: "global", accessLevel: "subscriber" },
+const globalLibrarySeed = [
+  {
+    resourceId: "lib-waec-past-questions-2023",
+    title: "WAEC Past Questions 2023",
+    type: "Link",
+    scope: "global",
+    accessLevel: "free",
+    url: "https://example.com/waec-past-questions-2023",
+  },
+  {
+    resourceId: "lib-jamb-syllabus-2025",
+    title: "JAMB Syllabus 2025",
+    type: "Link",
+    scope: "global",
+    accessLevel: "subscriber",
+    url: "https://example.com/jamb-syllabus-2025",
+  },
+  {
+    resourceId: "lib-neco-past-questions-2024",
+    title: "NECO Past Questions 2024",
+    type: "Link",
+    scope: "global",
+    accessLevel: "subscriber",
+    url: "https://example.com/neco-past-questions-2024",
+  },
 ];
 
 const tenantLibrarySeed = {
@@ -47,8 +68,34 @@ const tenantLibrarySeed = {
   ],
 };
 
+// Single shared key — genuinely global (same for every tenant and every
+// independent learner), unlike the per-tenant library below.
+const GLOBAL_LIBRARY_STORAGE_KEY = "matlearn:global-library";
+
+function loadGlobalLibraryRaw() {
+  if (typeof window === "undefined") return globalLibrarySeed;
+
+  try {
+    const stored = window.localStorage.getItem(GLOBAL_LIBRARY_STORAGE_KEY);
+    return stored ? JSON.parse(stored) : globalLibrarySeed;
+  } catch {
+    return globalLibrarySeed;
+  }
+}
+
 export function listGlobalLibrary() {
-  return globalLibrary;
+  return loadGlobalLibraryRaw();
+}
+
+// Super Admin curation (MATLEARN_ROADMAP.md §16 item 12).
+export function loadGlobalLibrary() {
+  return loadGlobalLibraryRaw();
+}
+
+export function saveGlobalLibrary(resources) {
+  if (typeof window === "undefined") return;
+
+  window.localStorage.setItem(GLOBAL_LIBRARY_STORAGE_KEY, JSON.stringify(resources));
 }
 
 // Static seed only — kept for callers that don't need admin-added resources.
@@ -81,7 +128,7 @@ export function saveTenantLibrary(tenantId, resources) {
 
 export function getResourceById(resourceId) {
   return (
-    globalLibrary.find((r) => r.resourceId === resourceId) ??
+    loadGlobalLibraryRaw().find((r) => r.resourceId === resourceId) ??
     Object.values(tenantLibrarySeed)
       .flat()
       .find((r) => r.resourceId === resourceId) ??

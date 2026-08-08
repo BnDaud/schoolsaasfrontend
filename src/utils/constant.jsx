@@ -754,6 +754,16 @@ export const superAdminNav = [
     href: "/matlearn/super-admin-learners",
   },
   {
+    name: "Global Question Bank",
+    icon: <IoDocumentTextOutline className="text-xl" />,
+    href: "/matlearn/super-admin-question-bank",
+  },
+  {
+    name: "Global Library",
+    icon: <FiLink className="text-xl" />,
+    href: "/matlearn/super-admin-library",
+  },
+  {
     name: "Audit Log",
     icon: <FiActivity className="text-xl" />,
     href: "/matlearn/super-admin-audit-log",
