@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import { useLocation } from "react-router-dom";
 import {
   FiAlertTriangle,
   FiBookOpen,
@@ -182,10 +183,11 @@ const getStudentScore = (student, assignment) => {
 };
 
 export default function Students() {
+  const location = useLocation();
   const [activeAssignmentId, setActiveAssignmentId] = useState(
     teachingAssignments[0].id,
   );
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState(location.state?.search || "");
 
   const activeAssignment = teachingAssignments.find(
     (assignment) => assignment.id === activeAssignmentId,
@@ -237,6 +239,7 @@ export default function Students() {
           type={"text"}
           width={"lg:w-80 w-full"}
           placeholder={"Search name or admission no..."}
+          value={searchTerm}
           onChange={setSearchTerm}
           icon={<FiSearch className="text-lg" />}
         />

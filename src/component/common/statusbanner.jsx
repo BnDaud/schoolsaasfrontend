@@ -1,5 +1,7 @@
 import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FaRegBell } from "react-icons/fa";
+import { FiSearch } from "react-icons/fi";
 import { PiList } from "react-icons/pi";
 import { globalContext } from "../../context/globalcontext";
 import {
@@ -7,6 +9,16 @@ import {
   markAllNotificationsRead,
   markNotificationRead,
 } from "../../mocks/notifications";
+
+// Global search MVP scope is Admin/Tutor only (MATLEARN_ROADMAP.md §16 item
+// 14's table: "Needs scoping rules per role ... MVP for admin/tutor, Phase 2
+// for full-text/library search") — jumps into that role's own directory
+// page, reusing the location.state.search pattern already used by
+// superadmintenants.jsx, rather than building a separate global index.
+const SEARCH_DESTINATION_BY_ROLE = {
+  Admin: "/app/admin-users",
+  Tutor: "/app/students",
+};
 
 function timeAgo(isoDate) {
   const diffMs = Date.now() - new Date(isoDate).getTime();
@@ -18,10 +30,19 @@ function timeAgo(isoDate) {
 
 export default function StatusBanner({ open }) {
   const { name, schoolName, role, brand, userId } = useContext(globalContext);
+  const navigate = useNavigate();
   const displayName = role === "SuperAdmin" ? brand?.brandName : schoolName;
   const [showNotifications, setShowNotifications] = useState(false);
   const [notifications, setNotifications] = useState([]);
+  const [headerSearch, setHeaderSearch] = useState("");
   const unreadCount = notifications.filter((n) => !n.read).length;
+  const searchDestination = SEARCH_DESTINATION_BY_ROLE[role];
+
+  const handleHeaderSearch = (e) => {
+    e.preventDefault();
+    if (!searchDestination || !headerSearch.trim()) return;
+    navigate(searchDestination, { state: { search: headerSearch.trim() } });
+  };
 
   useEffect(() => {
     const refresh = () => setNotifications(userId ? listNotificationsForUser(userId) : []);
@@ -54,6 +75,20 @@ export default function StatusBanner({ open }) {
           <p className="text-gray-700 dark:text-gray-300">{role} Dashboard</p>
         </div>
         <div className="flex h-full items-center gap-6 text-black dark:text-white">
+          {searchDestination && (
+            <form onSubmit={handleHeaderSearch} className="hidden md:block">
+              <div className="flex h-10 w-56 items-center gap-2 rounded-2xl bg-white_bg px-4 dark:bg-black">
+                <FiSearch className="text-gray-500 dark:text-gray-400" />
+                <input
+                  type="text"
+                  value={headerSearch}
+                  onChange={(e) => setHeaderSearch(e.target.value)}
+                  placeholder={role === "Admin" ? "Search users..." : "Search students..."}
+                  className="w-full bg-transparent text-sm outline-none dark:text-white"
+                />
+              </div>
+            </form>
+          )}
           <div className="relative">
             <div
               className="relative flex cursor-pointer items-center justify-center size-10"
