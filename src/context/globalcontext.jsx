@@ -24,6 +24,7 @@ export default function GlobalContextFunction({ children }) {
   const [schoolName, setSchoolName] = useState("Compro");
   const [title, setTitle] = useState("Dr");
   const [brand, setBrand] = useState(defaultBrand);
+  const [userId, setUserId] = useState(null); // logged-in user's own id, set on login (keys notifications/audit/etc.)
   const [classId, setClassId] = useState(null); // logged-in student's own class, set on login
   const [assignedClassIds, setAssignedClassIds] = useState([]); // logged-in tutor's assigned classes
   const [assignedSubjectIds, setAssignedSubjectIds] = useState([]); // logged-in tutor's assigned subjects
@@ -59,6 +60,8 @@ export default function GlobalContextFunction({ children }) {
         setTitle,
         brand,
         setBrand,
+        userId,
+        setUserId,
         classId,
         setClassId,
         assignedClassIds,

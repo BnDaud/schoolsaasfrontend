@@ -35,3 +35,23 @@ const notifications = [
 export function listNotificationsForUser(userId) {
   return notifications.filter((n) => n.userId === userId);
 }
+
+// Mock data is a shared in-memory module, so every component reading it
+// (header bell, dashboard card, ...) needs to know when another one mutates
+// it — otherwise whichever rendered first goes stale. This event is that.
+function notifyChange() {
+  if (typeof window !== "undefined") window.dispatchEvent(new Event("notifications:changed"));
+}
+
+export function markNotificationRead(id) {
+  const entry = notifications.find((n) => n.id === id);
+  if (entry) entry.read = true;
+  notifyChange();
+}
+
+export function markAllNotificationsRead(userId) {
+  notifications.forEach((n) => {
+    if (n.userId === userId) n.read = true;
+  });
+  notifyChange();
+}

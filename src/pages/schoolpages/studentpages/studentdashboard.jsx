@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { PiHandWaving } from "react-icons/pi";
 
 import Button from "../../../component/ui/button";
@@ -11,10 +11,20 @@ import { FiCalendar } from "react-icons/fi";
 import { FaRegClock, FaRegBell, FaAngleRight } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { globalContext } from "../../../context/globalcontext";
+import { listNotificationsForUser, markAllNotificationsRead } from "../../../mocks/notifications";
 
 export default function Dashboard() {
-  const { name } = useContext(globalContext);
+  const { name, userId } = useContext(globalContext);
   const navigate = useNavigate();
+  const [notifications, setNotifications] = useState([]);
+  const unreadCount = notifications.filter((n) => !n.read).length;
+
+  useEffect(() => {
+    const refresh = () => setNotifications(userId ? listNotificationsForUser(userId) : []);
+    refresh();
+    window.addEventListener("notifications:changed", refresh);
+    return () => window.removeEventListener("notifications:changed", refresh);
+  }, [userId]);
   const getExamStatus = (exam) => {
     const now = new Date().getTime(); // Use timestamps for reliable comparison
     const start = new Date(exam.dateTime).getTime();
@@ -319,28 +329,43 @@ export default function Dashboard() {
                 Notifications
               </p>
             </div>
-            <p className="flex min-h-3 items-center text-red-600 bg-red-200 px-2 rounded-2xl text-sm ">
-              {" "}
-              new
-            </p>
+            {unreadCount > 0 && (
+              <p className="flex min-h-3 items-center text-red-600 bg-red-200 px-2 rounded-2xl text-sm ">
+                {" "}
+                {unreadCount} new
+              </p>
+            )}
           </div>{" "}
-          <div className="flex h-full items-center">
-            {" "}
-            <div className="flex items-center justify-center bg-white dark:bg-black_bg border dark:text-white border-gray-200 dark:border-gray-800 space-y-2  p-4  w-full h-20 rounded-2xl    hover:shadow-lg hover:-translate-y-1 duration-700 font-bold text-2xl ">
+          <div className="flex flex-col gap-2 max-h-40 overflow-y-auto">
+            {notifications.length === 0 ? (
+              <div className="flex items-center justify-center bg-white dark:bg-black_bg border border-gray-200 dark:border-gray-800 p-4 w-full h-20 rounded-2xl font-semibold text-gray-500 dark:text-gray-400">
+                No notifications yet.
+              </div>
+            ) : (
+              notifications.slice(0, 3).map((n) => (
+                <div
+                  key={n.id}
+                  className={`p-3 rounded-2xl border border-gray-200 dark:border-gray-800 ${n.read ? "bg-white dark:bg-black_bg" : "bg-green/5"}`}
+                >
+                  <p className="font-bold text-sm dark:text-white">{n.title}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-300">{n.body}</p>
+                </div>
+              ))
+            )}
+          </div>
+          {unreadCount > 0 && (
+            <div className="hidden lg:block absolute bottom-3 left-1/2 -translate-x-1/2 w-full px-5">
               {" "}
-              Coming Soon
+              <Button
+                style={
+                  "flex gap-2 min-h-5 w-full justify-center py-2 items-center text-sm font-bold hover:bg-amber-500 dark:text-white rounded-lg"
+                }
+                name={"Mark All Read"}
+                icon={<FaAngleRight />}
+                action={() => markAllNotificationsRead(userId)}
+              />
             </div>
-          </div>
-          <div className="hidden lg:block absolute bottom-3 left-1/2 -translate-x-1/2 w-full px-5">
-            {" "}
-            <Button
-              style={
-                "flex gap-2 min-h-5 w-full justify-center py-2 items-center text-sm font-bold hover:bg-amber-500 dark:text-white rounded-lg"
-              }
-              name={"View All Notifications"}
-              icon={<FaAngleRight />}
-            />
-          </div>
+          )}
         </div>
       </div>
     </div>

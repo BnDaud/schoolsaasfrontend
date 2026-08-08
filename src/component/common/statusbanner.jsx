@@ -1,10 +1,41 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FaRegBell } from "react-icons/fa";
 import { PiList } from "react-icons/pi";
 import { globalContext } from "../../context/globalcontext";
+import {
+  listNotificationsForUser,
+  markAllNotificationsRead,
+  markNotificationRead,
+} from "../../mocks/notifications";
+
+function timeAgo(isoDate) {
+  const diffMs = Date.now() - new Date(isoDate).getTime();
+  const hours = Math.floor(diffMs / (1000 * 60 * 60));
+  if (hours < 1) return "Just now";
+  if (hours < 24) return `${hours}h ago`;
+  return `${Math.floor(hours / 24)}d ago`;
+}
+
 export default function StatusBanner({ open }) {
-  const { name, schoolName, role, brand } = useContext(globalContext);
+  const { name, schoolName, role, brand, userId } = useContext(globalContext);
   const displayName = role === "SuperAdmin" ? brand?.brandName : schoolName;
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+  const unreadCount = notifications.filter((n) => !n.read).length;
+
+  useEffect(() => {
+    const refresh = () => setNotifications(userId ? listNotificationsForUser(userId) : []);
+    refresh();
+    window.addEventListener("notifications:changed", refresh);
+    return () => window.removeEventListener("notifications:changed", refresh);
+  }, [userId]);
+
+  const handleMarkRead = (id) => markNotificationRead(id);
+
+  const handleMarkAllRead = () => {
+    if (userId) markAllNotificationsRead(userId);
+  };
+
   return (
     <div className="fixed top-0 z-30  flex h-[10vh]  items-center xl:w-5/6 w-full   bg-white dark:bg-black_bg border-b border-gray-200 dark:border-gray-700  transition-all duration-700">
       <p
@@ -23,12 +54,65 @@ export default function StatusBanner({ open }) {
           <p className="text-gray-700 dark:text-gray-300">{role} Dashboard</p>
         </div>
         <div className="flex h-full items-center gap-6 text-black dark:text-white">
-          <div className="relative flex items-center justify-center  size-10">
-            {" "}
-            <FaRegBell className="text-xl" />
-            <p className="absolute flex items-center justify-center top-0 right-0 bg-red-500 size-4 rounded-full text-xs text-white ">
-              2
-            </p>
+          <div className="relative">
+            <div
+              className="relative flex cursor-pointer items-center justify-center size-10"
+              onClick={() => setShowNotifications((s) => !s)}
+            >
+              <FaRegBell className="text-xl" />
+              {unreadCount > 0 && (
+                <p className="absolute flex items-center justify-center top-0 right-0 bg-red-500 size-4 rounded-full text-xs text-white ">
+                  {unreadCount}
+                </p>
+              )}
+            </div>
+            {showNotifications && (
+              <>
+                <div
+                  className="fixed inset-0 z-40"
+                  onClick={() => setShowNotifications(false)}
+                />
+                <div className="absolute right-0 top-12 z-50 w-80 max-h-96 overflow-y-auto rounded-2xl border border-gray-200 bg-white p-3 shadow-lg dark:border-gray-800 dark:bg-black_bg">
+                  <div className="flex items-center justify-between px-2 pb-2">
+                    <p className="font-bold text-black dark:text-white">Notifications</p>
+                    {unreadCount > 0 && (
+                      <p
+                        className="cursor-pointer text-sm font-semibold text-green"
+                        onClick={handleMarkAllRead}
+                      >
+                        Mark all read
+                      </p>
+                    )}
+                  </div>
+                  {notifications.length === 0 ? (
+                    <p className="px-2 py-4 text-center text-gray-500 dark:text-gray-400">
+                      No notifications yet.
+                    </p>
+                  ) : (
+                    <div className="space-y-1">
+                      {notifications.map((n) => (
+                        <div
+                          key={n.id}
+                          onClick={() => handleMarkRead(n.id)}
+                          className={`cursor-pointer rounded-xl p-3 transition-all duration-300 hover:bg-white_bg dark:hover:bg-black ${
+                            n.read ? "" : "bg-green/5"
+                          }`}
+                        >
+                          <div className="flex items-start justify-between gap-2">
+                            <p className="font-semibold text-sm text-black dark:text-white">
+                              {n.title}
+                            </p>
+                            {!n.read && <span className="mt-1 size-2 shrink-0 rounded-full bg-green" />}
+                          </div>
+                          <p className="text-sm text-gray-600 dark:text-gray-300">{n.body}</p>
+                          <p className="mt-1 text-xs text-gray-400">{timeAgo(n.createdAt)}</p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </>
+            )}
           </div>
           <div className="flex gap-3 h-full items-center">
             <p

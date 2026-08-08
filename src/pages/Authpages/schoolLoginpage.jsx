@@ -21,8 +21,16 @@ const DASHBOARD_PATH_BY_ROLE = {
 };
 
 export default function SchoolLoginPage() {
-  const { darkmode, setRole, setName, setSchoolName, setClassId, setAssignedClassIds, setAssignedSubjectIds } =
-    useContext(globalContext);
+  const {
+    darkmode,
+    setRole,
+    setName,
+    setSchoolName,
+    setUserId,
+    setClassId,
+    setAssignedClassIds,
+    setAssignedSubjectIds,
+  } = useContext(globalContext);
   const { tenantType, tenantId, tenant } = useContext(tenantContext);
   const [toggleDarkMode] = useDarkMode();
   const navigate = useNavigate();
@@ -51,6 +59,7 @@ export default function SchoolLoginPage() {
     setRole(user.role);
     setName(user.name);
     setSchoolName(tenant?.name ?? "");
+    setUserId(user.id);
     setClassId(user.classId ?? null);
     setAssignedClassIds(user.assignedClassIds ?? []);
     setAssignedSubjectIds(user.assignedSubjectIds ?? []);
