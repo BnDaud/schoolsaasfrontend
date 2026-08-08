@@ -22,4 +22,6 @@ export const subjects = [
   "Civic Education",
 ];
 
-export const examGoals = ["WAEC", "JAMB", "NECO"];
+// Multiple selectable at once (a learner can prep for JAMB and WAEC
+// together, or a local exam alongside a foreign one like IELTS).
+export const examGoals = ["WAEC", "JAMB", "NECO", "NAPTEB", "IELTS", "TOEFL", "SAT"];
