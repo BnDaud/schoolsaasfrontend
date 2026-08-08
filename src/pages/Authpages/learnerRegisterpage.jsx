@@ -12,8 +12,8 @@ import { Link, useNavigate } from "react-router-dom";
 
 // Independent-learner signup for the public MatLearn platform. No backend yet
 // (MATLEARN_ROADMAP.md §0 assumption 5) — registering just signs the learner
-// in for this session, nothing is persisted. Academic-profile onboarding
-// (§4.1 /onboarding/academic-profile) is a later roadmap step, not built yet.
+// in for this session, nothing is persisted, then routes into the
+// academic-profile onboarding flow (§4.1 /onboarding/academic-profile).
 export default function LearnerRegisterPage() {
   const { darkmode, setRole, setName } = useContext(globalContext);
   const [toggleDarkMode] = useDarkMode();
@@ -36,7 +36,7 @@ export default function LearnerRegisterPage() {
     // BACKEND: POST /api/auth/register { fullName, email, password } -> { token }
     setRole("Learner");
     setName(fullName);
-    navigate("/");
+    navigate("/onboarding/academic-profile");
   };
 
   return (

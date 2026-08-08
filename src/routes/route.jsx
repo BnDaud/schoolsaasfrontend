@@ -19,6 +19,7 @@ import SchoolRegister from "../pages/Authpages/schoolRegister";
 import ForgotPasswordPage from "../pages/Authpages/forgotPasswordPage";
 import LearnerLoginPage from "../pages/Authpages/learnerLoginpage";
 import LearnerRegisterPage from "../pages/Authpages/learnerRegisterpage";
+import AcademicProfileOnboarding from "../pages/Authpages/academicProfileOnboarding";
 
 // MatLearn platform operator (the SaaS itself, not a tenant). Lives outside /app/
 // on purpose — /app/ is per-tenant (school) space; /matlearn/ is the operator space
@@ -74,6 +75,7 @@ export const CustomRoutes = (
         element={<ForgotPasswordPage backHref="/login" loginHref="/login" />}
       />
     </Route>
+    <Route path="/onboarding/academic-profile" element={<AcademicProfileOnboarding />} />
     {/* Not Found*/}
     <Route path="*" element={<NotFound />} />
   </>
