@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { globalContext } from "../../../context/globalcontext";
 import { tenantContext } from "../../../app/tenant-provider";
 import { addAnnouncement, listAnnouncementsForTenant } from "../../../mocks/announcements";
+import Input from "../../../component/ui/input";
 
 const summaryCards = [
   { label: "Students", value: 842, icon: <FiUsers />, to: "/app/admin-users" },
@@ -147,20 +148,27 @@ export default function AdminDashboard() {
         </div>
         <div className="grid grid-cols-1 gap-5 xl:grid-cols-[360px_1fr]">
           <form onSubmit={handlePostAnnouncement} className="space-y-3">
-            <input
-              type="text"
-              placeholder="Title"
+            <Input
+              name={"title"}
+              label={"Title"}
+              required={true}
+              placeholder={"e.g. Resumption Date"}
+              width={"w-full"}
+              type={"text"}
               value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className="h-11 w-full rounded-2xl border border-gray-200 bg-white_bg px-4 text-black outline-none focus:border-green dark:border-gray-800 dark:bg-black dark:text-white"
+              onChange={setTitle}
+              icon={<FiSpeaker className="text-lg" />}
             />
-            <textarea
-              placeholder="What should students and tutors know?"
-              value={body}
-              onChange={(e) => setBody(e.target.value)}
-              rows={3}
-              className="w-full rounded-2xl border border-gray-200 bg-white_bg p-4 text-black outline-none focus:border-green dark:border-gray-800 dark:bg-black dark:text-white"
-            />
+            <label className="block">
+              <p className="mb-2 font-bold text-black dark:text-white">Body</p>
+              <textarea
+                placeholder="e.g. School resumes for the new term on Monday, August 10."
+                value={body}
+                onChange={(e) => setBody(e.target.value)}
+                rows={3}
+                className="w-full rounded-2xl border border-gray-200 bg-white_bg p-4 text-black outline-none focus:border-green dark:border-gray-800 dark:bg-black dark:text-white"
+              />
+            </label>
             <button
               type="submit"
               className="flex h-11 w-full items-center justify-center rounded-2xl bg-green font-bold text-white transition-all duration-300 hover:shadow-lg hover:shadow-green/20 dark:text-black"
