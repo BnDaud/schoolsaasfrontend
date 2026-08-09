@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
   adminNav,
@@ -12,10 +12,36 @@ import { LuMoon, LuSun } from "react-icons/lu";
 import { globalContext } from "../../context/globalcontext";
 import Button from "../ui/button";
 import useDarkMode from "../../hooks/darkmode";
+import { forgetDevTenant } from "../../app/tenant-resolver";
 
 export default function Sidenav() {
-  const { darkmode, role, brand } = useContext(globalContext);
+  const {
+    darkmode,
+    role,
+    brand,
+    setRole,
+    setName,
+    setSchoolName,
+    setUserId,
+    setClassId,
+    setAssignedClassIds,
+    setAssignedSubjectIds,
+  } = useContext(globalContext);
   const [toggleDarkMode] = useDarkMode();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    forgetDevTenant();
+    setRole(null);
+    setName("");
+    setSchoolName("");
+    setUserId(null);
+    setClassId(null);
+    setAssignedClassIds([]);
+    setAssignedSubjectIds([]);
+    navigate("/");
+  };
+
   const navItem =
     role === "Student"
       ? studentNav
@@ -95,6 +121,7 @@ export default function Sidenav() {
             {" "}
             <Button
               name={"Log Out"}
+              action={handleLogout}
               style={
                 "flex gap-3  items-center text-red-600 text-lg rounded-xl hover:bg-red-300 h-12 px-4"
               }

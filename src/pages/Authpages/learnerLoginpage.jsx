@@ -9,6 +9,7 @@ import { AppName, SchoolLogo } from "../../utils/constant";
 import Input from "../../component/ui/input";
 import { GiPadlockOpen } from "react-icons/gi";
 import { findUserByEmail } from "../../mocks/users";
+import { forgetDevTenant } from "../../app/tenant-resolver";
 import { Link, useNavigate } from "react-router-dom";
 
 // Independent-learner login for the public MatLearn platform (matlearn.com),
@@ -34,6 +35,7 @@ export default function LearnerLoginPage() {
       return;
     }
 
+    forgetDevTenant();
     setRole(user.role);
     setName(user.name);
     navigate("/");

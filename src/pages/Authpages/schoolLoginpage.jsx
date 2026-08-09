@@ -10,6 +10,7 @@ import { SchoolLogo } from "../../utils/constant";
 import Input from "../../component/ui/input";
 import { GiPadlockOpen } from "react-icons/gi";
 import { findUserByEmail } from "../../mocks/users";
+import { rememberDevTenant } from "../../app/tenant-resolver";
 import { Link, useNavigate } from "react-router-dom";
 
 const SCHOOL_ROLES = ["Admin", "Tutor", "Student"];
@@ -56,6 +57,7 @@ export default function SchoolLoginPage() {
       return;
     }
 
+    rememberDevTenant(tenantId);
     setRole(user.role);
     setName(user.name);
     setSchoolName(tenant?.name ?? "");

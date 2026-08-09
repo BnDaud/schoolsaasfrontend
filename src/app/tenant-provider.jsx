@@ -1,6 +1,6 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { resolveTenant } from "./tenant-resolver";
+import { resolveTenant, forgetDevTenant } from "./tenant-resolver";
 import { getTenantById } from "../mocks/tenants";
 import { globalContext } from "../context/globalcontext";
 
@@ -16,13 +16,28 @@ const matlearnBrand = {
 export default function TenantProvider({ children }) {
   const location = useLocation();
   const { setBrand } = useContext(globalContext);
-
-  const { tenantType, tenantId } = useMemo(
-    () => resolveTenant(window.location.hostname, location.search),
-    [location.search],
+  const [{ tenantType, tenantId }, setResolved] = useState(() =>
+    resolveTenant(window.location.hostname, location.search),
   );
-
   const [tenant, setTenant] = useState(null);
+
+  // Real state, not a derived/memoized value: resolveTenant also reads
+  // localStorage (tenant-resolver.js), which can change on login/logout
+  // without location changing. A memoized value keyed only on
+  // location.search — including the React Compiler's own automatic
+  // memoization, which applies even without an explicit useMemo — would
+  // keep serving a stale result until an unrelated navigation happened.
+  // Recomputing into real state on a "dev-tenant:changed" event sidesteps
+  // that entirely.
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    if (params.get("tenant") === "matlearn") forgetDevTenant();
+
+    const refresh = () => setResolved(resolveTenant(window.location.hostname, location.search));
+    refresh();
+    window.addEventListener("dev-tenant:changed", refresh);
+    return () => window.removeEventListener("dev-tenant:changed", refresh);
+  }, [location.search]);
 
   useEffect(() => {
     if (tenantType !== "school" || !tenantId) {

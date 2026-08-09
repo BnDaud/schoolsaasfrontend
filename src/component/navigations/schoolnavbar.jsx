@@ -6,11 +6,14 @@ import { tenantContext } from "../../app/tenant-provider";
 // SchoolPublicLayout vs MatLearnPublicLayout) — themed off the tenant's
 // brand color instead of MatLearn's fixed green.
 export default function SchoolNavbar() {
-  const { tenant } = useContext(tenantContext);
+  const { tenant, tenantId } = useContext(tenantContext);
 
+  // Explicit ?tenant= on every link — bare "/" always means the public
+  // MatLearn homepage now (see app/tenant-resolver.js), so this school's own
+  // nav can't rely on a remembered tenant to keep you on its own site.
   const links = [
-    { name: "Home", to: "/" },
-    { name: "Contact", to: "/contact" },
+    { name: "Home", to: `/?tenant=${tenantId}` },
+    { name: "Contact", to: `/contact?tenant=${tenantId}` },
   ];
 
   return (
@@ -38,7 +41,7 @@ export default function SchoolNavbar() {
         </ul>
 
         <Link
-          to={"/auth/login"}
+          to={`/auth/login?tenant=${tenantId}`}
           className="rounded-xl px-4 py-2 text-sm font-bold text-white"
           style={{ backgroundColor: "var(--brand-color)" }}
         >
