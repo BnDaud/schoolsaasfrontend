@@ -19,7 +19,7 @@ const defaultBrand = {
 
 export default function GlobalContextFunction({ children }) {
   const [darkmode, setDarkmodeGlobally] = useState("dark");
-  const [role, setRole] = useState("SuperAdmin"); // TODO: revert to backend-driven role once auth API is wired
+  const [role, setRole] = useState(null); // null until login sets it (Student/Tutor/Admin/SuperAdmin/Learner)
   const [name, setName] = useState("Lawal Sulaimon");
   const [schoolName, setSchoolName] = useState("Compro");
   const [title, setTitle] = useState("Dr");

@@ -16,6 +16,7 @@ import Leaderboard from "../pages/schoolpages/commonpages/leaderboard";
 import Books from "../pages/schoolpages/commonpages/books";
 import Auth from "../layouts/authlayout/auth";
 import SchoolLoginPage from "../pages/Authpages/schoolLoginpage";
+import SuperAdminLoginPage from "../pages/Authpages/superAdminLoginpage";
 import SchoolRegister from "../pages/Authpages/schoolRegister";
 import ForgotPasswordPage from "../pages/Authpages/forgotPasswordPage";
 import LearnerLoginPage from "../pages/Authpages/learnerLoginpage";
@@ -49,6 +50,9 @@ export const CustomRoutes = (
       <Route path="books" element={<Books />} />
     </Route>
     {/* MatLearn (platform operator, not a tenant) */}
+    <Route path="/matlearn/login" element={<Auth />}>
+      <Route index element={<SuperAdminLoginPage />} />
+    </Route>
     <Route path="/matlearn/" element={<SchoolDashboard />}>
       <Route index element={<Navigate to="super-admin-dashboard" replace />} />
       <Route
