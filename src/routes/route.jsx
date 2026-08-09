@@ -50,9 +50,7 @@ export const CustomRoutes = (
       <Route path="books" element={<Books />} />
     </Route>
     {/* MatLearn (platform operator, not a tenant) */}
-    <Route path="/matlearn/login" element={<Auth />}>
-      <Route index element={<SuperAdminLoginPage />} />
-    </Route>
+    <Route path="/matlearn/login" element={<SuperAdminLoginPage />} />
     <Route path="/matlearn/" element={<SchoolDashboard />}>
       <Route index element={<Navigate to="super-admin-dashboard" replace />} />
       <Route
