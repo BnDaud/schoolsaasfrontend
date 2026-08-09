@@ -1,6 +1,8 @@
 import { TbPointFilled } from "react-icons/tb";
 
 import { FaAngleRight } from "react-icons/fa";
+import { LuGraduationCap } from "react-icons/lu";
+import { FaRegCheckCircle } from "react-icons/fa";
 
 import { AppName } from "../../utils/constant";
 import Banner from "../../component/ui/banner";
@@ -46,7 +48,6 @@ export default function Home() {
       name: "Mr. Ibrahim Yusuf",
       position: "ICT Coordinator, Federal Government College",
     },
-    ,
     {
       comment:
         "Managing multiple branches is seamless. We can monitor all exams from a single dashboard.",
@@ -90,7 +91,7 @@ export default function Home() {
               }
               name={"Start Free Trials"}
               icon={<FaAngleRight className="text-sm" />}
-              href={"/login"}
+              href={"/contact"}
             />
           </div>
           <div>
@@ -100,7 +101,7 @@ export default function Home() {
                 "flex items-center justify-center h-12 w-40 hover:bg-green hover:text-black text-green outline-2 outline-green rounded-xl  font-bold cursor-pointer  "
               }
               name={"Watch Demo"}
-              href={"/signup"}
+              href={"/features"}
             />
           </div>
         </div>
@@ -152,6 +153,45 @@ export default function Home() {
             <p className="dark:text-white_bg/60 text-gray-500">{a.title}</p>
           </div>
         ))}
+      </div>
+      {/* Section 3b: not a school? MatLearn also serves independent learners directly. */}
+      <div className="px-[5%] lg:px-[10%] py-20 dark:bg-black bg-white w-full">
+        <div className="flex flex-col lg:flex-row items-center gap-8 rounded-3xl bg-linear-to-r dark:from-deep_green dark:via-deep_orange dark:to-deep_green from-[#E6F1ED] via-[#FAF0E4] to-[#E6F1ED] p-8 lg:p-12 outline-1 outline-green/30">
+          <div className="flex size-20 shrink-0 items-center justify-center rounded-2xl bg-green">
+            <LuGraduationCap className="text-4xl text-white dark:text-black" />
+          </div>
+          <div className="space-y-3 text-center lg:text-left">
+            <p className="text-2xl lg:text-3xl font-bold dark:text-white">
+              Not a school? MatLearn works for you too.
+            </p>
+            <p className="dark:text-white/60 text-black/60">
+              Preparing for JAMB, WAEC, NECO, GCE, BECE, or Common Entrance on
+              your own? Get thousands of past questions, mock tests, an AI
+              study assistant, and personalized practice — no school account
+              needed.
+            </p>
+            <div className="flex flex-wrap justify-center lg:justify-start gap-x-6 gap-y-2 pt-1">
+              {["Past questions & mock tests", "AI study assistant", "Progress tracking"].map(
+                (point) => (
+                  <div key={point} className="flex items-center gap-2">
+                    <FaRegCheckCircle className="text-green" />
+                    <p className="text-sm dark:text-white/80 text-black/70">{point}</p>
+                  </div>
+                ),
+              )}
+            </div>
+          </div>
+          <div className="lg:ml-auto shrink-0">
+            <Button
+              style={
+                "flex items-center justify-center gap-2 text-white font-bold dark:text-black h-12 px-6 text-center bg-green rounded-xl transition-all hover:scale-x-104 hover:shadow-2xl shadow-green cursor-pointer"
+              }
+              name={"Explore Self-Paced Learning"}
+              icon={<FaAngleRight className="text-sm" />}
+              href={"/self-study"}
+            />
+          </div>
+        </div>
       </div>
       {/* Section 4 */}
       <div className="px-[5%] lg:px-[10%] dark:bg-black_bg bg-white_bg min-h-50 py-20 space-y-10">
@@ -205,14 +245,14 @@ export default function Home() {
               icon: <FaAngleRight className="text-sm" />,
               style:
                 "flex gap-4 h-max w-max items-center  text-lg font-bold dark:text-white text-black bg-white dark:bg-black px-6 py-3 rounded-lg cursor-pointer hover:bg-white/90 dark:hover:bg-black/90",
-              href: "/features",
+              href: "/contact",
             },
             {
               name: "Talk to Sales",
 
               style:
                 "flex gap-4 h-max w-max items-center  text-lg font-bold dark:text-black text-white bg-black dark:bg-white px-6 py-3 rounded-lg cursor-pointer hover:bg-black/80 dark:hover:bg-white/90",
-              href: "/features",
+              href: "/contact",
             },
           ]}
         />

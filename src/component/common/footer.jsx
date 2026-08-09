@@ -1,7 +1,7 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { RiGraduationCapLine } from "react-icons/ri";
 import { AppName, Logo } from "../../utils/constant";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaRegCopyright } from "react-icons/fa";
 import Button from "../ui/button";
 import useDarkMode from "../../hooks/darkmode";
@@ -14,7 +14,6 @@ export default function Footer() {
   const [toggleDarkMode] = useDarkMode();
   const { darkmode } = useContext(globalContext);
 
-  const navigate = useNavigate();
   return (
     <>
       <hr className="dark:text-gray-800 text-gray-200 " />
@@ -40,10 +39,7 @@ export default function Footer() {
               <Link to={"/pricing"}> Pricing</Link>
             </li>
             <li>
-              <Link to={"/demo"}> Demo</Link>
-            </li>
-            <li>
-              <Link to={"/updates"}> Updates</Link>
+              <Link to={"/self-study"}> Self-Paced Learning</Link>
             </li>
           </ul>
         </div>
@@ -55,16 +51,10 @@ export default function Footer() {
           <ul className="space-y-2 dark:text-gray-300 text-gray-700">
             {" "}
             <li>
-              <Link to={"/help-center"}> Help Center</Link>
+              <Link to={"/contact"}> Help Center</Link>
             </li>
             <li>
-              <Link to={"/documentation"}> Documentation</Link>
-            </li>
-            <li>
-              <Link to={"/blog"}> Blog</Link>
-            </li>
-            <li>
-              <Link to={"/support"}> Support</Link>
+              <Link to={"/contact"}> Support</Link>
             </li>
           </ul>
         </div>{" "}
@@ -76,13 +66,7 @@ export default function Footer() {
               <Link to={"/about"}> About</Link>
             </li>
             <li>
-              <Link to={"/careers"}> Careers</Link>
-            </li>
-            <li>
               <Link to={"/contact"}> Contact</Link>
-            </li>
-            <li>
-              <Link to={"/privacy"}> Privacy</Link>
             </li>
           </ul>
         </div>

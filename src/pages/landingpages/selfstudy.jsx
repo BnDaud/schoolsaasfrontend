@@ -129,7 +129,7 @@ export default function SelfStudy() {
               style={
                 "flex gap-4 h-max lg:w-max w-full mt-6 justify-center items-center  text-lg font-bold dark:text-black text-white  px-6 py-3 rounded-2xl cursor-pointer bg-green "
               }
-              href={"/signup"}
+              href={"/register"}
             />
           </div>{" "}
           <div className="lg:w-3/7 w-full p-8 dark:bg-black_bg  bg-white_bg  lg:rounded-r-xl rounded-b-xl lg:rounded-b-none ">
@@ -209,7 +209,7 @@ export default function SelfStudy() {
           style={
             "flex gap-4 h-max lg:w-max w-full mt-6 justify-center items-center  text-sm font-bold dark:text-white text-black  px-6 py-3 rounded-xl cursor-pointer dark:bg-black outline dark:outline-gray-700 outline-gray-300 "
           }
-          href={"/signup"}
+          href={"/register"}
         />
       </div>
       {/*Section 4 */}
@@ -305,7 +305,7 @@ export default function SelfStudy() {
                     style={
                       "flex gap-4 h-max w-max mt-6 justify-center items-center  text-sm font-bold dark:text-white text-black  px-6 py-3 rounded-xl cursor-pointer dark:bg-black hover:bg-green hover:text-black outline dark:outline-gray-700 outline-gray-300 "
                     }
-                    href={"/signup"}
+                    href={"/register"}
                   />
                 </div>
               </div>
@@ -374,14 +374,14 @@ export default function SelfStudy() {
               icon: <FaArrowRight className="text-xs" />,
               style:
                 "flex gap-4 h-max w-max items-center  text-lg font-bold dark:text-white text-black bg-white dark:bg-black px-6 py-3 rounded-lg cursor-pointer hover:bg-white/90 dark:hover:bg-black/90",
-              href: "/features",
+              href: "/register",
             },
             {
               name: "View Pricing",
 
               style:
                 "flex  h-max w-max text-lg font-bold dark:text-black text-white bg-black dark:bg-white px-6 py-3 rounded-lg cursor-pointer hover:bg-black/80 dark:hover:bg-white/90",
-              href: "/features",
+              href: "/pricing",
             },
           ]}
         />

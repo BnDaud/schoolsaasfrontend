@@ -67,7 +67,7 @@ export default function Pricing() {
                 name={"Start Free Trial"}
                 icon={<FaAngleRight className="text-sm" />}
                 style={`flex gap-4 h-max w-full mt-6 justify-center items-center  text-sm font-bold   px-6 py-3 rounded-xl cursor-pointer hover:text-black  ${detail.package === "Professional" ? "bg-green dark:text-black text-white hover:scale-x-105 shadow-green hover:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.2)] transition-all ease-in-out duration-500" : "dark:bg-black hover:bg-amber-600 dark:outline-gray-700 outline outline-gray-300 dark:text-white text-black "} `}
-                href={"/signup"}
+                href={"/contact"}
               />
             </div>
           </div>
@@ -122,7 +122,7 @@ export default function Pricing() {
               icon: <FaArrowRight className="text-xs" />,
               style:
                 "flex gap-4 h-max w-max items-center  font-bold dark:text-black text-white bg-green  px-6 py-3 rounded-lg cursor-pointer hover:scale-x-105   shadow-green hover:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.2)] transition-all ease-in-out duration-500",
-              href: "/features",
+              href: "/contact",
             },
           ]}
         />

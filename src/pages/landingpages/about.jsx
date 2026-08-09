@@ -153,14 +153,14 @@ export default function About() {
               icon: <FaAngleRight className="text-sm" />,
               style:
                 "flex gap-4 h-max w-max items-center  text-lg font-bold dark:text-white text-black bg-white dark:bg-black px-6 py-3 rounded-lg cursor-pointer hover:bg-white/90 dark:hover:bg-black/90",
-              href: "/features",
+              href: "/contact",
             },
             {
               name: "Contact us",
 
               style:
                 "flex gap-4 h-max w-max items-center  text-lg font-bold dark:text-black text-white bg-black dark:bg-white px-6 py-3 rounded-lg cursor-pointer hover:bg-black/80 dark:hover:bg-white/90",
-              href: "/features",
+              href: "/contact",
             },
           ]}
         />

@@ -1,7 +1,17 @@
+import { useState } from "react";
 import { contactDetails, AppName, whyContactUs } from "../../utils/constant";
 import Button from "../../component/ui/button";
 import { FaTelegramPlane } from "react-icons/fa";
+import { FaRegCircleCheck } from "react-icons/fa6";
 export default function Contact() {
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // BACKEND: POST /api/contact { name, email, phone, organization, topic, message }
+    setSubmitted(true);
+  };
+
   return (
     <div>
       {" "}
@@ -52,7 +62,18 @@ export default function Contact() {
           <p className="text-2xl font-bold dark:text-white text-black">
             Send us a message
           </p>{" "}
-          <form className="mt-5 space-y-4 text-black dark:text-white">
+          {submitted ? (
+            <div className="flex h-80 flex-col items-center justify-center gap-3 text-center">
+              <FaRegCircleCheck className="text-5xl text-green" />
+              <p className="text-xl font-bold dark:text-white text-black">
+                Message sent!
+              </p>
+              <p className="text-gray-600 dark:text-gray-300">
+                We'll get back to you within 24 hours.
+              </p>
+            </div>
+          ) : (
+          <form className="mt-5 space-y-4 text-black dark:text-white" onSubmit={handleSubmit}>
             <div className="md:flex justify-between space-y-4">
               <div className="flex flex-col md:w-[48%] w-full dark:text-white ">
                 {" "}
@@ -138,9 +159,10 @@ dark:focus:ring-offset-black"
               style={
                 "flex gap-2 min-h-10  w-full items-center justify-center text-lg font-bold bg-green dark:text-black text-white py-2 rounded-xl cursor-pointer hover:scale-x-105 transition-all ease-in-out duration-500 outline-1 hover:shadow-xl outline-gray-300 dark:outline-gray-800"
               }
-              href={"/features"}
+              type={"submit"}
             />
           </form>
+          )}
         </div>
         <div className="space-y-5 s w-full lg:w-5/12  min-h-100 p-10">
           <p className="text-2xl font-bold dark:text-white text-black">
@@ -210,14 +232,12 @@ dark:focus:ring-offset-black"
               We're always looking to collaborate with educational institutions,
               NGOs, and government agencies.
             </p>
-            <Button
-              name={"Partnership Inquiry"}
-              icon={""}
-              style={
-                "flex  h-max w-full items-center justify-center text-lg font-bold dark:text-white text-black bg-white_bg dark:bg-black  py-2 rounded-xl cursor-pointer hover:bg-amber-500 outline-1 outline-gray-300 dark:outline-gray-800"
-              }
-              href={"/features"}
-            />
+            <a
+              href="mailto:Vectoredmatrix@gmail.com?subject=Partnership Inquiry"
+              className="flex h-max w-full items-center justify-center text-lg font-bold dark:text-white text-black bg-white_bg dark:bg-black py-2 rounded-xl cursor-pointer hover:bg-amber-500 outline-1 outline-gray-300 dark:outline-gray-800"
+            >
+              Partnership Inquiry
+            </a>
           </div>
         </div>
       </div>{" "}
