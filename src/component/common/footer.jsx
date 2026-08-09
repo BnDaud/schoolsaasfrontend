@@ -80,6 +80,9 @@ export default function Footer() {
         <div className="flex h-15 justify-center items-center gap-2 w-full md:w-max dark:text-gray-300 text-gray-700">
           <FaRegCopyright />{" "}
           <p>{`${year} ${AppName}. All rights reserved.`}</p>{" "}
+          <Link to={"/matlearn/login"} className="text-sm hover:underline">
+            Platform Login
+          </Link>
         </div>
         <div className="flex justify-center hover:cursor-pointer w-full md:w-max dark:text-gray-300 text-gray-700">
           {darkmode ? (
